@@ -1,0 +1,839 @@
+---
+# title: "Mesa de Procesamiento REP"
+# author: "Febrero 2024"
+format:
+  revealjs:
+    auto-stretch: false
+    margin: 0
+    slide-number: true
+    scrollable: true
+    preview-links: auto
+    logo: imagenes/logo_portada2.png
+    css: ine_quarto_styles.css
+    # footer: https://quarto.org
+---
+
+```{r librerias}
+#| echo: FALSE
+#| output: FALSE
+#| eval: TRUE
+library(dplyr)
+library(datos)
+library(readxl)
+```
+
+# 
+
+```{=html}
+<!---
+# TODO: this does not work
+.linea-superior[]
+.linea-inferior[] 
+--->
+```
+```{=html}
+<!---
+# TODO: this does not work
+![](imagenes/logo_portada2.png){.center style="width: 20%;"}   
+--->
+```
+
+```{=html}
+<!---
+<img src="imagenes/logo_portada2.png" style="width: 20%"/>  
+--->
+```
+<img src="imagenes/logo_portada2.png" width="20%"/>
+
+[**Capacitación en R y herramientas de productividad**]{.big-par .center-justified}
+
+[**Nivel básico**]{.big-par .center-justified}
+
+[**Abril 2024**]{.big-par .center-justified}
+
+## Contenidos
+::: {.incremental .small-par}
+- Operador pipe
+- Trabajo básico con filas
+- Trabajo básico con columnas
+- Mutate
+- if_else
+- case_when
+- Ejercicios
+:::
+
+## Previo
+
+::: {.incremental .small-par}
+- Para esta clase usaremos el dataset "vuelos" que contiene la información de los vuelos con salida en los aeropuertos de Nueva York en el año 2013.
+- Recordemos cómo importar una base:
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+library(readxl)
+library(dplyr)
+vuelos <- read_excel("data/vuelos.xlsx")
+vuelos
+```
+
+## Previo
+
+::: {.incremental .small-par}
+- Miremos un poco los datos...
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+summary(vuelos)
+```
+
+::: notes
+- Tenemos el año, el mes y el día de salida
+- Los horarios de salida y llegada de los vuelos
+- Los horarios de atraso de las salidas y llegadas en minutos. Los números negativos representan las salidas o llegadas más tempranas
+- La abreviatura de las aerolíneas
+- El número del vuelo
+- El código de cola
+- El origen y el destinto de los vuelos
+- El tiempo de vuelo
+- La distancia del vuelo
+- La hora y los minutos son los horarios de salida separados en horas y minutos
+
+:::
+
+## Operador pipe %>% 
+::: {.incremental .small-par}
+- El operador pipe es un operador de flujo utilizado en R principalmente para mejorar la legibilidad del código y facilitar el proceso de encadenamiento de funciones.
+- Lo que hace es tomar el resultado de una expresión o función y pasarlo como el primer argumento a la siguiente función
+- Por ejemplo queremos obtener los seis primeros elementos de "vuelos" usando la función head():
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+vuelos %>% head()
+```
+::: notes
+- Básicamente, lo que hace es tomar el resultado de una expresión o función y pasarlo como el primer argumento a la siguiente función. Esto permite encadenar varias operaciones de manera más clara y concisa.
+- En el ejemplo estamos aplicando la función head al dataframe vuelos, podemos ver que el argumento de la función, que en este caso es el dataframe vuelos, queda al lado izquierdo y no dentro de la función, entonces podemos leer de izquierda a derecha
+:::
+
+## Operador pipe %>% 
+::: {.incremental .small-par}
+- Es lo mismo que...
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+head(vuelos)
+```
+
+::: notes
+- Lo anterior es lo mismo que insertar el dataframe vuelos dentro de la función head
+:::
+
+## Operador pipe %>% 
+::: {.incremental .small-par}
+- Veamos otro ejemplo
+- Queremos contar el número de veces que aparece cada aerolinea
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+vuelos %>% count(aerolinea)
+```
+
+::: notes
+- para esto aplicamos la función count a vuelos indicando el segundo argumento que es la variable que queremos contar que en este caso es aerolinea
+:::
+
+## Operador pipe %>% 
+::: {.incremental .small-par}
+- Es lo mismo que...
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+count(vuelos, aerolinea)
+```
+
+::: notes
+- lo anterior es lo mismo que insertar los argumentos vuelos y aerolinea dentro de la función count
+:::
+
+## Trabajo básico con filas
+::: {.incremental .small-par}
+**Función filter** 
+
+- Se utiliza para seleccionar subconjuntos de datos
+- Funciona aplicando condiciones lógicas a las filas del conjunto de datos y devolviendo solo aquellas filas que cumplen con esas condiciones.
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+filter(vuelos, aerolinea=="UA")
+```
+
+::: notes
+en el ejemplo queremos filtrar las filas donde la aerolinea sea igual a "UA"
+:::
+
+## Trabajo básico con filas
+::: {.incremental .small-par}
+- Usando %>% 
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+vuelos %>% filter(aerolinea=="UA")
+```
+
+::: notes
+aca vemos que usando el operador pipe "vuelos" queda al lado iquierdo de la función filter y dentro de la función la condición que queremos que se cumpla
+:::
+
+## Trabajo básico con filas
+::: {.incremental .small-par}
+- Otros ejemplos
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: FALSE
+vuelos %>% filter(mes>1)
+vuelos %>% filter(atraso_salida <= 100)
+vuelos %>% filter(aerolinea!="AA" & mes == 12)
+vuelos %>% filter(atraso_llegada %in% 100:200)
+```
+
+::: notes 
+- En el primer ejemplo estamos filtrando por las filas donde el mes sea mayor a 1
+- En el segundo por las filas donde el atraso de salido sea menor o igual que 100
+- En el tercer ejemplo filtramos por las filas donde la aerolinea sea distinta a "AA" y que el mes haya sido igual a 12
+- En el último ejemplo estamos filtrando por las filas donde el atraso de llagada haya sido entre 100 y 200
+- El operador %in% se usa para verificar si los valores del primer argumento están presentes en el segundo argumento. Esto retorna un vector lógico indicando si hubo un match o no
+:::
+
+## Trabajo básico con filas
+::: {.incremental .small-par}
+**Funciones slice** 
+
+- Sirven para "cortar" los dataframes a nivel de filas
+- Ejemplo: extraer las cinco primeras filas de "vuelos"
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+slice_head(vuelos, n = 5)
+```
+::: {.incremental .small-par}
+- Usando %>% 
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: FALSE
+vuelos %>% slice_head(n = 5)
+```
+
+## Trabajo básico con filas
+::: {.incremental .small-par}
+**Funciones slice** 
+
+- Ejemplo: extraer las cinco últimas filas de "vuelos"
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+slice_tail(vuelos, n = 5)
+```
+::: {.incremental .small-par}
+- Usando %>% 
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: FALSE
+vuelos %>% slice_tail(n = 5)
+```
+
+## Trabajo básico con filas
+::: {.incremental .small-par}
+**Funciones slice** 
+
+- Ejemplo: obtener una muestra de filas aleatorias
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+slice_sample(vuelos, n = 5)
+```
+::: {.incremental .small-par}
+- Usando %>% 
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: FALSE
+vuelos %>% slice_sample(n = 5)
+```
+
+## Trabajo básico con filas
+::: {.incremental .small-par}
+**Funciones slice** 
+
+- La función **slice** selecciona las filas por su **posición** numérica en el marco de datos.
+- Ejemplo: extraer las filas 100 a la 105
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+slice(vuelos, 100:105)
+```
+::: {.incremental .small-par}
+- Usando %>% 
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: FALSE
+vuelos %>% slice(100:05)
+```
+
+## Anidación de funciones
+::: {.incremental .small-par}
+- Podemos aplicar más de una función a la vez a un dataframe
+- Por ejemplo, usando filter y slice_head en conjunto
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+slice_head(filter(vuelos, aerolinea=="UA"), n = 5)
+```
+::: {.incremental .small-par}
+- Usando %>% 
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: FALSE
+vuelos %>% filter(aerolinea=="UA") %>% 
+  slice_head(n = 5)
+```
+
+## Anidación de funciones
+::: {.incremental .small-par}
+- Otro ejemplo:
+- Utilizar la función count() para contar la frecuencia de ocurrencia de combinaciones únicas de los orígenes y destinos.
+- Luego, utilizar la función filter() para seleccionar solo aquellas filas donde el valor de la columna "origen" sea igual al aeropuerto "JFK".
+- Finalmente, utilizar la función slice_head() para mostrar las primeras filas del resultado obtenido.
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+slice_head(filter(count(vuelos, origen, destino), origen=="JFK"), n=5)
+```
+::: {.incremental .small-par}
+- Usando %>% 
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: FALSE
+vuelos %>% count(origen, destino) %>% filter(origen == "JFK") %>% slice_head(n = 5)
+```
+
+## Ejercicio 1
+::: {.incremental .small-par}
+- Obtenga las 100 primeras filas de vuelos
+- Del dataframe vuelos, filtre las filas donde los meses estén entre enero y marzo
+- Del dataframe vuelos filtre las filas donde la aerolinea sea UA o DL
+- Del dataframe vuelos filtre las filas donde la aerolinea sea UA o DL y agregue la condición de que el día sea igual a 12
+- Filtre la base donde el horario de salida este entre 500 y 1200, luego cuente el número de veces que aparece cada aerolinea
+- Utilice la misma anidación anterior pero ahora obtenga las cinco primeras filas
+:::
+
+## Solución ejercicio 1
+::: {.incremental .small-par}
+- Obtenga las 100 primeras filas de vuelos
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+vuelos %>% slice_head(n = 100)
+```
+
+## Solución ejercicio 1
+::: {.incremental .small-par}
+- Del dataframe vuelos, filtre las filas donde los meses estén entre enero y marzo
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+vuelos %>% filter(mes %in% 1:3)
+```
+
+## Solución ejercicio 1
+::: {.incremental .small-par}
+- Del dataframe vuelos, filtre las filas donde la aerolínea sea UA o DL
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+vuelos %>% filter(aerolinea=="UA" | aerolinea=="DL")
+```
+
+## Solución ejercicio 1
+::: {.incremental .small-par}
+- Del dataframe vuelos, filtre las filas donde la aerolínea sea UA o DL y agregue la condición de que el día sea igual a 12
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+vuelos %>% filter((aerolinea=="UA" | aerolinea=="DL") & dia == 12)
+```
+## Solución ejercicio 1
+::: {.incremental .small-par}
+- Filtre la base donde el horario de salida este entre 500 y 1200, luego cuente el número de veces que aparece cada aerolínea
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+vuelos %>% filter(horario_salida %in% 500:1200) %>% 
+  count(aerolinea)
+```
+
+## Solución ejercicio 1
+::: {.incremental .small-par}
+- Utilice la misma anidación anterior pero ahora obtenga las cinco primeras filas
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+vuelos %>% filter(horario_salida %in% 500:1200) %>% 
+  count(aerolinea) %>% 
+  slice(1:5)
+```
+
+## Trabajo básico con columnas
+::: {.incremental .small-par}
+- Selección de columnas
+- **Por nombre**
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+vuelos %>% 
+  select(aerolinea, vuelo)
+```
+
+## Trabajo básico con columnas
+::: {.incremental .small-par}
+**Por posición**
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+vuelos %>% 
+  select(1,3,5)
+```
+
+## Trabajo básico con columnas
+::: {.incremental .small-par}
+**Por rango**
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+vuelos %>% 
+  select(1:4)
+```
+
+## Trabajo básico con columnas
+::: {.incremental .small-par}
+**Por selección negativa**
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+vuelos %>% 
+  select(-4,-6)
+```
+
+## Trabajo básico con columnas
+::: {.incremental .small-par}
+**Por condiciones en el nombre**
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+vuelos %>% 
+  select(starts_with("horario"))
+```
+
+## Trabajo básico con columnas
+::: {.incremental .small-par}
+**Por condiciones en el nombre**
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+vuelos %>% 
+  select(ends_with("programada"))
+```
+
+## Trabajo básico con columnas
+::: {.incremental .small-par}
+**Por condiciones en el nombre**
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+vuelos %>% 
+  select(contains("_"))
+```
+
+## Trabajo básico con columnas
+::: {.incremental .small-par}
+- Renombrar columnas
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+vuelos %>% 
+  rename(salida = horario_salida,
+         llegada = horario_llegada)
+```
+
+## Ejercicio 2
+::: {.incremental .small-par}
+- Cargue el excel "flores.xlsx" y llámelo flores
+- ¿Cuáles son los nombres de las columnas?
+- Seleccione las columnas Especie y Largo.Petalo
+- Seleccione las mismas columnas usando su posición
+- Seleccione las columnas que empiezan con "Largo"
+- Seleccione las columnas que terminen con "Sepalo"
+- Seleccione las columnas que no contengan "."
+:::
+
+## Solución ejercicio 2
+::: {.incremental .small-par}
+- Cargue el excel "flores.xlsx" y llámelo flores
+- ¿Cuáles son los nombres de las columnas?
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+flores <- read_excel("data/flores.xlsx")
+names(flores)
+```
+
+## Solución ejercicio 2
+::: {.incremental .small-par}
+- Seleccione las columnas Especie y Largo.Petalo
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+flores %>% select(Especie, Largo.Petalo)
+```
+
+## Solución ejercicio 2
+::: {.incremental .small-par}
+- Seleccione las mismas columnas usando su posición
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+flores %>% select(1,5)
+```
+
+## Solución ejercicio 2
+::: {.incremental .small-par}
+- Seleccione las columnas que empiezan con "Largo"
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+flores %>% select(starts_with("Largo"))
+```
+
+## Solución ejercicio 2
+::: {.incremental .small-par}
+- Seleccione las columnas que terminen con "Sepalo"
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+flores %>% select(ends_with("Sepalo"))
+```
+
+## Solución ejercicio 2
+::: {.incremental .small-par}
+- Seleccione las columnas que no contengan "."
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+flores %>% select(!contains("."))
+```
+
+## Mutate
+::: {.incremental .small-par}
+- La función mutate() en R se utiliza para crear nuevas columnas o modificar las existentes 
+- Por ejemplo, queremos crear una columna que sea la suma del atraso en la salida y el atraso en la llegada llamada atraso_total
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+vuelos %>% 
+  mutate(atraso_total = atraso_salida + atraso_llegada) %>% 
+  select(atraso_total)
+```
+
+## Mutate
+::: {.incremental .small-par}
+- También podemos reemplazar una columna ya existente
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+vuelos %>% 
+  mutate(distancia = distancia/2) %>% 
+  select(distancia)
+```
+
+## Mutate
+::: {.incremental .small-par}
+- Otros ejemplos
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+vuelos %>% 
+  mutate(distancia_promedio = mean(distancia, na.rm = TRUE),
+         distancia_cuadrado = sqrt(distancia),
+         origen_destino = paste(origen, destino, sep = "_"),
+         atraso_salida_min = min(atraso_salida, na.rm = TRUE),
+         atraso_llegada_max = max(atraso_llegada, na.rm = TRUE),
+         aerolinea_minuscula = tolower(aerolinea)) %>% 
+  select(distancia_promedio,distancia_cuadrado,origen_destino,atraso_salida_min,atraso_llegada_max,aerolinea_minuscula)
+```
+
+::: notes
+- Para las funciones mean, min y max hay que especificar que no tome en cuenta los valores NA o también conocidos como valores missing o valores perdidos
+- La función paste concatena o une sus argumentos mediante un separador que puede ser cualquier caracter del tipo texto. En este caso usamos "_". Lo que retorna esta función es un objeto de tipo character o string.
+Por ejemplo acá estamos pegando la variable origen con la variable destino usando
+:::
+
+## if_else
+::: {.incremental .small-par}
+- Es una función útil para realizar operaciones condicionales en vectores en R, permitiendo aplicar diferentes acciones dependiendo de una condición específica para cada elemento del vector.
+- En términos simples, se podría pensar en if_else() como una forma de decirle a R: "Si se cumple esta condición, haz esto; de lo contrario, haz aquello".
+- Por ejemplo, queremos generar una columna llamada tramo que sea "largo" si tiempo  del vuelo fue mayor a 150, en caso contrario sea "corto" y si es NA que sea "valor perdido". Adicionalmente, podríamos querer modificar la variable tiempo_vuelo. Si es NA (Valor perdido), reemplazar por un cero; de lo contrario, se mantiene el valor original.
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+vuelos %>% 
+  mutate(tramo = if_else(condition = tiempo_vuelo > 150, true = "largo", false = "corto", missing = "valor perdido"),
+         tiempo_vuelo = if_else(is.na(tiempo_vuelo), 0, tiempo_vuelo))
+```
+
+## if_else
+::: {.incremental .small-par}
+- En el siguiente ejemplo generaremos una variable del tipo fecha que sea del siguiente formato: "2013-02-12"
+- Como podemos observar las variables día y mes no tienen el formato "dd" o "mm" porque a los días o meses de un dígito les falta el "0". Por ejemplo, queremos que los día 1 sean "01", esto en formato character para poder generar la fecha.
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+vuelos %>% select(dia, mes) %>% head()
+```
+
+## if_else
+::: {.incremental .small-par}
+- En este sentido, si el largo de la variable mes o día es menor que uno, le pegaremos un cero al comienzo, en caso contrario, dejaremos el mes o el dia como están orginalmente pero convertiéndolos a formato character
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+vuelos2 <- vuelos %>% 
+  mutate(dia2 = if_else(nchar(dia) == 1, paste0("0", dia), as.character(dia)),
+         mes2 = if_else(nchar(mes) == 1, paste0("0", mes), as.character(mes)))
+
+vuelos2 %>% select(dia2, mes2) %>% head()
+```
+
+## if_else
+::: {.incremental .small-par}
+- Luego pegamos el año, el mes y el día usando como separador "-"
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+vuelos2 <- vuelos2 %>% 
+  mutate(fecha = paste(anio, mes2, dia2, sep = "-"))
+
+vuelos2 %>% select(fecha) %>% head()
+```
+
+## if_else
+::: {.incremental .small-par}
+- Finalmente, convertimos la variable fecha que está en formato "character" a formato fecha usando la función as.Date()
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+vuelos2 <- vuelos2 %>% 
+  mutate(fecha = as.Date(fecha))
+
+vuelos2 %>% select(fecha) %>% head()
+```
+
+
+## case_when
+::: {.incremental .small-par}
+- Utiliza la misma lógica que if_else pero para múltiples condiciones lógicas
+- Ejemplo:
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+
+datos <- data.frame(puntuacion = c(80, 65, 90, 75, 50))
+datos <- datos %>%
+  mutate(resultado = case_when(
+    puntuacion >= 90 ~ "A",
+    puntuacion >= 80 ~ "B",
+    puntuacion >= 70 ~ "C",
+    TRUE ~ "F" # En caso de que ninguna de las condiciones anteriores se cumpla
+  ))
+datos
+
+```
+::: {.incremental .small-par}
+- Notas:
+  - Las condiciones se evalúan en orden
+  - Si no se cumple una de las condiciones, el valor asignado será un NA
+:::
+
+::: notes
+En este ejemplo, case_when() evalúa cada fila de datos y asigna un valor a la columna resultado según el valor de puntuacion. Si la puntuación es mayor o igual a 90, se asigna "A"; si es mayor o igual a 80, se asigna "B"; si es mayor o igual a 70, se asigna "C"; y si ninguna de estas condiciones se cumple (indicado por TRUE), se asigna "F".
+:::
+
+## case_when
+::: {.incremental .small-par}
+- Ejemplo usando vuelos
+- Queremos crear una variable con el nombre de los meses en el dataframe vuelos
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+vuelos <- vuelos %>% 
+  mutate(mes_nombre = case_when(mes == 1 ~ "Enero",
+                                mes == 2 ~ "Febrero",
+                                mes == 3 ~ "Marzo",
+                                mes == 4 ~ "Abril",
+                                mes == 5 ~ "Mayo",
+                                mes == 6 ~ "Junio",
+                                mes == 7 ~ "Julio",
+                                mes == 8 ~ "Agosto",
+                                mes == 9 ~ "Septiembre",
+                                mes == 10 ~ "Octubre",
+                                mes == 11 ~ "Noviembre",
+                                mes == 12 ~ "Diciembre"))
+# Revisamos
+vuelos %>% select(mes, mes_nombre) %>% 
+  slice_sample(n = 10)
+```
+
+## case_when
+::: {.incremental .small-par}
+- Queremos crear una variable tramo donde si la distancia fue mayor a 3000 que sea "largo", si fue menor a 3000 pero mayor o igual que 1000 que sea "mediano" y en cualquier otro caso que sea "corto".
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+vuelos <- vuelos %>% 
+  mutate(tramo =  case_when(distancia >= 3000 ~ "largo",
+                           distancia >= 2000 ~ "mediano",
+                           distancia >= 1000 ~ "corto",
+                           TRUE ~ "muy corto"))
+# Revisamos
+vuelos %>% select(distancia, tramo) %>% 
+  slice_sample(n = 10)
+```
+
+## Ejercicio 3
+::: {.incremental .small-par}
+Usando un solo mutate: 
+
+1. Modifique la columna horas_tv. Si horas tv es NA reemplazar por un 0; de lo contrario, se mantiene el valor original
+2. Haga lo mismo para edad
+3. Genere una columna llamada horas_tv_promedio que sea el promedio de horas_tv
+4. Genere una columnna llamada mediana_edad que sea la mediana de la variable edad (la función es median())
+5. Genere una columna llamada reglion_raza que sea la concatenación de la columna religion y raza, usando como separador "-".
+6. Genere una columna llamada tramo_edad que sea "Adulto mayor" cuando la edad sea mayor o igual que 50, "Adulto" cuando la edad esté entre 20 y 49 y "Joven" cuando la edad sea menor que 20.
+:::
+
+## Solución ejercicio 3
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+encuesta %>% mutate(horas_tv = if_else(is.na(horas_tv), 0, horas_tv),
+                    edad = if_else(is.na(edad), 0, edad),
+                    horas_tv_promedio = mean(horas_tv),
+                    mediana_edad = median(edad),
+                    religon_raza = paste(religion, raza, sep = "-"),
+                    tramo_edad = case_when(edad >= 50 ~ "Adulto mayor",
+                                           edad >= 20 ~ "Adulto",
+                                           TRUE ~ "Joven")) 
+```
+

@@ -1,0 +1,334 @@
+@import url(https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i&display=swap);
+@import url(https://fonts.googleapis.com/css?family=Cabin:600,600i&display=swap);
+@import url(https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700&display=swap);
+
+:root {
+  /* Fonts */
+  --text-font-family: 'Noto Sans';
+  --text-font-is-google: 1;
+  --text-font-family-fallback: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial;
+  --text-font-base: sans-serif;
+  --header-font-family: Cabin;
+  --header-font-is-google: 1;
+  --code-font-family: 'Source Code Pro';
+  --code-font-is-google: 1;
+  --base-font-size: 10px;
+  --text-font-size: 28px;
+  --code-font-size: 0.8rem;
+  --code-inline-font-size: 1em;
+  --header-h1-font-size: 2.25rem;
+  --header-h2-font-size: 1.4rem;
+  --header-h3-font-size: 1.2rem;
+
+  /* Colors */
+  --text-color: black;
+  --header-color: black;
+  /*--header-color: white;*/
+  /*--background-color: #FFFFFF;*/
+  --background-color: white;
+  --link-color: #1381B0;
+  --text-bold-color: black;
+  --code-highlight-color: rgba(255,255,0,0.5); 
+  --inverse-text-color: #000000;
+  --inverse-background-color: blue;
+  --inverse-header-color: #FFFFFF;
+  --title-slide-background-color: #1381B0;
+  --title-slide-text-color: #000000;
+  --header-background-color: #1381B0;
+  --header-background-text-color: #FFFFFF;
+  --primary: #1381B0;
+  --secondary: #FF961C;
+  --white: #FFFFFF;
+  --black: #000000;
+}
+
+
+/* 
+----------------------------------------------------------------------------------------------------
+General settings for revealjs format.
+They have effect on all the elements of a particular kind which are found in the presentation.
+----------------------------------------------------------------------------------------------------
+*/
+
+.reveal section p {
+  font-size: var(--text-font-size); /* Adjust the font size */
+  line-height: 1.;
+}
+
+/* Set format for code blocks */
+.reveal code {
+  font-size: 15px; /* Adjust the font size as needed */
+}
+
+/* .reveal section h2 {
+  color: red;
+} */
+
+
+.reveal h2 {
+  background-image: url('imagenes/logo_ine_pres.png'); /* Replace with your image URL */
+  background-repeat: no-repeat;
+  background-position: right center; /* Align the image to the right and vertically centered */
+  background-size: 100% auto; /* Adjust the image size to cover the container */
+  color: white; /* Text color */
+  text-align: left; /* align the text */
+  font-size: 45px;
+  margin-top: 5px;
+  margin-left: 0px;
+  /* padding-left: 10px; */
+  /* padding-top: 10px;   */
+  padding: 5px 0px 5px 10px; /* top right bottom left */
+}
+
+.reveal .slide-logo {
+  height: 80px !important;
+  width: 80px !important;
+  max-width: unset !important;
+  max-height: unset !important;
+}
+
+/*
+----------------------------------------------------------------------------------------------------
+Settings for text format
+----------------------------------------------------------------------------------------------------
+*/
+
+.big-par { /*párrafo grande */
+  font-size: 35px;
+}
+
+.big-par-red { /*párrafo grande y rojo */
+  font-size: 40px;
+  color: #4a25db;
+}
+
+.biggest{ /*párrafo más grande */
+  font-size: 100px;
+  font-weight: bold;
+}
+
+.medium-par { /* párrafo mediano*/
+  font-size: 25px;
+}
+  
+.medium-par-red { /* párrafo mediano*/
+  font-size: 30px;
+  color: #4a25db;
+}
+
+
+.small-par { /* párrafo pequeño*/
+  font-size: 22px !important;
+}
+
+.smaller-par { /* párrafo pequeño*/
+  font-size: 10px;
+}
+
+.pur { /* normal purpura*/
+  color: #4a25db;
+}
+
+/*
+----------------------------------------------------------------------------------------------------
+Settings for margins, aligments, etc.
+----------------------------------------------------------------------------------------------------
+*/
+
+.pull-left {
+  float: left;
+  width: 47%;
+}
+.pull-right {
+  float: right;
+  width: 47%;
+}
+.pull-right ~ * {
+  clear: both;
+}
+img, video, iframe {
+  max-width: 100%;
+}
+blockquote {
+  border-left: solid 5px #FF961C80;
+  padding-left: 1em;
+}
+
+.border {
+  border: 1px solid #dee2e6;
+}
+
+.border-thick {
+  border-width: 3px;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.center-justified {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: justify;
+  text-justify: auto;  
+  text-align-last: center;
+}
+
+.center-figure {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.justify p {
+  text-align: justify;
+}
+
+/* .center-justified {
+  text-align: justify;
+  text-align-last: center;
+} */
+
+
+/* 
+----------------------------------------------------------------------------------------------------
+Settings for extra features.
+----------------------------------------------------------------------------------------------------
+*/
+
+.linea-superior {
+  background-size: contain;
+  position: absolute;
+  top: 0em;
+  left: 0em;
+  width: 1000px;
+  height: 5px;
+  background: #123076;
+  margin-top: -30px;
+}
+
+.linea-inferior {
+  background-size: contain;
+  position: absolute;
+  bottom: 0em;
+  
+  left: 0em;
+  width: 1000px;
+  height: 5px;
+  background: #123076;
+  margin-bottom: -90px;
+}
+
+
+/*
+----------------------------------------------------------------------------------------------------
+Settings for columns
+----------------------------------------------------------------------------------------------------
+*/
+
+
+.columns {
+  display: flex;
+}
+
+.column {
+  flex: 1;
+  padding: 20px;
+  text-align: center;
+}
+
+.column img {
+  max-width: 100%;
+  height: auto;
+}
+
+/*
+----------------------------------------------------------------------------------------------------
+Settings for colors
+----------------------------------------------------------------------------------------------------
+*/
+
+.red{
+  color: red;
+}
+
+
+/*
+----------------------------------------------------------------------------------------------------
+Settings for figures
+----------------------------------------------------------------------------------------------------
+*/
+
+/* img {
+  width: 200px;
+  height: 300px;
+  object-fit: contain;
+} */
+
+/*
+----------------------------------------------------------------------------------------------------
+Settings under testing. 
+Their use is not recommended !!
+----------------------------------------------------------------------------------------------------
+*/
+
+
+/* h2 {
+  color: white !important;
+  background-color: dimgrey !important;
+} */
+
+/* h2 {
+  color: white !important;
+  background-color: navy !important;
+  background: url(logo_portada2.png) 100% 100% no-repeat;
+  background: "logo_portada2.png";
+} */
+
+/* #pe-servicios-compartidos > h2 */
+
+/* h2 {
+  color: red;
+} */
+
+/* #title-slide .title {
+        font-size: 4.5em;
+        color: #b22222;
+} */
+
+/* .color-slide h2 {
+  color: red;
+ } */
+
+
+
+/* h1.title {
+  background-image: url(imagenes/logo_portada2.png);
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: 100px;
+  text-align: left;
+  font-size: 50px;  
+} */
+
+
+/* .banner h2 {
+    background-image: url('imagenes/fondo2.png');
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: 130% auto;
+    padding: 100px 0;
+    color: white;
+    background-color: white !important;
+    text-align: left;
+} */
+
+/* .banner h2 {
+  margin: 0;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+} */
