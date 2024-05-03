@@ -49,16 +49,17 @@ library(readxl)
 
 [**Nivel básico**]{.big-par .center-justified}
 
-[**Abril 2024**]{.big-par .center-justified}
+[**Mayo 2024**]{.big-par .center-justified}
 
 ## Contenidos
 ::: {.incremental .small-par}
 - Operador pipe
 - Trabajo básico con filas
 - Trabajo básico con columnas
-- Mutate
-- if_else
-- case_when
+- Herramientas de edición de datos: mutate
+- Herramientas de edición de datos: if_else
+- Herramientas de edición de datos: case_when
+- Herramientas de edición de datos: group_by
 - Ejercicios
 :::
 
@@ -75,7 +76,6 @@ library(readxl)
 library(readxl)
 library(dplyr)
 vuelos <- read_excel("data/vuelos.xlsx")
-vuelos
 ```
 
 ## Previo
@@ -107,8 +107,8 @@ summary(vuelos)
 ## Operador pipe %>% 
 ::: {.incremental .small-par}
 - El operador pipe es un operador de flujo utilizado en R principalmente para mejorar la legibilidad del código y facilitar el proceso de encadenamiento de funciones.
-- Lo que hace es tomar el resultado de una expresión o función y pasarlo como el primer argumento a la siguiente función
-- Por ejemplo queremos obtener los seis primeros elementos de "vuelos" usando la función head():
+- Lo que hace es tomar el resultado de una expresión o función y pasarlo como el primer argumento a la siguiente función.
+- Por ejemplo, queremos obtener los seis primeros elementos de "vuelos" usando la función head():
 :::
 . . .
 ```{r}
@@ -117,7 +117,6 @@ summary(vuelos)
 vuelos %>% head()
 ```
 ::: notes
-- Básicamente, lo que hace es tomar el resultado de una expresión o función y pasarlo como el primer argumento a la siguiente función. Esto permite encadenar varias operaciones de manera más clara y concisa.
 - En el ejemplo estamos aplicando la función head al dataframe vuelos, podemos ver que el argumento de la función, que en este caso es el dataframe vuelos, queda al lado izquierdo y no dentro de la función, entonces podemos leer de izquierda a derecha
 :::
 
@@ -138,8 +137,7 @@ head(vuelos)
 
 ## Operador pipe %>% 
 ::: {.incremental .small-par}
-- Veamos otro ejemplo
-- Queremos contar el número de veces que aparece cada aerolinea
+- Otro ejemplo: contar el número de veces que aparece cada aerolinea
 :::
 . . .
 ```{r}
@@ -171,8 +169,8 @@ count(vuelos, aerolinea)
 ::: {.incremental .small-par}
 **Función filter** 
 
-- Se utiliza para seleccionar subconjuntos de datos
-- Funciona aplicando condiciones lógicas a las filas del conjunto de datos y devolviendo solo aquellas filas que cumplen con esas condiciones.
+- Se utiliza para seleccionar subconjuntos de datos.
+- Funciona aplicando **condiciones lógicas** (==, !=, >, >=, <, <=) a las filas del conjunto de datos y devolviendo solo aquellas filas que cumplen con esas condiciones.
 :::
 . . .
 ```{r}
@@ -218,7 +216,7 @@ vuelos %>% filter(atraso_llegada %in% 100:200)
 - En el primer ejemplo estamos filtrando por las filas donde el mes sea mayor a 1
 - En el segundo por las filas donde el atraso de salido sea menor o igual que 100
 - En el tercer ejemplo filtramos por las filas donde la aerolinea sea distinta a "AA" y que el mes haya sido igual a 12
-- En el último ejemplo estamos filtrando por las filas donde el atraso de llagada haya sido entre 100 y 200
+- En el último ejemplo estamos filtrando por las filas el valor de la columna "atraso_llegada" se encuentra en el rango 100 a 200.
 - El operador %in% se usa para verificar si los valores del primer argumento están presentes en el segundo argumento. Esto retorna un vector lógico indicando si hubo un match o no
 :::
 
@@ -249,13 +247,13 @@ vuelos %>% slice_head(n = 5)
 ::: {.incremental .small-par}
 **Funciones slice** 
 
-- Ejemplo: extraer las cinco últimas filas de "vuelos"
+- Ejemplo: extraer el 1% de las últimas filas de "vuelos"
 :::
 . . .
 ```{r}
 #| echo: TRUE
 #| eval: TRUE
-slice_tail(vuelos, n = 5)
+slice_tail(vuelos, prop = 0.01)
 ```
 ::: {.incremental .small-par}
 - Usando %>% 
@@ -264,8 +262,13 @@ slice_tail(vuelos, n = 5)
 ```{r}
 #| echo: TRUE
 #| eval: FALSE
-vuelos %>% slice_tail(n = 5)
+vuelos %>% slice_tail(prop = 0.01)
 ```
+::: notes
+- Usando la función slice_tail podemos seleccionar las últimas filas de un dataframe.
+- En este ejemplo estamos seleccionando el 10% de las últimas filas de "vuelos", usando el argumento prop que hace referencia a la proporción de filas a seleccionar
+- Este argumento se usa en reemplazo de n que hace referencia al número específico de filas que queremos seleccionar.
+:::
 
 ## Trabajo básico con filas
 ::: {.incremental .small-par}
@@ -309,13 +312,13 @@ slice(vuelos, 100:105)
 ```{r}
 #| echo: TRUE
 #| eval: FALSE
-vuelos %>% slice(100:05)
+vuelos %>% slice(100:105)
 ```
 
 ## Anidación de funciones
 ::: {.incremental .small-par}
-- Podemos aplicar más de una función a la vez a un dataframe
-- Por ejemplo, usando filter y slice_head en conjunto
+- Podemos aplicar más de una función a la vez a un dataframe.
+- Por ejemplo, usando filter() y slice_head() en conjunto.
 :::
 . . .
 ```{r}
@@ -359,17 +362,16 @@ vuelos %>% count(origen, destino) %>% filter(origen == "JFK") %>% slice_head(n =
 
 ## Ejercicio 1
 ::: {.incremental .small-par}
-- Obtenga las 100 primeras filas de vuelos
-- Del dataframe vuelos, filtre las filas donde los meses estén entre enero y marzo
-- Del dataframe vuelos filtre las filas donde la aerolinea sea UA o DL
-- Del dataframe vuelos filtre las filas donde la aerolinea sea UA o DL y agregue la condición de que el día sea igual a 12
+- Del dataframe vuelos, obtenga las 100 primeras filas de vuelos
+- Filtre las filas donde los meses estén entre enero y marzo
+- Filtre las filas donde la aerolinea sea UA o DL
+- Filtre las filas donde la aerolinea sea UA o DL y agregue la condición de que el día sea igual a 12
 - Filtre la base donde el horario de salida este entre 500 y 1200, luego cuente el número de veces que aparece cada aerolinea
-- Utilice la misma anidación anterior pero ahora obtenga las cinco primeras filas
 :::
 
 ## Solución ejercicio 1
 ::: {.incremental .small-par}
-- Obtenga las 100 primeras filas de vuelos
+- Del dataframe vuelos, obtenga las 100 primeras filas de vuelos
 :::
 . . .
 ```{r}
@@ -380,7 +382,7 @@ vuelos %>% slice_head(n = 100)
 
 ## Solución ejercicio 1
 ::: {.incremental .small-par}
-- Del dataframe vuelos, filtre las filas donde los meses estén entre enero y marzo
+- Filtre las filas donde los meses estén entre enero y marzo
 :::
 . . .
 ```{r}
@@ -391,7 +393,7 @@ vuelos %>% filter(mes %in% 1:3)
 
 ## Solución ejercicio 1
 ::: {.incremental .small-par}
-- Del dataframe vuelos, filtre las filas donde la aerolínea sea UA o DL
+- Filtre las filas donde la aerolínea sea UA o DL
 :::
 . . .
 ```{r}
@@ -402,7 +404,7 @@ vuelos %>% filter(aerolinea=="UA" | aerolinea=="DL")
 
 ## Solución ejercicio 1
 ::: {.incremental .small-par}
-- Del dataframe vuelos, filtre las filas donde la aerolínea sea UA o DL y agregue la condición de que el día sea igual a 12
+- Filtre las filas donde la aerolínea sea UA o DL y agregue la condición de que el día sea igual a 12
 :::
 . . .
 ```{r}
@@ -420,19 +422,6 @@ vuelos %>% filter((aerolinea=="UA" | aerolinea=="DL") & dia == 12)
 #| eval: TRUE
 vuelos %>% filter(horario_salida %in% 500:1200) %>% 
   count(aerolinea)
-```
-
-## Solución ejercicio 1
-::: {.incremental .small-par}
-- Utilice la misma anidación anterior pero ahora obtenga las cinco primeras filas
-:::
-. . .
-```{r}
-#| echo: TRUE
-#| eval: TRUE
-vuelos %>% filter(horario_salida %in% 500:1200) %>% 
-  count(aerolinea) %>% 
-  slice(1:5)
 ```
 
 ## Trabajo básico con columnas
@@ -535,18 +524,18 @@ vuelos %>%
 
 ## Ejercicio 2
 ::: {.incremental .small-par}
-- Cargue el excel "flores.xlsx" y llámelo flores
+- De la carpeta "data" cargue el excel "flores.xlsx" y llámelo "flores"
 - ¿Cuáles son los nombres de las columnas?
 - Seleccione las columnas Especie y Largo.Petalo
 - Seleccione las mismas columnas usando su posición
 - Seleccione las columnas que empiezan con "Largo"
 - Seleccione las columnas que terminen con "Sepalo"
-- Seleccione las columnas que no contengan "."
+- Renombre "Especie" como "especie"
 :::
 
 ## Solución ejercicio 2
 ::: {.incremental .small-par}
-- Cargue el excel "flores.xlsx" y llámelo flores
+- Cargue el excel "flores.xlsx" y llámelo "flores"
 - ¿Cuáles son los nombres de las columnas?
 :::
 . . .
@@ -603,19 +592,19 @@ flores %>% select(ends_with("Sepalo"))
 
 ## Solución ejercicio 2
 ::: {.incremental .small-par}
-- Seleccione las columnas que no contengan "."
+- Renombre "Especie" como "especie"
 :::
 . . .
 ```{r}
 #| echo: TRUE
 #| eval: TRUE
-flores %>% select(!contains("."))
+flores %>% rename(especie = Especie)
 ```
 
-## Mutate
+## Herramientas de edición de datos: mutate
 ::: {.incremental .small-par}
-- La función mutate() en R se utiliza para crear nuevas columnas o modificar las existentes 
-- Por ejemplo, queremos crear una columna que sea la suma del atraso en la salida y el atraso en la llegada llamada atraso_total
+- La función mutate() en R se utiliza para crear nuevas columnas o modificar las existentes. 
+- Por ejemplo, queremos crear una columna que sea la suma del atraso en la salida y el atraso en la llegada llamada atraso_total.
 :::
 . . .
 ```{r}
@@ -626,7 +615,7 @@ vuelos %>%
   select(atraso_total)
 ```
 
-## Mutate
+## Herramientas de edición de datos: mutate
 ::: {.incremental .small-par}
 - También podemos reemplazar una columna ya existente
 :::
@@ -639,7 +628,7 @@ vuelos %>%
   select(distancia)
 ```
 
-## Mutate
+## Herramientas de edición de datos: mutate
 ::: {.incremental .small-par}
 - Otros ejemplos
 :::
@@ -663,11 +652,16 @@ vuelos %>%
 Por ejemplo acá estamos pegando la variable origen con la variable destino usando
 :::
 
-## if_else
+## Herramientas de edición de datos: if_else
 ::: {.incremental .small-par}
 - Es una función útil para realizar operaciones condicionales en vectores en R, permitiendo aplicar diferentes acciones dependiendo de una condición específica para cada elemento del vector.
 - En términos simples, se podría pensar en if_else() como una forma de decirle a R: "Si se cumple esta condición, haz esto; de lo contrario, haz aquello".
-- Por ejemplo, queremos generar una columna llamada tramo que sea "largo" si tiempo  del vuelo fue mayor a 150, en caso contrario sea "corto" y si es NA que sea "valor perdido". Adicionalmente, podríamos querer modificar la variable tiempo_vuelo. Si es NA (Valor perdido), reemplazar por un cero; de lo contrario, se mantiene el valor original.
+:::
+
+## Herramientas de edición de datos: if_else
+::: {.incremental .small-par}
+- Por ejemplo, queremos generar una columna llamada "tramo" que sea "largo" si el tiempo del vuelo fue mayor a 150, en caso contrario sea "corto" y si es NA que sea "valor perdido".
+- Adicionalmente, queremos modificar la variable "tiempo_vuelo": si es NA, reemplazar por un cero; de lo contrario, se mantiene el valor original.
 :::
 . . .
 ```{r}
@@ -678,7 +672,13 @@ vuelos %>%
          tiempo_vuelo = if_else(is.na(tiempo_vuelo), 0, tiempo_vuelo))
 ```
 
-## if_else
+::: notes
+- Acá utilizamos if_else() para asignar valores a esta nueva variable llamada "tramo" basados en una condición. La condición es que si el valor de tiempo_vuelo es mayor que 150, se asigna el valor "largo", de lo contrario se asigna "corto". El parámetro missing es opcional y se usa para especificar qué valor asignar si hay valores perdidos en tiempo_vuelo, en este caso "valor perdido".
+- En el segundo mutate se está modificando la variable tiempo_vuelo. Se está utilizando if_else() para reemplazar los valores perdidos (NA) en tiempo_vuelo con el valor 0. Esto se hace verificando si tiempo_vuelo es un valor perdido usando la función is.na(tiempo_vuelo).
+
+:::
+
+## Herramientas de edición de datos: if_else
 ::: {.incremental .small-par}
 - En el siguiente ejemplo generaremos una variable del tipo fecha que sea del siguiente formato: "2013-02-12"
 - Como podemos observar las variables día y mes no tienen el formato "dd" o "mm" porque a los días o meses de un dígito les falta el "0". Por ejemplo, queremos que los día 1 sean "01", esto en formato character para poder generar la fecha.
@@ -690,7 +690,7 @@ vuelos %>%
 vuelos %>% select(dia, mes) %>% head()
 ```
 
-## if_else
+## Herramientas de edición de datos: if_else
 ::: {.incremental .small-par}
 - En este sentido, si el largo de la variable mes o día es menor que uno, le pegaremos un cero al comienzo, en caso contrario, dejaremos el mes o el dia como están orginalmente pero convertiéndolos a formato character
 :::
@@ -705,7 +705,7 @@ vuelos2 <- vuelos %>%
 vuelos2 %>% select(dia2, mes2) %>% head()
 ```
 
-## if_else
+## Herramientas de edición de datos: if_else
 ::: {.incremental .small-par}
 - Luego pegamos el año, el mes y el día usando como separador "-"
 :::
@@ -719,7 +719,7 @@ vuelos2 <- vuelos2 %>%
 vuelos2 %>% select(fecha) %>% head()
 ```
 
-## if_else
+## Herramientas de edición de datos: if_else
 ::: {.incremental .small-par}
 - Finalmente, convertimos la variable fecha que está en formato "character" a formato fecha usando la función as.Date()
 :::
@@ -734,10 +734,9 @@ vuelos2 %>% select(fecha) %>% head()
 ```
 
 
-## case_when
+## Herramientas de edición de datos: case_when
 ::: {.incremental .small-par}
 - Utiliza la misma lógica que if_else pero para múltiples condiciones lógicas
-- Ejemplo:
 :::
 . . .
 ```{r}
@@ -765,35 +764,9 @@ datos
 En este ejemplo, case_when() evalúa cada fila de datos y asigna un valor a la columna resultado según el valor de puntuacion. Si la puntuación es mayor o igual a 90, se asigna "A"; si es mayor o igual a 80, se asigna "B"; si es mayor o igual a 70, se asigna "C"; y si ninguna de estas condiciones se cumple (indicado por TRUE), se asigna "F".
 :::
 
-## case_when
+## Herramientas de edición de datos: case_when
 ::: {.incremental .small-par}
-- Ejemplo usando vuelos
-- Queremos crear una variable con el nombre de los meses en el dataframe vuelos
-:::
-. . .
-```{r}
-#| echo: TRUE
-#| eval: TRUE
-vuelos <- vuelos %>% 
-  mutate(mes_nombre = case_when(mes == 1 ~ "Enero",
-                                mes == 2 ~ "Febrero",
-                                mes == 3 ~ "Marzo",
-                                mes == 4 ~ "Abril",
-                                mes == 5 ~ "Mayo",
-                                mes == 6 ~ "Junio",
-                                mes == 7 ~ "Julio",
-                                mes == 8 ~ "Agosto",
-                                mes == 9 ~ "Septiembre",
-                                mes == 10 ~ "Octubre",
-                                mes == 11 ~ "Noviembre",
-                                mes == 12 ~ "Diciembre"))
-# Revisamos
-vuelos %>% select(mes, mes_nombre) %>% 
-  slice_sample(n = 10)
-```
-
-## case_when
-::: {.incremental .small-par}
+- Ejemplo usando "vuelos":
 - Queremos crear una variable tramo donde si la distancia fue mayor a 3000 que sea "largo", si fue menor a 3000 pero mayor o igual que 1000 que sea "mediano" y en cualquier otro caso que sea "corto".
 :::
 . . .
@@ -807,19 +780,70 @@ vuelos <- vuelos %>%
                            TRUE ~ "muy corto"))
 # Revisamos
 vuelos %>% select(distancia, tramo) %>% 
-  slice_sample(n = 10)
+  slice_head(n = 5)
+```
+## Herramientas de edición de datos: group_by
+::: {.incremental .small-par}
+- La función group_by() permite agrupar los datos por una o más variables, lo que permite analizar métricas y patrones agregados.
+- La función summarise() funciona de forma análoga a la función mutate, excepto que en lugar de añadir nuevas columnas crea un nuevo data frame.
+- Veamos un ejemplo:
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+estudiantes <- data.frame(
+  nombre = c("Juan", "María", "Pedro", "Luis", "Ana"),
+  edad = c(20, 22, 19, 21, 20),
+  materia = c("Matemáticas", "Historia", "Matemáticas", "Historia", "Matemáticas")
+)
+
+estudiantes
+```
+## Herramientas de edición de datos: group_by
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+# Utilizar group_by() para agrupar los datos por materia
+estudiantes_por_materia <- estudiantes %>%
+  group_by(materia)
+
+# Calcular el promedio de edad en cada materia
+promedio_edad_por_materia <- estudiantes_por_materia %>%
+  summarise(promedio_edad = mean(edad))
+
+promedio_edad_por_materia
+```
+
+## Herramientas de edición de datos: group_by
+::: {.incremental .small-par}
+- Ejemplo usando "vuelos":
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+# Utilizar group_by() para agrupar los datos por aerolinea
+vuelos_agrupado <- vuelos %>% group_by(aerolinea)
+vuelos_agrupado
+```
+
+## Herramientas de edición de datos: group_by
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+# Calcular la distancia promedio de cada aerolínea
+vuelos_agrupado %>% summarise(dist_promedio = mean(distancia, na.rm = TRUE))
 ```
 
 ## Ejercicio 3
 ::: {.incremental .small-par}
-Usando un solo mutate: 
-
-1. Modifique la columna horas_tv. Si horas tv es NA reemplazar por un 0; de lo contrario, se mantiene el valor original
-2. Haga lo mismo para edad
-3. Genere una columna llamada horas_tv_promedio que sea el promedio de horas_tv
-4. Genere una columnna llamada mediana_edad que sea la mediana de la variable edad (la función es median())
-5. Genere una columna llamada reglion_raza que sea la concatenación de la columna religion y raza, usando como separador "-".
-6. Genere una columna llamada tramo_edad que sea "Adulto mayor" cuando la edad sea mayor o igual que 50, "Adulto" cuando la edad esté entre 20 y 49 y "Joven" cuando la edad sea menor que 20.
+1. Cargue el archivo excel "encuesta.xlsx" como "encuesta" contenido en la carpeta data.
+2. Modifique la columna horas_tv: si horas tv es NA reemplazar por un 0; de lo contrario, se mantiene el valor original
+3. Genere una columna llamada tramo_edad que sea "Adulto mayor" cuando la edad sea mayor o igual que 50, "Adulto" cuando la edad esté entre 20 y 49 y "Joven" cuando la edad sea menor que 20.
+4. Agrupe los datos por "tramo_edad" y usando summarise() calcule las horas tv promedio para cada tramo, llamando a esta variable "horas_tv_prom".
 :::
 
 ## Solución ejercicio 3
@@ -827,13 +851,24 @@ Usando un solo mutate:
 ```{r}
 #| echo: TRUE
 #| eval: TRUE
+
+encuesta <- read_excel("data/encuesta.xlsx")
+
 encuesta %>% mutate(horas_tv = if_else(is.na(horas_tv), 0, horas_tv),
-                    edad = if_else(is.na(edad), 0, edad),
-                    horas_tv_promedio = mean(horas_tv),
-                    mediana_edad = median(edad),
-                    religon_raza = paste(religion, raza, sep = "-"),
                     tramo_edad = case_when(edad >= 50 ~ "Adulto mayor",
                                            edad >= 20 ~ "Adulto",
-                                           TRUE ~ "Joven")) 
+                                           TRUE ~ "Joven")) %>% 
+  group_by(tramo_edad) %>% 
+  summarise(horas_tv_prom = mean(horas_tv))
 ```
 
+## Tarea 2
+::: {.incremental .small-par}
+- Para esta tarea trabajaremos con la base histórica de la superficie autorizada (m2) de los permisos de edificación, la cual corresponde a un censo que mide la actividad de la construcción a través de la intención de construir en el país, por medio del Formulario Único de Edificación (FUE), para los destinos habitacional y no habitacional.
+:::
+
+## Tarea 2
+::: {.incremental .small-par}
+- PENDIENTE
+  
+:::

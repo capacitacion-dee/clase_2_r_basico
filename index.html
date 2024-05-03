@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="ejercicios_clase_2_files/libs/clipboard/clipboard.min.js"></script>
-<script src="ejercicios_clase_2_files/libs/quarto-html/tabby.min.js"></script>
-<script src="ejercicios_clase_2_files/libs/quarto-html/popper.min.js"></script>
-<script src="ejercicios_clase_2_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="ejercicios_clase_2_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="ejercicios_clase_2_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="ejercicios_clase_2_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
-<link href="ejercicios_clase_2_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/tabby.min.js"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.3.450">
 
-  <title>ejercicios_clase_2</title>
+  <title>index</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="ejercicios_clase_2_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="ejercicios_clase_2_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -94,12 +94,12 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="ejercicios_clase_2_files/libs/revealjs/dist/theme/quarto.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto.css">
   <link rel="stylesheet" href="ine_quarto_styles.css">
-  <link href="ejercicios_clase_2_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="ejercicios_clase_2_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="ejercicios_clase_2_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="ejercicios_clase_2_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
 
   .callout {
@@ -409,7 +409,7 @@
 <p><img src="imagenes/logo_portada2.png" width="20%"></p>
 <p><span class="big-par center-justified"><strong>Capacitación en R y herramientas de productividad</strong></span></p>
 <p><span class="big-par center-justified"><strong>Nivel básico</strong></span></p>
-<p><span class="big-par center-justified"><strong>Abril 2024</strong></span></p>
+<p><span class="big-par center-justified"><strong>Mayo 2024</strong></span></p>
 </section>
 <section id="contenidos" class="slide level2">
 <h2>Contenidos</h2>
@@ -418,9 +418,10 @@
 <li class="fragment">Operador pipe</li>
 <li class="fragment">Trabajo básico con filas</li>
 <li class="fragment">Trabajo básico con columnas</li>
-<li class="fragment">Mutate</li>
-<li class="fragment">if_else</li>
-<li class="fragment">case_when</li>
+<li class="fragment">Herramientas de edición de datos: mutate</li>
+<li class="fragment">Herramientas de edición de datos: if_else</li>
+<li class="fragment">Herramientas de edición de datos: case_when</li>
+<li class="fragment">Herramientas de edición de datos: group_by</li>
 <li class="fragment">Ejercicios</li>
 </ul>
 </div>
@@ -437,28 +438,7 @@
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(readxl)</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-3"><a href="#cb1-3"></a>vuelos <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/vuelos.xlsx"</span>)</span>
-<span id="cb1-4"><a href="#cb1-4"></a>vuelos</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 336,776 x 19
-    anio   mes   dia horario_salida salida_programada atraso_salida
-   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;          &lt;dbl&gt;             &lt;dbl&gt;         &lt;dbl&gt;
- 1  2013     1     1            517               515             2
- 2  2013     1     1            533               529             4
- 3  2013     1     1            542               540             2
- 4  2013     1     1            544               545            -1
- 5  2013     1     1            554               600            -6
- 6  2013     1     1            554               558            -4
- 7  2013     1     1            555               600            -5
- 8  2013     1     1            557               600            -3
- 9  2013     1     1            557               600            -3
-10  2013     1     1            558               600            -2
-# i 336,766 more rows
-# i 13 more variables: horario_llegada &lt;dbl&gt;, llegada_programada &lt;dbl&gt;,
-#   atraso_llegada &lt;dbl&gt;, aerolinea &lt;chr&gt;, vuelo &lt;dbl&gt;, codigo_cola &lt;chr&gt;,
-#   origen &lt;chr&gt;, destino &lt;chr&gt;, tiempo_vuelo &lt;dbl&gt;, distancia &lt;dbl&gt;,
-#   hora &lt;dbl&gt;, minuto &lt;dbl&gt;, fecha_hora &lt;dttm&gt;</code></pre>
-</div>
+<span id="cb1-3"><a href="#cb1-3"></a>vuelos <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/vuelos.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
@@ -471,7 +451,7 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">summary</span>(vuelos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">summary</span>(vuelos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      anio           mes              dia        horario_salida
  Min.   :2013   Min.   : 1.000   Min.   : 1.00   Min.   :   1  
@@ -505,14 +485,14 @@
                                        3rd Qu.:192.0   3rd Qu.:1389  
                                        Max.   :695.0   Max.   :4983  
                                        NA's   :9430                  
-      hora           minuto        fecha_hora                 
- Min.   : 1.00   Min.   : 0.00   Min.   :2013-01-01 10:00:00  
- 1st Qu.: 9.00   1st Qu.: 8.00   1st Qu.:2013-04-04 17:00:00  
- Median :13.00   Median :29.00   Median :2013-07-03 14:00:00  
- Mean   :13.18   Mean   :26.23   Mean   :2013-07-03 09:22:54  
- 3rd Qu.:17.00   3rd Qu.:44.00   3rd Qu.:2013-10-01 11:00:00  
- Max.   :23.00   Max.   :59.00   Max.   :2014-01-01 04:00:00  
-                                                              </code></pre>
+      hora           minuto        fecha_hora                    
+ Min.   : 1.00   Min.   : 0.00   Min.   :2013-01-01 10:00:00.00  
+ 1st Qu.: 9.00   1st Qu.: 8.00   1st Qu.:2013-04-04 17:00:00.00  
+ Median :13.00   Median :29.00   Median :2013-07-03 14:00:00.00  
+ Mean   :13.18   Mean   :26.23   Mean   :2013-07-03 09:22:54.64  
+ 3rd Qu.:17.00   3rd Qu.:44.00   3rd Qu.:2013-10-01 11:00:00.00  
+ Max.   :23.00   Max.   :59.00   Max.   :2014-01-01 04:00:00.00  
+                                                                 </code></pre>
 </div>
 </div>
 <aside class="notes">
@@ -546,15 +526,15 @@
 <div class="small-par">
 <ul>
 <li class="fragment">El operador pipe es un operador de flujo utilizado en R principalmente para mejorar la legibilidad del código y facilitar el proceso de encadenamiento de funciones.</li>
-<li class="fragment">Lo que hace es tomar el resultado de una expresión o función y pasarlo como el primer argumento a la siguiente función</li>
-<li class="fragment">Por ejemplo queremos obtener los seis primeros elementos de “vuelos” usando la función head():</li>
+<li class="fragment">Lo que hace es tomar el resultado de una expresión o función y pasarlo como el primer argumento a la siguiente función.</li>
+<li class="fragment">Por ejemplo, queremos obtener los seis primeros elementos de “vuelos” usando la función head():</li>
 </ul>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 x 19
+<pre><code># A tibble: 6 × 19
    anio   mes   dia horario_salida salida_programada atraso_salida
   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;          &lt;dbl&gt;             &lt;dbl&gt;         &lt;dbl&gt;
 1  2013     1     1            517               515             2
@@ -563,7 +543,7 @@
 4  2013     1     1            544               545            -1
 5  2013     1     1            554               600            -6
 6  2013     1     1            554               558            -4
-# i 13 more variables: horario_llegada &lt;dbl&gt;, llegada_programada &lt;dbl&gt;,
+# ℹ 13 more variables: horario_llegada &lt;dbl&gt;, llegada_programada &lt;dbl&gt;,
 #   atraso_llegada &lt;dbl&gt;, aerolinea &lt;chr&gt;, vuelo &lt;dbl&gt;, codigo_cola &lt;chr&gt;,
 #   origen &lt;chr&gt;, destino &lt;chr&gt;, tiempo_vuelo &lt;dbl&gt;, distancia &lt;dbl&gt;,
 #   hora &lt;dbl&gt;, minuto &lt;dbl&gt;, fecha_hora &lt;dttm&gt;</code></pre>
@@ -571,7 +551,6 @@
 </div>
 <aside class="notes">
 <ul>
-<li>Básicamente, lo que hace es tomar el resultado de una expresión o función y pasarlo como el primer argumento a la siguiente función. Esto permite encadenar varias operaciones de manera más clara y concisa.</li>
 <li>En el ejemplo estamos aplicando la función head al dataframe vuelos, podemos ver que el argumento de la función, que en este caso es el dataframe vuelos, queda al lado izquierdo y no dentro de la función, entonces podemos leer de izquierda a derecha</li>
 </ul>
 <style type="text/css">
@@ -596,9 +575,9 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">head</span>(vuelos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">head</span>(vuelos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 x 19
+<pre><code># A tibble: 6 × 19
    anio   mes   dia horario_salida salida_programada atraso_salida
   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;          &lt;dbl&gt;             &lt;dbl&gt;         &lt;dbl&gt;
 1  2013     1     1            517               515             2
@@ -607,7 +586,7 @@
 4  2013     1     1            544               545            -1
 5  2013     1     1            554               600            -6
 6  2013     1     1            554               558            -4
-# i 13 more variables: horario_llegada &lt;dbl&gt;, llegada_programada &lt;dbl&gt;,
+# ℹ 13 more variables: horario_llegada &lt;dbl&gt;, llegada_programada &lt;dbl&gt;,
 #   atraso_llegada &lt;dbl&gt;, aerolinea &lt;chr&gt;, vuelo &lt;dbl&gt;, codigo_cola &lt;chr&gt;,
 #   origen &lt;chr&gt;, destino &lt;chr&gt;, tiempo_vuelo &lt;dbl&gt;, distancia &lt;dbl&gt;,
 #   hora &lt;dbl&gt;, minuto &lt;dbl&gt;, fecha_hora &lt;dttm&gt;</code></pre>
@@ -634,15 +613,14 @@
 <h2>Operador pipe %&gt;%</h2>
 <div class="small-par">
 <ul>
-<li class="fragment">Veamos otro ejemplo</li>
-<li class="fragment">Queremos contar el número de veces que aparece cada aerolinea</li>
+<li class="fragment">Otro ejemplo: contar el número de veces que aparece cada aerolinea</li>
 </ul>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">count</span>(aerolinea)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">count</span>(aerolinea)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 16 x 2
+<pre><code># A tibble: 16 × 2
    aerolinea     n
    &lt;chr&gt;     &lt;int&gt;
  1 9E        18460
@@ -689,9 +667,9 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">count</span>(vuelos, aerolinea)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">count</span>(vuelos, aerolinea)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 16 x 2
+<pre><code># A tibble: 16 × 2
    aerolinea     n
    &lt;chr&gt;     &lt;int&gt;
  1 9E        18460
@@ -734,15 +712,15 @@
 <div class="small-par">
 <p><strong>Función filter</strong></p>
 <ul>
-<li class="fragment">Se utiliza para seleccionar subconjuntos de datos</li>
-<li class="fragment">Funciona aplicando condiciones lógicas a las filas del conjunto de datos y devolviendo solo aquellas filas que cumplen con esas condiciones.</li>
+<li class="fragment">Se utiliza para seleccionar subconjuntos de datos.</li>
+<li class="fragment">Funciona aplicando <strong>condiciones lógicas</strong> (==, !=, &gt;, &gt;=, &lt;, &lt;=) a las filas del conjunto de datos y devolviendo solo aquellas filas que cumplen con esas condiciones.</li>
 </ul>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">filter</span>(vuelos, aerolinea<span class="sc">==</span><span class="st">"UA"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">filter</span>(vuelos, aerolinea<span class="sc">==</span><span class="st">"UA"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 58,665 x 19
+<pre><code># A tibble: 58,665 × 19
     anio   mes   dia horario_salida salida_programada atraso_salida
    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;          &lt;dbl&gt;             &lt;dbl&gt;         &lt;dbl&gt;
  1  2013     1     1            517               515             2
@@ -755,8 +733,8 @@
  8  2013     1     1            611               600            11
  9  2013     1     1            623               627            -4
 10  2013     1     1            628               630            -2
-# i 58,655 more rows
-# i 13 more variables: horario_llegada &lt;dbl&gt;, llegada_programada &lt;dbl&gt;,
+# ℹ 58,655 more rows
+# ℹ 13 more variables: horario_llegada &lt;dbl&gt;, llegada_programada &lt;dbl&gt;,
 #   atraso_llegada &lt;dbl&gt;, aerolinea &lt;chr&gt;, vuelo &lt;dbl&gt;, codigo_cola &lt;chr&gt;,
 #   origen &lt;chr&gt;, destino &lt;chr&gt;, tiempo_vuelo &lt;dbl&gt;, distancia &lt;dbl&gt;,
 #   hora &lt;dbl&gt;, minuto &lt;dbl&gt;, fecha_hora &lt;dttm&gt;</code></pre>
@@ -786,9 +764,9 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">filter</span>(aerolinea<span class="sc">==</span><span class="st">"UA"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">filter</span>(aerolinea<span class="sc">==</span><span class="st">"UA"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 58,665 x 19
+<pre><code># A tibble: 58,665 × 19
     anio   mes   dia horario_salida salida_programada atraso_salida
    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;          &lt;dbl&gt;             &lt;dbl&gt;         &lt;dbl&gt;
  1  2013     1     1            517               515             2
@@ -801,8 +779,8 @@
  8  2013     1     1            611               600            11
  9  2013     1     1            623               627            -4
 10  2013     1     1            628               630            -2
-# i 58,655 more rows
-# i 13 more variables: horario_llegada &lt;dbl&gt;, llegada_programada &lt;dbl&gt;,
+# ℹ 58,655 more rows
+# ℹ 13 more variables: horario_llegada &lt;dbl&gt;, llegada_programada &lt;dbl&gt;,
 #   atraso_llegada &lt;dbl&gt;, aerolinea &lt;chr&gt;, vuelo &lt;dbl&gt;, codigo_cola &lt;chr&gt;,
 #   origen &lt;chr&gt;, destino &lt;chr&gt;, tiempo_vuelo &lt;dbl&gt;, distancia &lt;dbl&gt;,
 #   hora &lt;dbl&gt;, minuto &lt;dbl&gt;, fecha_hora &lt;dttm&gt;</code></pre>
@@ -832,17 +810,17 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">filter</span>(mes<span class="sc">&gt;</span><span class="dv">1</span>)</span>
-<span id="cb17-2"><a href="#cb17-2"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">filter</span>(atraso_salida <span class="sc">&lt;=</span> <span class="dv">100</span>)</span>
-<span id="cb17-3"><a href="#cb17-3"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">filter</span>(aerolinea<span class="sc">!=</span><span class="st">"AA"</span> <span class="sc">&amp;</span> mes <span class="sc">==</span> <span class="dv">12</span>)</span>
-<span id="cb17-4"><a href="#cb17-4"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">filter</span>(atraso_llegada <span class="sc">%in%</span> <span class="dv">100</span><span class="sc">:</span><span class="dv">200</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">filter</span>(mes<span class="sc">&gt;</span><span class="dv">1</span>)</span>
+<span id="cb16-2"><a href="#cb16-2"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">filter</span>(atraso_salida <span class="sc">&lt;=</span> <span class="dv">100</span>)</span>
+<span id="cb16-3"><a href="#cb16-3"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">filter</span>(aerolinea<span class="sc">!=</span><span class="st">"AA"</span> <span class="sc">&amp;</span> mes <span class="sc">==</span> <span class="dv">12</span>)</span>
+<span id="cb16-4"><a href="#cb16-4"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">filter</span>(atraso_llegada <span class="sc">%in%</span> <span class="dv">100</span><span class="sc">:</span><span class="dv">200</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <aside class="notes">
 <ul>
 <li>En el primer ejemplo estamos filtrando por las filas donde el mes sea mayor a 1</li>
 <li>En el segundo por las filas donde el atraso de salido sea menor o igual que 100</li>
 <li>En el tercer ejemplo filtramos por las filas donde la aerolinea sea distinta a “AA” y que el mes haya sido igual a 12</li>
-<li>En el último ejemplo estamos filtrando por las filas donde el atraso de llagada haya sido entre 100 y 200</li>
+<li>En el último ejemplo estamos filtrando por las filas el valor de la columna “atraso_llegada” se encuentra en el rango 100 a 200.</li>
 <li>El operador %in% se usa para verificar si los valores del primer argumento están presentes en el segundo argumento. Esto retorna un vector lógico indicando si hubo un match o no</li>
 </ul>
 <style type="text/css">
@@ -869,9 +847,9 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">slice_head</span>(vuelos, <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">slice_head</span>(vuelos, <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 x 19
+<pre><code># A tibble: 5 × 19
    anio   mes   dia horario_salida salida_programada atraso_salida
   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;          &lt;dbl&gt;             &lt;dbl&gt;         &lt;dbl&gt;
 1  2013     1     1            517               515             2
@@ -879,7 +857,7 @@
 3  2013     1     1            542               540             2
 4  2013     1     1            544               545            -1
 5  2013     1     1            554               600            -6
-# i 13 more variables: horario_llegada &lt;dbl&gt;, llegada_programada &lt;dbl&gt;,
+# ℹ 13 more variables: horario_llegada &lt;dbl&gt;, llegada_programada &lt;dbl&gt;,
 #   atraso_llegada &lt;dbl&gt;, aerolinea &lt;chr&gt;, vuelo &lt;dbl&gt;, codigo_cola &lt;chr&gt;,
 #   origen &lt;chr&gt;, destino &lt;chr&gt;, tiempo_vuelo &lt;dbl&gt;, distancia &lt;dbl&gt;,
 #   hora &lt;dbl&gt;, minuto &lt;dbl&gt;, fecha_hora &lt;dttm&gt;</code></pre>
@@ -893,7 +871,7 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
@@ -902,22 +880,28 @@
 <div class="small-par">
 <p><strong>Funciones slice</strong></p>
 <ul>
-<li class="fragment">Ejemplo: extraer las cinco últimas filas de “vuelos”</li>
+<li class="fragment">Ejemplo: extraer el 1% de las últimas filas de “vuelos”</li>
 </ul>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">slice_tail</span>(vuelos, <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">slice_tail</span>(vuelos, <span class="at">prop =</span> <span class="fl">0.01</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 x 19
-   anio   mes   dia horario_salida salida_programada atraso_salida
-  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;          &lt;dbl&gt;             &lt;dbl&gt;         &lt;dbl&gt;
-1  2013     9    30             NA              1455            NA
-2  2013     9    30             NA              2200            NA
-3  2013     9    30             NA              1210            NA
-4  2013     9    30             NA              1159            NA
-5  2013     9    30             NA               840            NA
-# i 13 more variables: horario_llegada &lt;dbl&gt;, llegada_programada &lt;dbl&gt;,
+<pre><code># A tibble: 3,367 × 19
+    anio   mes   dia horario_salida salida_programada atraso_salida
+   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;          &lt;dbl&gt;             &lt;dbl&gt;         &lt;dbl&gt;
+ 1  2013     9    27            836               840            -4
+ 2  2013     9    27            836               825            11
+ 3  2013     9    27            837               845            -8
+ 4  2013     9    27            841               845            -4
+ 5  2013     9    27            841               848            -7
+ 6  2013     9    27            843               845            -2
+ 7  2013     9    27            844               845            -1
+ 8  2013     9    27            844               845            -1
+ 9  2013     9    27            845               852            -7
+10  2013     9    27            847               850            -3
+# ℹ 3,357 more rows
+# ℹ 13 more variables: horario_llegada &lt;dbl&gt;, llegada_programada &lt;dbl&gt;,
 #   atraso_llegada &lt;dbl&gt;, aerolinea &lt;chr&gt;, vuelo &lt;dbl&gt;, codigo_cola &lt;chr&gt;,
 #   origen &lt;chr&gt;, destino &lt;chr&gt;, tiempo_vuelo &lt;dbl&gt;, distancia &lt;dbl&gt;,
 #   hora &lt;dbl&gt;, minuto &lt;dbl&gt;, fecha_hora &lt;dttm&gt;</code></pre>
@@ -931,8 +915,25 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">slice_tail</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">slice_tail</span>(<span class="at">prop =</span> <span class="fl">0.01</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<aside class="notes">
+<ul>
+<li>Usando la función slice_tail podemos seleccionar las últimas filas de un dataframe.</li>
+<li>En este ejemplo estamos seleccionando el 10% de las últimas filas de “vuelos”, usando el argumento prop que hace referencia a la proporción de filas a seleccionar</li>
+<li>Este argumento se usa en reemplazo de n que hace referencia al número específico de filas que queremos seleccionar.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </div>
 </section>
 <section id="trabajo-básico-con-filas-5" class="slide level2">
@@ -945,17 +946,17 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">slice_sample</span>(vuelos, <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">slice_sample</span>(vuelos, <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 x 19
+<pre><code># A tibble: 5 × 19
    anio   mes   dia horario_salida salida_programada atraso_salida
   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;          &lt;dbl&gt;             &lt;dbl&gt;         &lt;dbl&gt;
-1  2013    11    25            805               812            -7
-2  2013     8     9           2138              1940           118
-3  2013     7    18           2100              2030            30
-4  2013     1    26           1429              1435            -6
-5  2013     3    24           1909              1915            -6
-# i 13 more variables: horario_llegada &lt;dbl&gt;, llegada_programada &lt;dbl&gt;,
+1  2013    10    17           1850              1830            20
+2  2013     4    30           1553              1600            -7
+3  2013     2    20           2130              2128             2
+4  2013     1    26           1545              1524            21
+5  2013     4    21           1621              1621             0
+# ℹ 13 more variables: horario_llegada &lt;dbl&gt;, llegada_programada &lt;dbl&gt;,
 #   atraso_llegada &lt;dbl&gt;, aerolinea &lt;chr&gt;, vuelo &lt;dbl&gt;, codigo_cola &lt;chr&gt;,
 #   origen &lt;chr&gt;, destino &lt;chr&gt;, tiempo_vuelo &lt;dbl&gt;, distancia &lt;dbl&gt;,
 #   hora &lt;dbl&gt;, minuto &lt;dbl&gt;, fecha_hora &lt;dttm&gt;</code></pre>
@@ -969,7 +970,7 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
@@ -984,9 +985,9 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="fu">slice</span>(vuelos, <span class="dv">100</span><span class="sc">:</span><span class="dv">105</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">slice</span>(vuelos, <span class="dv">100</span><span class="sc">:</span><span class="dv">105</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 x 19
+<pre><code># A tibble: 6 × 19
    anio   mes   dia horario_salida salida_programada atraso_salida
   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;          &lt;dbl&gt;             &lt;dbl&gt;         &lt;dbl&gt;
 1  2013     1     1            752               759            -7
@@ -995,7 +996,7 @@
 4  2013     1     1            754               755            -1
 5  2013     1     1            758               800            -2
 6  2013     1     1            759               800            -1
-# i 13 more variables: horario_llegada &lt;dbl&gt;, llegada_programada &lt;dbl&gt;,
+# ℹ 13 more variables: horario_llegada &lt;dbl&gt;, llegada_programada &lt;dbl&gt;,
 #   atraso_llegada &lt;dbl&gt;, aerolinea &lt;chr&gt;, vuelo &lt;dbl&gt;, codigo_cola &lt;chr&gt;,
 #   origen &lt;chr&gt;, destino &lt;chr&gt;, tiempo_vuelo &lt;dbl&gt;, distancia &lt;dbl&gt;,
 #   hora &lt;dbl&gt;, minuto &lt;dbl&gt;, fecha_hora &lt;dttm&gt;</code></pre>
@@ -1009,7 +1010,7 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">100</span><span class="sc">:</span><span class="dv">05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">100</span><span class="sc">:</span><span class="dv">105</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
@@ -1017,15 +1018,15 @@
 <h2>Anidación de funciones</h2>
 <div class="small-par">
 <ul>
-<li class="fragment">Podemos aplicar más de una función a la vez a un dataframe</li>
-<li class="fragment">Por ejemplo, usando filter y slice_head en conjunto</li>
+<li class="fragment">Podemos aplicar más de una función a la vez a un dataframe.</li>
+<li class="fragment">Por ejemplo, usando filter() y slice_head() en conjunto.</li>
 </ul>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">slice_head</span>(<span class="fu">filter</span>(vuelos, aerolinea<span class="sc">==</span><span class="st">"UA"</span>), <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="fu">slice_head</span>(<span class="fu">filter</span>(vuelos, aerolinea<span class="sc">==</span><span class="st">"UA"</span>), <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 x 19
+<pre><code># A tibble: 5 × 19
    anio   mes   dia horario_salida salida_programada atraso_salida
   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;          &lt;dbl&gt;             &lt;dbl&gt;         &lt;dbl&gt;
 1  2013     1     1            517               515             2
@@ -1033,7 +1034,7 @@
 3  2013     1     1            554               558            -4
 4  2013     1     1            558               600            -2
 5  2013     1     1            558               600            -2
-# i 13 more variables: horario_llegada &lt;dbl&gt;, llegada_programada &lt;dbl&gt;,
+# ℹ 13 more variables: horario_llegada &lt;dbl&gt;, llegada_programada &lt;dbl&gt;,
 #   atraso_llegada &lt;dbl&gt;, aerolinea &lt;chr&gt;, vuelo &lt;dbl&gt;, codigo_cola &lt;chr&gt;,
 #   origen &lt;chr&gt;, destino &lt;chr&gt;, tiempo_vuelo &lt;dbl&gt;, distancia &lt;dbl&gt;,
 #   hora &lt;dbl&gt;, minuto &lt;dbl&gt;, fecha_hora &lt;dttm&gt;</code></pre>
@@ -1047,8 +1048,8 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">filter</span>(aerolinea<span class="sc">==</span><span class="st">"UA"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb32-2"><a href="#cb32-2"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">filter</span>(aerolinea<span class="sc">==</span><span class="st">"UA"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-2"><a href="#cb31-2"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
@@ -1064,9 +1065,9 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="fu">slice_head</span>(<span class="fu">filter</span>(<span class="fu">count</span>(vuelos, origen, destino), origen<span class="sc">==</span><span class="st">"JFK"</span>), <span class="at">n=</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="fu">slice_head</span>(<span class="fu">filter</span>(<span class="fu">count</span>(vuelos, origen, destino), origen<span class="sc">==</span><span class="st">"JFK"</span>), <span class="at">n=</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 x 3
+<pre><code># A tibble: 5 × 3
   origen destino     n
   &lt;chr&gt;  &lt;chr&gt;   &lt;int&gt;
 1 JFK    ABQ       254
@@ -1084,7 +1085,7 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">count</span>(origen, destino) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(origen <span class="sc">==</span> <span class="st">"JFK"</span>) <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">count</span>(origen, destino) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(origen <span class="sc">==</span> <span class="st">"JFK"</span>) <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
@@ -1092,12 +1093,11 @@
 <h2>Ejercicio 1</h2>
 <div class="small-par">
 <ul>
-<li class="fragment">Obtenga las 100 primeras filas de vuelos</li>
-<li class="fragment">Del dataframe vuelos, filtre las filas donde los meses estén entre enero y marzo</li>
-<li class="fragment">Del dataframe vuelos filtre las filas donde la aerolinea sea UA o DL</li>
-<li class="fragment">Del dataframe vuelos filtre las filas donde la aerolinea sea UA o DL y agregue la condición de que el día sea igual a 12</li>
+<li class="fragment">Del dataframe vuelos, obtenga las 100 primeras filas de vuelos</li>
+<li class="fragment">Filtre las filas donde los meses estén entre enero y marzo</li>
+<li class="fragment">Filtre las filas donde la aerolinea sea UA o DL</li>
+<li class="fragment">Filtre las filas donde la aerolinea sea UA o DL y agregue la condición de que el día sea igual a 12</li>
 <li class="fragment">Filtre la base donde el horario de salida este entre 500 y 1200, luego cuente el número de veces que aparece cada aerolinea</li>
-<li class="fragment">Utilice la misma anidación anterior pero ahora obtenga las cinco primeras filas</li>
 </ul>
 </div>
 </section>
@@ -1105,14 +1105,14 @@
 <h2>Solución ejercicio 1</h2>
 <div class="small-par">
 <ul>
-<li class="fragment">Obtenga las 100 primeras filas de vuelos</li>
+<li class="fragment">Del dataframe vuelos, obtenga las 100 primeras filas de vuelos</li>
 </ul>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 100 x 19
+<pre><code># A tibble: 100 × 19
     anio   mes   dia horario_salida salida_programada atraso_salida
    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;          &lt;dbl&gt;             &lt;dbl&gt;         &lt;dbl&gt;
  1  2013     1     1            517               515             2
@@ -1125,8 +1125,8 @@
  8  2013     1     1            557               600            -3
  9  2013     1     1            557               600            -3
 10  2013     1     1            558               600            -2
-# i 90 more rows
-# i 13 more variables: horario_llegada &lt;dbl&gt;, llegada_programada &lt;dbl&gt;,
+# ℹ 90 more rows
+# ℹ 13 more variables: horario_llegada &lt;dbl&gt;, llegada_programada &lt;dbl&gt;,
 #   atraso_llegada &lt;dbl&gt;, aerolinea &lt;chr&gt;, vuelo &lt;dbl&gt;, codigo_cola &lt;chr&gt;,
 #   origen &lt;chr&gt;, destino &lt;chr&gt;, tiempo_vuelo &lt;dbl&gt;, distancia &lt;dbl&gt;,
 #   hora &lt;dbl&gt;, minuto &lt;dbl&gt;, fecha_hora &lt;dttm&gt;</code></pre>
@@ -1138,14 +1138,14 @@
 <h2>Solución ejercicio 1</h2>
 <div class="small-par">
 <ul>
-<li class="fragment">Del dataframe vuelos, filtre las filas donde los meses estén entre enero y marzo</li>
+<li class="fragment">Filtre las filas donde los meses estén entre enero y marzo</li>
 </ul>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">filter</span>(mes <span class="sc">%in%</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">filter</span>(mes <span class="sc">%in%</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 80,789 x 19
+<pre><code># A tibble: 80,789 × 19
     anio   mes   dia horario_salida salida_programada atraso_salida
    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;          &lt;dbl&gt;             &lt;dbl&gt;         &lt;dbl&gt;
  1  2013     1     1            517               515             2
@@ -1158,8 +1158,8 @@
  8  2013     1     1            557               600            -3
  9  2013     1     1            557               600            -3
 10  2013     1     1            558               600            -2
-# i 80,779 more rows
-# i 13 more variables: horario_llegada &lt;dbl&gt;, llegada_programada &lt;dbl&gt;,
+# ℹ 80,779 more rows
+# ℹ 13 more variables: horario_llegada &lt;dbl&gt;, llegada_programada &lt;dbl&gt;,
 #   atraso_llegada &lt;dbl&gt;, aerolinea &lt;chr&gt;, vuelo &lt;dbl&gt;, codigo_cola &lt;chr&gt;,
 #   origen &lt;chr&gt;, destino &lt;chr&gt;, tiempo_vuelo &lt;dbl&gt;, distancia &lt;dbl&gt;,
 #   hora &lt;dbl&gt;, minuto &lt;dbl&gt;, fecha_hora &lt;dttm&gt;</code></pre>
@@ -1171,14 +1171,14 @@
 <h2>Solución ejercicio 1</h2>
 <div class="small-par">
 <ul>
-<li class="fragment">Del dataframe vuelos, filtre las filas donde la aerolínea sea UA o DL</li>
+<li class="fragment">Filtre las filas donde la aerolínea sea UA o DL</li>
 </ul>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">filter</span>(aerolinea<span class="sc">==</span><span class="st">"UA"</span> <span class="sc">|</span> aerolinea<span class="sc">==</span><span class="st">"DL"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">filter</span>(aerolinea<span class="sc">==</span><span class="st">"UA"</span> <span class="sc">|</span> aerolinea<span class="sc">==</span><span class="st">"DL"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 106,775 x 19
+<pre><code># A tibble: 106,775 × 19
     anio   mes   dia horario_salida salida_programada atraso_salida
    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;          &lt;dbl&gt;             &lt;dbl&gt;         &lt;dbl&gt;
  1  2013     1     1            517               515             2
@@ -1191,8 +1191,8 @@
  8  2013     1     1            602               610            -8
  9  2013     1     1            606               610            -4
 10  2013     1     1            607               607             0
-# i 106,765 more rows
-# i 13 more variables: horario_llegada &lt;dbl&gt;, llegada_programada &lt;dbl&gt;,
+# ℹ 106,765 more rows
+# ℹ 13 more variables: horario_llegada &lt;dbl&gt;, llegada_programada &lt;dbl&gt;,
 #   atraso_llegada &lt;dbl&gt;, aerolinea &lt;chr&gt;, vuelo &lt;dbl&gt;, codigo_cola &lt;chr&gt;,
 #   origen &lt;chr&gt;, destino &lt;chr&gt;, tiempo_vuelo &lt;dbl&gt;, distancia &lt;dbl&gt;,
 #   hora &lt;dbl&gt;, minuto &lt;dbl&gt;, fecha_hora &lt;dttm&gt;</code></pre>
@@ -1204,14 +1204,14 @@
 <h2>Solución ejercicio 1</h2>
 <div class="small-par">
 <ul>
-<li class="fragment">Del dataframe vuelos, filtre las filas donde la aerolínea sea UA o DL y agregue la condición de que el día sea igual a 12</li>
+<li class="fragment">Filtre las filas donde la aerolínea sea UA o DL y agregue la condición de que el día sea igual a 12</li>
 </ul>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">filter</span>((aerolinea<span class="sc">==</span><span class="st">"UA"</span> <span class="sc">|</span> aerolinea<span class="sc">==</span><span class="st">"DL"</span>) <span class="sc">&amp;</span> dia <span class="sc">==</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">filter</span>((aerolinea<span class="sc">==</span><span class="st">"UA"</span> <span class="sc">|</span> aerolinea<span class="sc">==</span><span class="st">"DL"</span>) <span class="sc">&amp;</span> dia <span class="sc">==</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3,492 x 19
+<pre><code># A tibble: 3,492 × 19
     anio   mes   dia horario_salida salida_programada atraso_salida
    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;          &lt;dbl&gt;             &lt;dbl&gt;         &lt;dbl&gt;
  1  2013     1    12            521               515             6
@@ -1224,8 +1224,8 @@
  8  2013     1    12            602               608            -6
  9  2013     1    12            605               610            -5
 10  2013     1    12            605               601             4
-# i 3,482 more rows
-# i 13 more variables: horario_llegada &lt;dbl&gt;, llegada_programada &lt;dbl&gt;,
+# ℹ 3,482 more rows
+# ℹ 13 more variables: horario_llegada &lt;dbl&gt;, llegada_programada &lt;dbl&gt;,
 #   atraso_llegada &lt;dbl&gt;, aerolinea &lt;chr&gt;, vuelo &lt;dbl&gt;, codigo_cola &lt;chr&gt;,
 #   origen &lt;chr&gt;, destino &lt;chr&gt;, tiempo_vuelo &lt;dbl&gt;, distancia &lt;dbl&gt;,
 #   hora &lt;dbl&gt;, minuto &lt;dbl&gt;, fecha_hora &lt;dttm&gt;</code></pre>
@@ -1242,10 +1242,10 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">filter</span>(horario_salida <span class="sc">%in%</span> <span class="dv">500</span><span class="sc">:</span><span class="dv">1200</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb44-2"><a href="#cb44-2"></a>  <span class="fu">count</span>(aerolinea)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">filter</span>(horario_salida <span class="sc">%in%</span> <span class="dv">500</span><span class="sc">:</span><span class="dv">1200</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb43-2"><a href="#cb43-2"></a>  <span class="fu">count</span>(aerolinea)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 15 x 2
+<pre><code># A tibble: 15 × 2
    aerolinea     n
    &lt;chr&gt;     &lt;int&gt;
  1 9E         4915
@@ -1267,31 +1267,6 @@
 </div>
 </div>
 </section>
-<section id="solución-ejercicio-1-5" class="slide level2">
-<h2>Solución ejercicio 1</h2>
-<div class="small-par">
-<ul>
-<li class="fragment">Utilice la misma anidación anterior pero ahora obtenga las cinco primeras filas</li>
-</ul>
-</div>
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">filter</span>(horario_salida <span class="sc">%in%</span> <span class="dv">500</span><span class="sc">:</span><span class="dv">1200</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb46-2"><a href="#cb46-2"></a>  <span class="fu">count</span>(aerolinea) <span class="sc">%&gt;%</span> </span>
-<span id="cb46-3"><a href="#cb46-3"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 x 2
-  aerolinea     n
-  &lt;chr&gt;     &lt;int&gt;
-1 9E         4915
-2 AA        13516
-3 AS          348
-4 B6        20637
-5 DL        19443</code></pre>
-</div>
-</div>
-</div>
-</section>
 <section id="trabajo-básico-con-columnas" class="slide level2">
 <h2>Trabajo básico con columnas</h2>
 <div class="small-par">
@@ -1302,10 +1277,10 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb48-2"><a href="#cb48-2"></a>  <span class="fu">select</span>(aerolinea, vuelo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
+<span id="cb45-2"><a href="#cb45-2"></a>  <span class="fu">select</span>(aerolinea, vuelo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 336,776 x 2
+<pre><code># A tibble: 336,776 × 2
    aerolinea vuelo
    &lt;chr&gt;     &lt;dbl&gt;
  1 UA         1545
@@ -1318,7 +1293,7 @@
  8 EV         5708
  9 B6           79
 10 AA          301
-# i 336,766 more rows</code></pre>
+# ℹ 336,766 more rows</code></pre>
 </div>
 </div>
 </div>
@@ -1330,10 +1305,10 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb50-2"><a href="#cb50-2"></a>  <span class="fu">select</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
+<span id="cb47-2"><a href="#cb47-2"></a>  <span class="fu">select</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 336,776 x 3
+<pre><code># A tibble: 336,776 × 3
     anio   dia salida_programada
    &lt;dbl&gt; &lt;dbl&gt;             &lt;dbl&gt;
  1  2013     1               515
@@ -1346,7 +1321,7 @@
  8  2013     1               600
  9  2013     1               600
 10  2013     1               600
-# i 336,766 more rows</code></pre>
+# ℹ 336,766 more rows</code></pre>
 </div>
 </div>
 </div>
@@ -1358,10 +1333,10 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb52-2"><a href="#cb52-2"></a>  <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
+<span id="cb49-2"><a href="#cb49-2"></a>  <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 336,776 x 4
+<pre><code># A tibble: 336,776 × 4
     anio   mes   dia horario_salida
    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;          &lt;dbl&gt;
  1  2013     1     1            517
@@ -1374,7 +1349,7 @@
  8  2013     1     1            557
  9  2013     1     1            557
 10  2013     1     1            558
-# i 336,766 more rows</code></pre>
+# ℹ 336,766 more rows</code></pre>
 </div>
 </div>
 </div>
@@ -1386,10 +1361,10 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb54-2"><a href="#cb54-2"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="dv">4</span>,<span class="sc">-</span><span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
+<span id="cb51-2"><a href="#cb51-2"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="dv">4</span>,<span class="sc">-</span><span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 336,776 x 17
+<pre><code># A tibble: 336,776 × 17
     anio   mes   dia salida_programada horario_llegada llegada_programada
    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;             &lt;dbl&gt;           &lt;dbl&gt;              &lt;dbl&gt;
  1  2013     1     1               515             830                819
@@ -1402,8 +1377,8 @@
  8  2013     1     1               600             709                723
  9  2013     1     1               600             838                846
 10  2013     1     1               600             753                745
-# i 336,766 more rows
-# i 11 more variables: atraso_llegada &lt;dbl&gt;, aerolinea &lt;chr&gt;, vuelo &lt;dbl&gt;,
+# ℹ 336,766 more rows
+# ℹ 11 more variables: atraso_llegada &lt;dbl&gt;, aerolinea &lt;chr&gt;, vuelo &lt;dbl&gt;,
 #   codigo_cola &lt;chr&gt;, origen &lt;chr&gt;, destino &lt;chr&gt;, tiempo_vuelo &lt;dbl&gt;,
 #   distancia &lt;dbl&gt;, hora &lt;dbl&gt;, minuto &lt;dbl&gt;, fecha_hora &lt;dttm&gt;</code></pre>
 </div>
@@ -1417,10 +1392,10 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb56-2"><a href="#cb56-2"></a>  <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"horario"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
+<span id="cb53-2"><a href="#cb53-2"></a>  <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"horario"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 336,776 x 2
+<pre><code># A tibble: 336,776 × 2
    horario_salida horario_llegada
             &lt;dbl&gt;           &lt;dbl&gt;
  1            517             830
@@ -1433,7 +1408,7 @@
  8            557             709
  9            557             838
 10            558             753
-# i 336,766 more rows</code></pre>
+# ℹ 336,766 more rows</code></pre>
 </div>
 </div>
 </div>
@@ -1445,10 +1420,10 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb58-2"><a href="#cb58-2"></a>  <span class="fu">select</span>(<span class="fu">ends_with</span>(<span class="st">"programada"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
+<span id="cb55-2"><a href="#cb55-2"></a>  <span class="fu">select</span>(<span class="fu">ends_with</span>(<span class="st">"programada"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 336,776 x 2
+<pre><code># A tibble: 336,776 × 2
    salida_programada llegada_programada
                &lt;dbl&gt;              &lt;dbl&gt;
  1               515                819
@@ -1461,7 +1436,7 @@
  8               600                723
  9               600                846
 10               600                745
-# i 336,766 more rows</code></pre>
+# ℹ 336,766 more rows</code></pre>
 </div>
 </div>
 </div>
@@ -1473,10 +1448,10 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb60-2"><a href="#cb60-2"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">"_"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
+<span id="cb57-2"><a href="#cb57-2"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">"_"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 336,776 x 9
+<pre><code># A tibble: 336,776 × 9
    horario_salida salida_programada atraso_salida horario_llegada
             &lt;dbl&gt;             &lt;dbl&gt;         &lt;dbl&gt;           &lt;dbl&gt;
  1            517               515             2             830
@@ -1489,8 +1464,8 @@
  8            557               600            -3             709
  9            557               600            -3             838
 10            558               600            -2             753
-# i 336,766 more rows
-# i 5 more variables: llegada_programada &lt;dbl&gt;, atraso_llegada &lt;dbl&gt;,
+# ℹ 336,766 more rows
+# ℹ 5 more variables: llegada_programada &lt;dbl&gt;, atraso_llegada &lt;dbl&gt;,
 #   codigo_cola &lt;chr&gt;, tiempo_vuelo &lt;dbl&gt;, fecha_hora &lt;dttm&gt;</code></pre>
 </div>
 </div>
@@ -1505,11 +1480,11 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb62-2"><a href="#cb62-2"></a>  <span class="fu">rename</span>(<span class="at">salida =</span> horario_salida,</span>
-<span id="cb62-3"><a href="#cb62-3"></a>         <span class="at">llegada =</span> horario_llegada)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
+<span id="cb59-2"><a href="#cb59-2"></a>  <span class="fu">rename</span>(<span class="at">salida =</span> horario_salida,</span>
+<span id="cb59-3"><a href="#cb59-3"></a>         <span class="at">llegada =</span> horario_llegada)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 336,776 x 19
+<pre><code># A tibble: 336,776 × 19
     anio   mes   dia salida salida_programada atraso_salida llegada
    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;             &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;
  1  2013     1     1    517               515             2     830
@@ -1522,8 +1497,8 @@
  8  2013     1     1    557               600            -3     709
  9  2013     1     1    557               600            -3     838
 10  2013     1     1    558               600            -2     753
-# i 336,766 more rows
-# i 12 more variables: llegada_programada &lt;dbl&gt;, atraso_llegada &lt;dbl&gt;,
+# ℹ 336,766 more rows
+# ℹ 12 more variables: llegada_programada &lt;dbl&gt;, atraso_llegada &lt;dbl&gt;,
 #   aerolinea &lt;chr&gt;, vuelo &lt;dbl&gt;, codigo_cola &lt;chr&gt;, origen &lt;chr&gt;,
 #   destino &lt;chr&gt;, tiempo_vuelo &lt;dbl&gt;, distancia &lt;dbl&gt;, hora &lt;dbl&gt;,
 #   minuto &lt;dbl&gt;, fecha_hora &lt;dttm&gt;</code></pre>
@@ -1535,13 +1510,13 @@
 <h2>Ejercicio 2</h2>
 <div class="small-par">
 <ul>
-<li class="fragment">Cargue el excel “flores.xlsx” y llámelo flores</li>
+<li class="fragment">De la carpeta “data” cargue el excel “flores.xlsx” y llámelo “flores”</li>
 <li class="fragment">¿Cuáles son los nombres de las columnas?</li>
 <li class="fragment">Seleccione las columnas Especie y Largo.Petalo</li>
 <li class="fragment">Seleccione las mismas columnas usando su posición</li>
 <li class="fragment">Seleccione las columnas que empiezan con “Largo”</li>
 <li class="fragment">Seleccione las columnas que terminen con “Sepalo”</li>
-<li class="fragment">Seleccione las columnas que no contengan “.”</li>
+<li class="fragment">Renombre “Especie” como “especie”</li>
 </ul>
 </div>
 </section>
@@ -1549,14 +1524,14 @@
 <h2>Solución ejercicio 2</h2>
 <div class="small-par">
 <ul>
-<li class="fragment">Cargue el excel “flores.xlsx” y llámelo flores</li>
+<li class="fragment">Cargue el excel “flores.xlsx” y llámelo “flores”</li>
 <li class="fragment">¿Cuáles son los nombres de las columnas?</li>
 </ul>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1"></a>flores <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/flores.xlsx"</span>)</span>
-<span id="cb64-2"><a href="#cb64-2"></a><span class="fu">names</span>(flores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1"></a>flores <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/flores.xlsx"</span>)</span>
+<span id="cb61-2"><a href="#cb61-2"></a><span class="fu">names</span>(flores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Largo.Sepalo" "Ancho.Sepalo" "Largo.Petalo" "Ancho.Petalo" "Especie"     </code></pre>
 </div>
@@ -1572,9 +1547,9 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1"></a>flores <span class="sc">%&gt;%</span> <span class="fu">select</span>(Especie, Largo.Petalo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1"></a>flores <span class="sc">%&gt;%</span> <span class="fu">select</span>(Especie, Largo.Petalo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 150 x 2
+<pre><code># A tibble: 150 × 2
    Especie Largo.Petalo
    &lt;chr&gt;          &lt;dbl&gt;
  1 setosa           1.4
@@ -1587,7 +1562,7 @@
  8 setosa           1.5
  9 setosa           1.4
 10 setosa           1.5
-# i 140 more rows</code></pre>
+# ℹ 140 more rows</code></pre>
 </div>
 </div>
 </div>
@@ -1601,9 +1576,9 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1"></a>flores <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="dv">1</span>,<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1"></a>flores <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="dv">1</span>,<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 150 x 2
+<pre><code># A tibble: 150 × 2
    Largo.Sepalo Especie
           &lt;dbl&gt; &lt;chr&gt;  
  1          5.1 setosa 
@@ -1616,7 +1591,7 @@
  8          5   setosa 
  9          4.4 setosa 
 10          4.9 setosa 
-# i 140 more rows</code></pre>
+# ℹ 140 more rows</code></pre>
 </div>
 </div>
 </div>
@@ -1630,9 +1605,9 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1"></a>flores <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"Largo"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1"></a>flores <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"Largo"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 150 x 2
+<pre><code># A tibble: 150 × 2
    Largo.Sepalo Largo.Petalo
           &lt;dbl&gt;        &lt;dbl&gt;
  1          5.1          1.4
@@ -1645,7 +1620,7 @@
  8          5            1.5
  9          4.4          1.4
 10          4.9          1.5
-# i 140 more rows</code></pre>
+# ℹ 140 more rows</code></pre>
 </div>
 </div>
 </div>
@@ -1659,9 +1634,9 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1"></a>flores <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">ends_with</span>(<span class="st">"Sepalo"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1"></a>flores <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">ends_with</span>(<span class="st">"Sepalo"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 150 x 2
+<pre><code># A tibble: 150 × 2
    Largo.Sepalo Ancho.Sepalo
           &lt;dbl&gt;        &lt;dbl&gt;
  1          5.1          3.5
@@ -1674,7 +1649,7 @@
  8          5            3.4
  9          4.4          2.9
 10          4.9          3.1
-# i 140 more rows</code></pre>
+# ℹ 140 more rows</code></pre>
 </div>
 </div>
 </div>
@@ -1683,46 +1658,46 @@
 <h2>Solución ejercicio 2</h2>
 <div class="small-par">
 <ul>
-<li class="fragment">Seleccione las columnas que no contengan “.”</li>
+<li class="fragment">Renombre “Especie” como “especie”</li>
 </ul>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1"></a>flores <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">!</span><span class="fu">contains</span>(<span class="st">"."</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1"></a>flores <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">especie =</span> Especie)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 150 x 1
-   Especie
-   &lt;chr&gt;  
- 1 setosa 
- 2 setosa 
- 3 setosa 
- 4 setosa 
- 5 setosa 
- 6 setosa 
- 7 setosa 
- 8 setosa 
- 9 setosa 
-10 setosa 
-# i 140 more rows</code></pre>
+<pre><code># A tibble: 150 × 5
+   Largo.Sepalo Ancho.Sepalo Largo.Petalo Ancho.Petalo especie
+          &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt; &lt;chr&gt;  
+ 1          5.1          3.5          1.4          0.2 setosa 
+ 2          4.9          3            1.4          0.2 setosa 
+ 3          4.7          3.2          1.3          0.2 setosa 
+ 4          4.6          3.1          1.5          0.2 setosa 
+ 5          5            3.6          1.4          0.2 setosa 
+ 6          5.4          3.9          1.7          0.4 setosa 
+ 7          4.6          3.4          1.4          0.3 setosa 
+ 8          5            3.4          1.5          0.2 setosa 
+ 9          4.4          2.9          1.4          0.2 setosa 
+10          4.9          3.1          1.5          0.1 setosa 
+# ℹ 140 more rows</code></pre>
 </div>
 </div>
 </div>
 </section>
-<section id="mutate" class="slide level2">
-<h2>Mutate</h2>
+<section id="herramientas-de-edición-de-datos-mutate" class="slide level2">
+<h2>Herramientas de edición de datos: mutate</h2>
 <div class="small-par">
 <ul>
-<li class="fragment">La función mutate() en R se utiliza para crear nuevas columnas o modificar las existentes</li>
-<li class="fragment">Por ejemplo, queremos crear una columna que sea la suma del atraso en la salida y el atraso en la llegada llamada atraso_total</li>
+<li class="fragment">La función mutate() en R se utiliza para crear nuevas columnas o modificar las existentes.</li>
+<li class="fragment">Por ejemplo, queremos crear una columna que sea la suma del atraso en la salida y el atraso en la llegada llamada atraso_total.</li>
 </ul>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb76-2"><a href="#cb76-2"></a>  <span class="fu">mutate</span>(<span class="at">atraso_total =</span> atraso_salida <span class="sc">+</span> atraso_llegada) <span class="sc">%&gt;%</span> </span>
-<span id="cb76-3"><a href="#cb76-3"></a>  <span class="fu">select</span>(atraso_total)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
+<span id="cb73-2"><a href="#cb73-2"></a>  <span class="fu">mutate</span>(<span class="at">atraso_total =</span> atraso_salida <span class="sc">+</span> atraso_llegada) <span class="sc">%&gt;%</span> </span>
+<span id="cb73-3"><a href="#cb73-3"></a>  <span class="fu">select</span>(atraso_total)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 336,776 x 1
+<pre><code># A tibble: 336,776 × 1
    atraso_total
           &lt;dbl&gt;
  1           13
@@ -1735,13 +1710,13 @@
  8          -17
  9          -11
 10            6
-# i 336,766 more rows</code></pre>
+# ℹ 336,766 more rows</code></pre>
 </div>
 </div>
 </div>
 </section>
-<section id="mutate-1" class="slide level2">
-<h2>Mutate</h2>
+<section id="herramientas-de-edición-de-datos-mutate-1" class="slide level2">
+<h2>Herramientas de edición de datos: mutate</h2>
 <div class="small-par">
 <ul>
 <li class="fragment">También podemos reemplazar una columna ya existente</li>
@@ -1749,11 +1724,11 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb78-2"><a href="#cb78-2"></a>  <span class="fu">mutate</span>(<span class="at">distancia =</span> distancia<span class="sc">/</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb78-3"><a href="#cb78-3"></a>  <span class="fu">select</span>(distancia)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
+<span id="cb75-2"><a href="#cb75-2"></a>  <span class="fu">mutate</span>(<span class="at">distancia =</span> distancia<span class="sc">/</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb75-3"><a href="#cb75-3"></a>  <span class="fu">select</span>(distancia)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 336,776 x 1
+<pre><code># A tibble: 336,776 × 1
    distancia
        &lt;dbl&gt;
  1      700 
@@ -1766,13 +1741,13 @@
  8      114.
  9      472 
 10      366.
-# i 336,766 more rows</code></pre>
+# ℹ 336,766 more rows</code></pre>
 </div>
 </div>
 </div>
 </section>
-<section id="mutate-2" class="slide level2">
-<h2>Mutate</h2>
+<section id="herramientas-de-edición-de-datos-mutate-2" class="slide level2">
+<h2>Herramientas de edición de datos: mutate</h2>
 <div class="small-par">
 <ul>
 <li class="fragment">Otros ejemplos</li>
@@ -1780,14 +1755,31 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb80-2"><a href="#cb80-2"></a>  <span class="fu">mutate</span>(<span class="at">distancia_promedio =</span> <span class="fu">mean</span>(distancia, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb80-3"><a href="#cb80-3"></a>         <span class="at">distancia_cuadrado =</span> <span class="fu">sqrt</span>(distancia),</span>
-<span id="cb80-4"><a href="#cb80-4"></a>         <span class="at">origen_destino =</span> <span class="fu">paste</span>(origen, destino, <span class="at">sep =</span> <span class="st">"_"</span>),</span>
-<span id="cb80-5"><a href="#cb80-5"></a>         <span class="at">atraso_salida_min =</span> <span class="fu">min</span>(atraso_salida, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb80-6"><a href="#cb80-6"></a>         <span class="at">atraso_llegada_max =</span> <span class="fu">max</span>(atraso_llegada, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb80-7"><a href="#cb80-7"></a>         <span class="at">aerolinea_minuscula =</span> <span class="fu">tolower</span>(aerolinea)) <span class="sc">%&gt;%</span> </span>
-<span id="cb80-8"><a href="#cb80-8"></a>  <span class="fu">select</span>(distancia_promedio,distancia_cuadrado,origen_destino,atraso_salida_min,atraso_llegada_max,aerolinea_minuscula)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
+<span id="cb77-2"><a href="#cb77-2"></a>  <span class="fu">mutate</span>(<span class="at">distancia_promedio =</span> <span class="fu">mean</span>(distancia, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb77-3"><a href="#cb77-3"></a>         <span class="at">distancia_cuadrado =</span> <span class="fu">sqrt</span>(distancia),</span>
+<span id="cb77-4"><a href="#cb77-4"></a>         <span class="at">origen_destino =</span> <span class="fu">paste</span>(origen, destino, <span class="at">sep =</span> <span class="st">"_"</span>),</span>
+<span id="cb77-5"><a href="#cb77-5"></a>         <span class="at">atraso_salida_min =</span> <span class="fu">min</span>(atraso_salida, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb77-6"><a href="#cb77-6"></a>         <span class="at">atraso_llegada_max =</span> <span class="fu">max</span>(atraso_llegada, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb77-7"><a href="#cb77-7"></a>         <span class="at">aerolinea_minuscula =</span> <span class="fu">tolower</span>(aerolinea)) <span class="sc">%&gt;%</span> </span>
+<span id="cb77-8"><a href="#cb77-8"></a>  <span class="fu">select</span>(distancia_promedio,distancia_cuadrado,origen_destino,atraso_salida_min,atraso_llegada_max,aerolinea_minuscula)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 336,776 × 6
+   distancia_promedio distancia_cuadrado origen_destino atraso_salida_min
+                &lt;dbl&gt;              &lt;dbl&gt; &lt;chr&gt;                      &lt;dbl&gt;
+ 1              1040.               37.4 EWR_IAH                      -43
+ 2              1040.               37.6 LGA_IAH                      -43
+ 3              1040.               33   JFK_MIA                      -43
+ 4              1040.               39.7 JFK_BQN                      -43
+ 5              1040.               27.6 LGA_ATL                      -43
+ 6              1040.               26.8 EWR_ORD                      -43
+ 7              1040.               32.6 EWR_FLL                      -43
+ 8              1040.               15.1 LGA_IAD                      -43
+ 9              1040.               30.7 JFK_MCO                      -43
+10              1040.               27.1 LGA_ORD                      -43
+# ℹ 336,766 more rows
+# ℹ 2 more variables: atraso_llegada_max &lt;dbl&gt;, aerolinea_minuscula &lt;chr&gt;</code></pre>
+</div>
 </div>
 <aside class="notes">
 <ul>
@@ -1807,22 +1799,30 @@
       }</style></aside>
 </div>
 </section>
-<section id="if_else" class="slide level2">
-<h2>if_else</h2>
+<section id="herramientas-de-edición-de-datos-if_else" class="slide level2">
+<h2>Herramientas de edición de datos: if_else</h2>
 <div class="small-par">
 <ul>
 <li class="fragment">Es una función útil para realizar operaciones condicionales en vectores en R, permitiendo aplicar diferentes acciones dependiendo de una condición específica para cada elemento del vector.</li>
 <li class="fragment">En términos simples, se podría pensar en if_else() como una forma de decirle a R: “Si se cumple esta condición, haz esto; de lo contrario, haz aquello”.</li>
-<li class="fragment">Por ejemplo, queremos generar una columna llamada tramo que sea “largo” si tiempo del vuelo fue mayor a 150, en caso contrario sea “corto” y si es NA que sea “valor perdido”. Adicionalmente, podríamos querer modificar la variable tiempo_vuelo. Si es NA (Valor perdido), reemplazar por un cero; de lo contrario, se mantiene el valor original.</li>
+</ul>
+</div>
+</section>
+<section id="herramientas-de-edición-de-datos-if_else-1" class="slide level2">
+<h2>Herramientas de edición de datos: if_else</h2>
+<div class="small-par">
+<ul>
+<li class="fragment">Por ejemplo, queremos generar una columna llamada “tramo” que sea “largo” si el tiempo del vuelo fue mayor a 150, en caso contrario sea “corto” y si es NA que sea “valor perdido”.</li>
+<li class="fragment">Adicionalmente, queremos modificar la variable “tiempo_vuelo”: si es NA, reemplazar por un cero; de lo contrario, se mantiene el valor original.</li>
 </ul>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb81-2"><a href="#cb81-2"></a>  <span class="fu">mutate</span>(<span class="at">tramo =</span> <span class="fu">if_else</span>(<span class="at">condition =</span> tiempo_vuelo <span class="sc">&gt;</span> <span class="dv">150</span>, <span class="at">true =</span> <span class="st">"largo"</span>, <span class="at">false =</span> <span class="st">"corto"</span>, <span class="at">missing =</span> <span class="st">"valor perdido"</span>),</span>
-<span id="cb81-3"><a href="#cb81-3"></a>         <span class="at">tiempo_vuelo =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(tiempo_vuelo), <span class="dv">0</span>, tiempo_vuelo))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
+<span id="cb79-2"><a href="#cb79-2"></a>  <span class="fu">mutate</span>(<span class="at">tramo =</span> <span class="fu">if_else</span>(<span class="at">condition =</span> tiempo_vuelo <span class="sc">&gt;</span> <span class="dv">150</span>, <span class="at">true =</span> <span class="st">"largo"</span>, <span class="at">false =</span> <span class="st">"corto"</span>, <span class="at">missing =</span> <span class="st">"valor perdido"</span>),</span>
+<span id="cb79-3"><a href="#cb79-3"></a>         <span class="at">tiempo_vuelo =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(tiempo_vuelo), <span class="dv">0</span>, tiempo_vuelo))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 336,776 x 20
+<pre><code># A tibble: 336,776 × 20
     anio   mes   dia horario_salida salida_programada atraso_salida
    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;          &lt;dbl&gt;             &lt;dbl&gt;         &lt;dbl&gt;
  1  2013     1     1            517               515             2
@@ -1835,17 +1835,33 @@
  8  2013     1     1            557               600            -3
  9  2013     1     1            557               600            -3
 10  2013     1     1            558               600            -2
-# i 336,766 more rows
-# i 14 more variables: horario_llegada &lt;dbl&gt;, llegada_programada &lt;dbl&gt;,
+# ℹ 336,766 more rows
+# ℹ 14 more variables: horario_llegada &lt;dbl&gt;, llegada_programada &lt;dbl&gt;,
 #   atraso_llegada &lt;dbl&gt;, aerolinea &lt;chr&gt;, vuelo &lt;dbl&gt;, codigo_cola &lt;chr&gt;,
 #   origen &lt;chr&gt;, destino &lt;chr&gt;, tiempo_vuelo &lt;dbl&gt;, distancia &lt;dbl&gt;,
 #   hora &lt;dbl&gt;, minuto &lt;dbl&gt;, fecha_hora &lt;dttm&gt;, tramo &lt;chr&gt;</code></pre>
 </div>
 </div>
+<aside class="notes">
+<ul>
+<li>Acá utilizamos if_else() para asignar valores a esta nueva variable llamada “tramo” basados en una condición. La condición es que si el valor de tiempo_vuelo es mayor que 150, se asigna el valor “largo”, de lo contrario se asigna “corto”. El parámetro missing es opcional y se usa para especificar qué valor asignar si hay valores perdidos en tiempo_vuelo, en este caso “valor perdido”.</li>
+<li>En el segundo mutate se está modificando la variable tiempo_vuelo. Se está utilizando if_else() para reemplazar los valores perdidos (NA) en tiempo_vuelo con el valor 0. Esto se hace verificando si tiempo_vuelo es un valor perdido usando la función is.na(tiempo_vuelo).</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </div>
 </section>
-<section id="if_else-1" class="slide level2">
-<h2>if_else</h2>
+<section id="herramientas-de-edición-de-datos-if_else-2" class="slide level2">
+<h2>Herramientas de edición de datos: if_else</h2>
 <div class="small-par">
 <ul>
 <li class="fragment">En el siguiente ejemplo generaremos una variable del tipo fecha que sea del siguiente formato: “2013-02-12”</li>
@@ -1854,9 +1870,9 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">select</span>(dia, mes) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">select</span>(dia, mes) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 x 2
+<pre><code># A tibble: 6 × 2
     dia   mes
   &lt;dbl&gt; &lt;dbl&gt;
 1     1     1
@@ -1869,8 +1885,8 @@
 </div>
 </div>
 </section>
-<section id="if_else-2" class="slide level2">
-<h2>if_else</h2>
+<section id="herramientas-de-edición-de-datos-if_else-3" class="slide level2">
+<h2>Herramientas de edición de datos: if_else</h2>
 <div class="small-par">
 <ul>
 <li class="fragment">En este sentido, si el largo de la variable mes o día es menor que uno, le pegaremos un cero al comienzo, en caso contrario, dejaremos el mes o el dia como están orginalmente pero convertiéndolos a formato character</li>
@@ -1878,13 +1894,13 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1"></a>vuelos2 <span class="ot">&lt;-</span> vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb85-2"><a href="#cb85-2"></a>  <span class="fu">mutate</span>(<span class="at">dia2 =</span> <span class="fu">if_else</span>(<span class="fu">nchar</span>(dia) <span class="sc">==</span> <span class="dv">1</span>, <span class="fu">paste0</span>(<span class="st">"0"</span>, dia), <span class="fu">as.character</span>(dia)),</span>
-<span id="cb85-3"><a href="#cb85-3"></a>         <span class="at">mes2 =</span> <span class="fu">if_else</span>(<span class="fu">nchar</span>(mes) <span class="sc">==</span> <span class="dv">1</span>, <span class="fu">paste0</span>(<span class="st">"0"</span>, mes), <span class="fu">as.character</span>(mes)))</span>
-<span id="cb85-4"><a href="#cb85-4"></a></span>
-<span id="cb85-5"><a href="#cb85-5"></a>vuelos2 <span class="sc">%&gt;%</span> <span class="fu">select</span>(dia2, mes2) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1"></a>vuelos2 <span class="ot">&lt;-</span> vuelos <span class="sc">%&gt;%</span> </span>
+<span id="cb83-2"><a href="#cb83-2"></a>  <span class="fu">mutate</span>(<span class="at">dia2 =</span> <span class="fu">if_else</span>(<span class="fu">nchar</span>(dia) <span class="sc">==</span> <span class="dv">1</span>, <span class="fu">paste0</span>(<span class="st">"0"</span>, dia), <span class="fu">as.character</span>(dia)),</span>
+<span id="cb83-3"><a href="#cb83-3"></a>         <span class="at">mes2 =</span> <span class="fu">if_else</span>(<span class="fu">nchar</span>(mes) <span class="sc">==</span> <span class="dv">1</span>, <span class="fu">paste0</span>(<span class="st">"0"</span>, mes), <span class="fu">as.character</span>(mes)))</span>
+<span id="cb83-4"><a href="#cb83-4"></a></span>
+<span id="cb83-5"><a href="#cb83-5"></a>vuelos2 <span class="sc">%&gt;%</span> <span class="fu">select</span>(dia2, mes2) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 x 2
+<pre><code># A tibble: 6 × 2
   dia2  mes2 
   &lt;chr&gt; &lt;chr&gt;
 1 01    01   
@@ -1897,8 +1913,8 @@
 </div>
 </div>
 </section>
-<section id="if_else-3" class="slide level2">
-<h2>if_else</h2>
+<section id="herramientas-de-edición-de-datos-if_else-4" class="slide level2">
+<h2>Herramientas de edición de datos: if_else</h2>
 <div class="small-par">
 <ul>
 <li class="fragment">Luego pegamos el año, el mes y el día usando como separador “-”</li>
@@ -1906,12 +1922,12 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1"></a>vuelos2 <span class="ot">&lt;-</span> vuelos2 <span class="sc">%&gt;%</span> </span>
-<span id="cb87-2"><a href="#cb87-2"></a>  <span class="fu">mutate</span>(<span class="at">fecha =</span> <span class="fu">paste</span>(anio, mes2, dia2, <span class="at">sep =</span> <span class="st">"-"</span>))</span>
-<span id="cb87-3"><a href="#cb87-3"></a></span>
-<span id="cb87-4"><a href="#cb87-4"></a>vuelos2 <span class="sc">%&gt;%</span> <span class="fu">select</span>(fecha) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1"></a>vuelos2 <span class="ot">&lt;-</span> vuelos2 <span class="sc">%&gt;%</span> </span>
+<span id="cb85-2"><a href="#cb85-2"></a>  <span class="fu">mutate</span>(<span class="at">fecha =</span> <span class="fu">paste</span>(anio, mes2, dia2, <span class="at">sep =</span> <span class="st">"-"</span>))</span>
+<span id="cb85-3"><a href="#cb85-3"></a></span>
+<span id="cb85-4"><a href="#cb85-4"></a>vuelos2 <span class="sc">%&gt;%</span> <span class="fu">select</span>(fecha) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 x 1
+<pre><code># A tibble: 6 × 1
   fecha     
   &lt;chr&gt;     
 1 2013-01-01
@@ -1924,8 +1940,8 @@
 </div>
 </div>
 </section>
-<section id="if_else-4" class="slide level2">
-<h2>if_else</h2>
+<section id="herramientas-de-edición-de-datos-if_else-5" class="slide level2">
+<h2>Herramientas de edición de datos: if_else</h2>
 <div class="small-par">
 <ul>
 <li class="fragment">Finalmente, convertimos la variable fecha que está en formato “character” a formato fecha usando la función as.Date()</li>
@@ -1933,12 +1949,12 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1"></a>vuelos2 <span class="ot">&lt;-</span> vuelos2 <span class="sc">%&gt;%</span> </span>
-<span id="cb89-2"><a href="#cb89-2"></a>  <span class="fu">mutate</span>(<span class="at">fecha =</span> <span class="fu">as.Date</span>(fecha))</span>
-<span id="cb89-3"><a href="#cb89-3"></a></span>
-<span id="cb89-4"><a href="#cb89-4"></a>vuelos2 <span class="sc">%&gt;%</span> <span class="fu">select</span>(fecha) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1"></a>vuelos2 <span class="ot">&lt;-</span> vuelos2 <span class="sc">%&gt;%</span> </span>
+<span id="cb87-2"><a href="#cb87-2"></a>  <span class="fu">mutate</span>(<span class="at">fecha =</span> <span class="fu">as.Date</span>(fecha))</span>
+<span id="cb87-3"><a href="#cb87-3"></a></span>
+<span id="cb87-4"><a href="#cb87-4"></a>vuelos2 <span class="sc">%&gt;%</span> <span class="fu">select</span>(fecha) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 x 1
+<pre><code># A tibble: 6 × 1
   fecha     
   &lt;date&gt;    
 1 2013-01-01
@@ -1951,25 +1967,24 @@
 </div>
 </div>
 </section>
-<section id="case_when" class="slide level2">
-<h2>case_when</h2>
+<section id="herramientas-de-edición-de-datos-case_when" class="slide level2">
+<h2>Herramientas de edición de datos: case_when</h2>
 <div class="small-par">
 <ul>
 <li class="fragment">Utiliza la misma lógica que if_else pero para múltiples condiciones lógicas</li>
-<li class="fragment">Ejemplo:</li>
 </ul>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">puntuacion =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">65</span>, <span class="dv">90</span>, <span class="dv">75</span>, <span class="dv">50</span>))</span>
-<span id="cb91-2"><a href="#cb91-2"></a>datos <span class="ot">&lt;-</span> datos <span class="sc">%&gt;%</span></span>
-<span id="cb91-3"><a href="#cb91-3"></a>  <span class="fu">mutate</span>(<span class="at">resultado =</span> <span class="fu">case_when</span>(</span>
-<span id="cb91-4"><a href="#cb91-4"></a>    puntuacion <span class="sc">&gt;=</span> <span class="dv">90</span> <span class="sc">~</span> <span class="st">"A"</span>,</span>
-<span id="cb91-5"><a href="#cb91-5"></a>    puntuacion <span class="sc">&gt;=</span> <span class="dv">80</span> <span class="sc">~</span> <span class="st">"B"</span>,</span>
-<span id="cb91-6"><a href="#cb91-6"></a>    puntuacion <span class="sc">&gt;=</span> <span class="dv">70</span> <span class="sc">~</span> <span class="st">"C"</span>,</span>
-<span id="cb91-7"><a href="#cb91-7"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"F"</span> <span class="co"># En caso de que ninguna de las condiciones anteriores se cumpla</span></span>
-<span id="cb91-8"><a href="#cb91-8"></a>  ))</span>
-<span id="cb91-9"><a href="#cb91-9"></a>datos</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">puntuacion =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">65</span>, <span class="dv">90</span>, <span class="dv">75</span>, <span class="dv">50</span>))</span>
+<span id="cb89-2"><a href="#cb89-2"></a>datos <span class="ot">&lt;-</span> datos <span class="sc">%&gt;%</span></span>
+<span id="cb89-3"><a href="#cb89-3"></a>  <span class="fu">mutate</span>(<span class="at">resultado =</span> <span class="fu">case_when</span>(</span>
+<span id="cb89-4"><a href="#cb89-4"></a>    puntuacion <span class="sc">&gt;=</span> <span class="dv">90</span> <span class="sc">~</span> <span class="st">"A"</span>,</span>
+<span id="cb89-5"><a href="#cb89-5"></a>    puntuacion <span class="sc">&gt;=</span> <span class="dv">80</span> <span class="sc">~</span> <span class="st">"B"</span>,</span>
+<span id="cb89-6"><a href="#cb89-6"></a>    puntuacion <span class="sc">&gt;=</span> <span class="dv">70</span> <span class="sc">~</span> <span class="st">"C"</span>,</span>
+<span id="cb89-7"><a href="#cb89-7"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"F"</span> <span class="co"># En caso de que ninguna de las condiciones anteriores se cumpla</span></span>
+<span id="cb89-8"><a href="#cb89-8"></a>  ))</span>
+<span id="cb89-9"><a href="#cb89-9"></a>datos</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  puntuacion resultado
 1         80         B
@@ -2003,127 +2018,197 @@
       }</style></aside>
 </div>
 </section>
-<section id="case_when-1" class="slide level2">
-<h2>case_when</h2>
+<section id="herramientas-de-edición-de-datos-case_when-1" class="slide level2">
+<h2>Herramientas de edición de datos: case_when</h2>
 <div class="small-par">
 <ul>
-<li class="fragment">Ejemplo usando vuelos</li>
-<li class="fragment">Queremos crear una variable con el nombre de los meses en el dataframe vuelos</li>
-</ul>
-</div>
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1"></a>vuelos <span class="ot">&lt;-</span> vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb93-2"><a href="#cb93-2"></a>  <span class="fu">mutate</span>(<span class="at">mes_nombre =</span> <span class="fu">case_when</span>(mes <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"Enero"</span>,</span>
-<span id="cb93-3"><a href="#cb93-3"></a>                                mes <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="st">"Febrero"</span>,</span>
-<span id="cb93-4"><a href="#cb93-4"></a>                                mes <span class="sc">==</span> <span class="dv">3</span> <span class="sc">~</span> <span class="st">"Marzo"</span>,</span>
-<span id="cb93-5"><a href="#cb93-5"></a>                                mes <span class="sc">==</span> <span class="dv">4</span> <span class="sc">~</span> <span class="st">"Abril"</span>,</span>
-<span id="cb93-6"><a href="#cb93-6"></a>                                mes <span class="sc">==</span> <span class="dv">5</span> <span class="sc">~</span> <span class="st">"Mayo"</span>,</span>
-<span id="cb93-7"><a href="#cb93-7"></a>                                mes <span class="sc">==</span> <span class="dv">6</span> <span class="sc">~</span> <span class="st">"Junio"</span>,</span>
-<span id="cb93-8"><a href="#cb93-8"></a>                                mes <span class="sc">==</span> <span class="dv">7</span> <span class="sc">~</span> <span class="st">"Julio"</span>,</span>
-<span id="cb93-9"><a href="#cb93-9"></a>                                mes <span class="sc">==</span> <span class="dv">8</span> <span class="sc">~</span> <span class="st">"Agosto"</span>,</span>
-<span id="cb93-10"><a href="#cb93-10"></a>                                mes <span class="sc">==</span> <span class="dv">9</span> <span class="sc">~</span> <span class="st">"Septiembre"</span>,</span>
-<span id="cb93-11"><a href="#cb93-11"></a>                                mes <span class="sc">==</span> <span class="dv">10</span> <span class="sc">~</span> <span class="st">"Octubre"</span>,</span>
-<span id="cb93-12"><a href="#cb93-12"></a>                                mes <span class="sc">==</span> <span class="dv">11</span> <span class="sc">~</span> <span class="st">"Noviembre"</span>,</span>
-<span id="cb93-13"><a href="#cb93-13"></a>                                mes <span class="sc">==</span> <span class="dv">12</span> <span class="sc">~</span> <span class="st">"Diciembre"</span>))</span>
-<span id="cb93-14"><a href="#cb93-14"></a><span class="co"># Revisamos</span></span>
-<span id="cb93-15"><a href="#cb93-15"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">select</span>(mes, mes_nombre) <span class="sc">%&gt;%</span> </span>
-<span id="cb93-16"><a href="#cb93-16"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10 x 2
-     mes mes_nombre
-   &lt;dbl&gt; &lt;chr&gt;     
- 1     9 Septiembre
- 2     9 Septiembre
- 3     7 Julio     
- 4     5 Mayo      
- 5     1 Enero     
- 6    12 Diciembre 
- 7     3 Marzo     
- 8    12 Diciembre 
- 9     3 Marzo     
-10     9 Septiembre</code></pre>
-</div>
-</div>
-</div>
-</section>
-<section id="case_when-2" class="slide level2">
-<h2>case_when</h2>
-<div class="small-par">
-<ul>
+<li class="fragment">Ejemplo usando “vuelos”:</li>
 <li class="fragment">Queremos crear una variable tramo donde si la distancia fue mayor a 3000 que sea “largo”, si fue menor a 3000 pero mayor o igual que 1000 que sea “mediano” y en cualquier otro caso que sea “corto”.</li>
 </ul>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1"></a>vuelos <span class="ot">&lt;-</span> vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb95-2"><a href="#cb95-2"></a>  <span class="fu">mutate</span>(<span class="at">tramo =</span>  <span class="fu">case_when</span>(distancia <span class="sc">&gt;=</span> <span class="dv">3000</span> <span class="sc">~</span> <span class="st">"largo"</span>,</span>
-<span id="cb95-3"><a href="#cb95-3"></a>                           distancia <span class="sc">&gt;=</span> <span class="dv">1000</span> <span class="sc">~</span> <span class="st">"mediano"</span>,</span>
-<span id="cb95-4"><a href="#cb95-4"></a>                           <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"corto"</span>))</span>
-<span id="cb95-5"><a href="#cb95-5"></a><span class="co"># Revisamos</span></span>
-<span id="cb95-6"><a href="#cb95-6"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">select</span>(distancia, tramo) <span class="sc">%&gt;%</span> </span>
-<span id="cb95-7"><a href="#cb95-7"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1"></a>vuelos <span class="ot">&lt;-</span> vuelos <span class="sc">%&gt;%</span> </span>
+<span id="cb91-2"><a href="#cb91-2"></a>  <span class="fu">mutate</span>(<span class="at">tramo =</span>  <span class="fu">case_when</span>(distancia <span class="sc">&gt;=</span> <span class="dv">3000</span> <span class="sc">~</span> <span class="st">"largo"</span>,</span>
+<span id="cb91-3"><a href="#cb91-3"></a>                           distancia <span class="sc">&gt;=</span> <span class="dv">2000</span> <span class="sc">~</span> <span class="st">"mediano"</span>,</span>
+<span id="cb91-4"><a href="#cb91-4"></a>                           distancia <span class="sc">&gt;=</span> <span class="dv">1000</span> <span class="sc">~</span> <span class="st">"corto"</span>,</span>
+<span id="cb91-5"><a href="#cb91-5"></a>                           <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"muy corto"</span>))</span>
+<span id="cb91-6"><a href="#cb91-6"></a><span class="co"># Revisamos</span></span>
+<span id="cb91-7"><a href="#cb91-7"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">select</span>(distancia, tramo) <span class="sc">%&gt;%</span> </span>
+<span id="cb91-8"><a href="#cb91-8"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10 x 2
-   distancia tramo  
-       &lt;dbl&gt; &lt;chr&gt;  
- 1       264 corto  
- 2      4983 largo  
- 3       184 corto  
- 4      2565 mediano
- 5      2475 mediano
- 6       950 corto  
- 7      1521 mediano
- 8       488 corto  
- 9      1089 mediano
-10      1389 mediano</code></pre>
+<pre><code># A tibble: 5 × 2
+  distancia tramo    
+      &lt;dbl&gt; &lt;chr&gt;    
+1      1400 corto    
+2      1416 corto    
+3      1089 corto    
+4      1576 corto    
+5       762 muy corto</code></pre>
 </div>
+</div>
+</div>
+</section>
+<section id="herramientas-de-edición-de-datos-group_by" class="slide level2">
+<h2>Herramientas de edición de datos: group_by</h2>
+<div class="small-par">
+<ul>
+<li class="fragment">La función group_by() permite agrupar los datos por una o más variables, lo que permite analizar métricas y patrones agregados.</li>
+<li class="fragment">La función summarise() funciona de forma análoga a la función mutate, excepto que en lugar de añadir nuevas columnas crea un nuevo data frame.</li>
+<li class="fragment">Veamos un ejemplo:</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1"></a>estudiantes <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb93-2"><a href="#cb93-2"></a>  <span class="at">nombre =</span> <span class="fu">c</span>(<span class="st">"Juan"</span>, <span class="st">"María"</span>, <span class="st">"Pedro"</span>, <span class="st">"Luis"</span>, <span class="st">"Ana"</span>),</span>
+<span id="cb93-3"><a href="#cb93-3"></a>  <span class="at">edad =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">22</span>, <span class="dv">19</span>, <span class="dv">21</span>, <span class="dv">20</span>),</span>
+<span id="cb93-4"><a href="#cb93-4"></a>  <span class="at">materia =</span> <span class="fu">c</span>(<span class="st">"Matemáticas"</span>, <span class="st">"Historia"</span>, <span class="st">"Matemáticas"</span>, <span class="st">"Historia"</span>, <span class="st">"Matemáticas"</span>)</span>
+<span id="cb93-5"><a href="#cb93-5"></a>)</span>
+<span id="cb93-6"><a href="#cb93-6"></a></span>
+<span id="cb93-7"><a href="#cb93-7"></a>estudiantes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  nombre edad     materia
+1   Juan   20 Matemáticas
+2  María   22    Historia
+3  Pedro   19 Matemáticas
+4   Luis   21    Historia
+5    Ana   20 Matemáticas</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="herramientas-de-edición-de-datos-group_by-1" class="slide level2">
+<h2>Herramientas de edición de datos: group_by</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1"></a><span class="co"># Utilizar group_by() para agrupar los datos por materia</span></span>
+<span id="cb95-2"><a href="#cb95-2"></a>estudiantes_por_materia <span class="ot">&lt;-</span> estudiantes <span class="sc">%&gt;%</span></span>
+<span id="cb95-3"><a href="#cb95-3"></a>  <span class="fu">group_by</span>(materia)</span>
+<span id="cb95-4"><a href="#cb95-4"></a></span>
+<span id="cb95-5"><a href="#cb95-5"></a><span class="co"># Calcular el promedio de edad en cada materia</span></span>
+<span id="cb95-6"><a href="#cb95-6"></a>promedio_edad_por_materia <span class="ot">&lt;-</span> estudiantes_por_materia <span class="sc">%&gt;%</span></span>
+<span id="cb95-7"><a href="#cb95-7"></a>  <span class="fu">summarise</span>(<span class="at">promedio_edad =</span> <span class="fu">mean</span>(edad))</span>
+<span id="cb95-8"><a href="#cb95-8"></a></span>
+<span id="cb95-9"><a href="#cb95-9"></a>promedio_edad_por_materia</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  materia     promedio_edad
+  &lt;chr&gt;               &lt;dbl&gt;
+1 Historia             21.5
+2 Matemáticas          19.7</code></pre>
+</div>
+</div>
+</section>
+<section id="herramientas-de-edición-de-datos-group_by-2" class="slide level2">
+<h2>Herramientas de edición de datos: group_by</h2>
+<div class="small-par">
+<ul>
+<li class="fragment">Ejemplo usando “vuelos”:</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1"></a><span class="co"># Utilizar group_by() para agrupar los datos por aerolinea</span></span>
+<span id="cb97-2"><a href="#cb97-2"></a>vuelos_agrupado <span class="ot">&lt;-</span> vuelos <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(aerolinea)</span>
+<span id="cb97-3"><a href="#cb97-3"></a>vuelos_agrupado</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 336,776 × 20
+# Groups:   aerolinea [16]
+    anio   mes   dia horario_salida salida_programada atraso_salida
+   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;          &lt;dbl&gt;             &lt;dbl&gt;         &lt;dbl&gt;
+ 1  2013     1     1            517               515             2
+ 2  2013     1     1            533               529             4
+ 3  2013     1     1            542               540             2
+ 4  2013     1     1            544               545            -1
+ 5  2013     1     1            554               600            -6
+ 6  2013     1     1            554               558            -4
+ 7  2013     1     1            555               600            -5
+ 8  2013     1     1            557               600            -3
+ 9  2013     1     1            557               600            -3
+10  2013     1     1            558               600            -2
+# ℹ 336,766 more rows
+# ℹ 14 more variables: horario_llegada &lt;dbl&gt;, llegada_programada &lt;dbl&gt;,
+#   atraso_llegada &lt;dbl&gt;, aerolinea &lt;chr&gt;, vuelo &lt;dbl&gt;, codigo_cola &lt;chr&gt;,
+#   origen &lt;chr&gt;, destino &lt;chr&gt;, tiempo_vuelo &lt;dbl&gt;, distancia &lt;dbl&gt;,
+#   hora &lt;dbl&gt;, minuto &lt;dbl&gt;, fecha_hora &lt;dttm&gt;, tramo &lt;chr&gt;</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="herramientas-de-edición-de-datos-group_by-3" class="slide level2">
+<h2>Herramientas de edición de datos: group_by</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1"></a><span class="co"># Calcular la distancia promedio de cada aerolínea</span></span>
+<span id="cb99-2"><a href="#cb99-2"></a>vuelos_agrupado <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">dist_promedio =</span> <span class="fu">mean</span>(distancia, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 16 × 2
+   aerolinea dist_promedio
+   &lt;chr&gt;             &lt;dbl&gt;
+ 1 9E                 530.
+ 2 AA                1340.
+ 3 AS                2402 
+ 4 B6                1069.
+ 5 DL                1237.
+ 6 EV                 563.
+ 7 F9                1620 
+ 8 FL                 665.
+ 9 HA                4983 
+10 MQ                 570.
+11 OO                 501.
+12 UA                1529.
+13 US                 553.
+14 VX                2499.
+15 WN                 996.
+16 YV                 375.</code></pre>
 </div>
 </div>
 </section>
 <section id="ejercicio-3" class="slide level2">
 <h2>Ejercicio 3</h2>
 <div class="small-par">
-<p>Usando un solo mutate:</p>
 <ol type="1">
-<li class="fragment">Modifique la columna horas_tv. Si horas tv es NA reemplazar por un 0; de lo contrario, se mantiene el valor original</li>
-<li class="fragment">Haga lo mismo para edad</li>
-<li class="fragment">Genere una columna llamada horas_tv_promedio que sea el promedio de horas_tv</li>
-<li class="fragment">Genere una columnna llamada mediana_edad que sea la mediana de la variable edad (la función es median())</li>
-<li class="fragment">Genere una columna llamada reglion_raza que sea la concatenación de la columna religion y raza, usando como separador “-”.</li>
+<li class="fragment">Cargue el archivo excel “encuesta.xlsx” como “encuesta” contenido en la carpeta data.</li>
+<li class="fragment">Modifique la columna horas_tv: si horas tv es NA reemplazar por un 0; de lo contrario, se mantiene el valor original</li>
 <li class="fragment">Genere una columna llamada tramo_edad que sea “Adulto mayor” cuando la edad sea mayor o igual que 50, “Adulto” cuando la edad esté entre 20 y 49 y “Joven” cuando la edad sea menor que 20.</li>
+<li class="fragment">Agrupe los datos por “tramo_edad” y usando summarise() calcule las horas tv promedio para cada tramo, llamando a esta variable “horas_tv_prom”.</li>
 </ol>
 </div>
 </section>
 <section id="solución-ejercicio-3" class="slide level2">
 <h2>Solución ejercicio 3</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1"></a>encuesta <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">horas_tv =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(horas_tv), <span class="dv">0</span>, horas_tv),</span>
-<span id="cb97-2"><a href="#cb97-2"></a>                    <span class="at">edad =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(edad), <span class="dv">0</span>, edad),</span>
-<span id="cb97-3"><a href="#cb97-3"></a>                    <span class="at">horas_tv_promedio =</span> <span class="fu">mean</span>(horas_tv),</span>
-<span id="cb97-4"><a href="#cb97-4"></a>                    <span class="at">mediana_edad =</span> <span class="fu">median</span>(edad),</span>
-<span id="cb97-5"><a href="#cb97-5"></a>                    <span class="at">religon_raza =</span> <span class="fu">paste</span>(religion, raza, <span class="at">sep =</span> <span class="st">"-"</span>),</span>
-<span id="cb97-6"><a href="#cb97-6"></a>                    <span class="at">tramo_edad =</span> <span class="fu">case_when</span>(edad <span class="sc">&gt;=</span> <span class="dv">50</span> <span class="sc">~</span> <span class="st">"Adulto mayor"</span>,</span>
-<span id="cb97-7"><a href="#cb97-7"></a>                                           edad <span class="sc">&gt;=</span> <span class="dv">20</span> <span class="sc">~</span> <span class="st">"Adulto"</span>,</span>
-<span id="cb97-8"><a href="#cb97-8"></a>                                           <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Joven"</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1"></a>encuesta <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/encuesta.xlsx"</span>)</span>
+<span id="cb101-2"><a href="#cb101-2"></a></span>
+<span id="cb101-3"><a href="#cb101-3"></a>encuesta <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">horas_tv =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(horas_tv), <span class="dv">0</span>, horas_tv),</span>
+<span id="cb101-4"><a href="#cb101-4"></a>                    <span class="at">tramo_edad =</span> <span class="fu">case_when</span>(edad <span class="sc">&gt;=</span> <span class="dv">50</span> <span class="sc">~</span> <span class="st">"Adulto mayor"</span>,</span>
+<span id="cb101-5"><a href="#cb101-5"></a>                                           edad <span class="sc">&gt;=</span> <span class="dv">20</span> <span class="sc">~</span> <span class="st">"Adulto"</span>,</span>
+<span id="cb101-6"><a href="#cb101-6"></a>                                           <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Joven"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb101-7"><a href="#cb101-7"></a>  <span class="fu">group_by</span>(tramo_edad) <span class="sc">%&gt;%</span> </span>
+<span id="cb101-8"><a href="#cb101-8"></a>  <span class="fu">summarise</span>(<span class="at">horas_tv_prom =</span> <span class="fu">mean</span>(horas_tv))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 21,483 x 13
-    anio estado_civil  edad raza  ingreso partido religion denominacion horas_tv
-   &lt;int&gt; &lt;fct&gt;        &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt;   &lt;fct&gt;   &lt;fct&gt;    &lt;fct&gt;           &lt;dbl&gt;
- 1  2000 Nunca se ha~    26 Blan~ 8000 -~ Ind, p~ Protest~ Bautistas d~       12
- 2  2000 Divorciado      48 Blan~ 8000 -~ No fue~ Protest~ Bautista, n~        0
- 3  2000 Viudo           67 Blan~ No apl~ Indepe~ Protest~ No denomina~        2
- 4  2000 Nunca se ha~    39 Blan~ No apl~ Ind, p~ Cristia~ No aplica           4
- 5  2000 Divorciado      25 Blan~ No apl~ No fue~ Ninguna  No aplica           1
- 6  2000 Casado          25 Blan~ 20000 ~ Fuerte~ Protest~ Bautistas d~        0
- 7  2000 Nunca se ha~    36 Blan~ 25000 ~ No fue~ Cristia~ No aplica           3
- 8  2000 Divorciado      44 Blan~ 7000 -~ Ind, p~ Protest~ Sínodo lute~        0
- 9  2000 Casado          44 Blan~ 25000 ~ No fue~ Protest~ Otra                0
-10  2000 Casado          47 Blan~ 25000 ~ Fuerte~ Protest~ Bautistas d~        3
-# i 21,473 more rows
-# i 4 more variables: horas_tv_promedio &lt;dbl&gt;, mediana_edad &lt;dbl&gt;,
-#   religon_raza &lt;chr&gt;, tramo_edad &lt;chr&gt;</code></pre>
+<pre><code># A tibble: 3 × 2
+  tramo_edad   horas_tv_prom
+  &lt;chr&gt;                &lt;dbl&gt;
+1 Adulto                1.40
+2 Adulto mayor          1.81
+3 Joven                 1.43</code></pre>
 </div>
+</div>
+</section>
+<section id="tarea-2" class="slide level2">
+<h2>Tarea 2</h2>
+<div class="small-par">
+<ul>
+<li class="fragment">Para esta tarea trabajaremos con la base histórica de la superficie autorizada (m2) de los permisos de edificación, la cual corresponde a un censo que mide la actividad de la construcción a través de la intención de construir en el país, por medio del Formulario Único de Edificación (FUE), para los destinos habitacional y no habitacional.</li>
+</ul>
+</div>
+</section>
+<section id="tarea-2-1" class="slide level2">
+<h2>Tarea 2</h2>
+<div class="small-par">
+<ul>
+<li class="fragment">PENDIENTE</li>
+</ul>
 </div>
 <p><img src="imagenes/logo_portada2.png" class="slide-logo"></p>
 <div class="footer footer-default">
@@ -2134,19 +2219,19 @@
   </div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="ejercicios_clase_2_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="index_files/libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="ejercicios_clase_2_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="ejercicios_clase_2_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="ejercicios_clase_2_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="ejercicios_clase_2_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="ejercicios_clase_2_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="index_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="index_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="index_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="ejercicios_clase_2_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="ejercicios_clase_2_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="ejercicios_clase_2_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="ejercicios_clase_2_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="index_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="index_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="index_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="index_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
