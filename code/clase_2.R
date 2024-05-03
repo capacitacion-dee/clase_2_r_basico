@@ -1,9 +1,10 @@
 
 
-# CLase 2 -----------------------------------------------------------------
-
+# Clase 2 -----------------------------------------------------------------
+# Previo
 library(readxl)
 library(dplyr)
+
 vuelos <- read_excel("data/vuelos.xlsx")
 vuelos
 
@@ -19,7 +20,8 @@ vuelos %>% head()
 head(vuelos)
 
 # Contar el número de veces que aparece cada aerolinea
-vuelos %>% count(aerolinea)
+vuelos %>% 
+  count(aerolinea)
 
 # Es lo mismo que...
 count(vuelos, aerolinea)
@@ -30,13 +32,21 @@ count(vuelos, aerolinea)
 filter(vuelos, aerolinea=="UA")
 
 # Usando %>% 
-vuelos %>% filter(aerolinea=="UA")
+vuelos %>% 
+  filter(aerolinea=="UA")
 
 # Otros ejemplos
-vuelos %>% filter(mes>1)
-vuelos %>% filter(atraso_salida <= 100)
-vuelos %>% filter(aerolinea!="AA" & mes == 12)
-vuelos %>% filter(atraso_llegada %in% 100:200)
+vuelos %>% 
+  filter(mes>1)
+
+vuelos %>% 
+  filter(atraso_salida <= 100)
+
+vuelos %>% 
+  filter(aerolinea!="AA" & mes == 12)
+
+vuelos %>% 
+  filter(atraso_llegada %in% 100:200)
 
 
 # Funciones slice 
@@ -45,25 +55,15 @@ vuelos %>% filter(atraso_llegada %in% 100:200)
 slice_head(vuelos, n = 5)
 
 # Usando %>% 
-vuelos %>% slice_head(n = 5)
-
-# Extraer las cinco últimas filas de "vuelos"
-slice_tail(vuelos, n = 5)
-
-# Usando %>% 
-vuelos %>% slice_tail(n = 5)
-
-# Obtener una muestra de filas aleatorias
-slice_sample(vuelos, n = 5)
-
-# Usando %>% 
-vuelos %>% slice_sample(n = 5)
+vuelos %>% 
+  slice_head(n = 5)
 
 # Extraer las filas 100 a la 105
 slice(vuelos, 100:105)
 
 # Usando %>% 
-vuelos %>% slice(100:105)
+vuelos %>% 
+  slice(100:105)
 
 # Anidación de funciones --------------------------------------------------
 
@@ -71,7 +71,8 @@ vuelos %>% slice(100:105)
 slice_head(filter(vuelos, aerolinea=="UA"), n = 5)
 
 # Es lo mismo que...
-vuelos %>% filter(aerolinea=="UA") %>% 
+vuelos %>% 
+  filter(aerolinea=="UA") %>% 
   slice_head(n = 5)
 
 # Utilizar la función count() para contar la frecuencia de ocurrencia de combinaciones únicas de los orígenes y destinos.
@@ -81,7 +82,10 @@ vuelos %>% filter(aerolinea=="UA") %>%
 slice_head(filter(count(vuelos, origen, destino), origen=="JFK"), n=5)
 
 # Es lo mismo que...
-vuelos %>% count(origen, destino) %>% filter(origen == "JFK") %>% slice_head(n = 5)
+vuelos %>% 
+  count(origen, destino) %>% 
+  filter(origen == "JFK") %>% 
+  slice_head(n = 5)
 
 
 # Ejercicio 1 -------------------------------------------------------------
@@ -91,7 +95,6 @@ vuelos %>% count(origen, destino) %>% filter(origen == "JFK") %>% slice_head(n =
 #- Del dataframe vuelos filtre las filas donde la aerolinea sea UA o DL
 #- Del dataframe vuelos filtre las filas donde la aerolinea sea UA o DL y agregue la condición de que el día sea igual a 12
 #- Filtre la base donde el horario de salida este entre 500 y 1200, luego cuente el número de veces que aparece cada aerolinea
-#- Utilice la misma anidación anterior pero ahora obtenga las cinco primeras filas
 
 
 
@@ -136,10 +139,8 @@ vuelos %>%
 # - Cargue el excel "flores.xlsx" y llámelo flores
 # - ¿Cuáles son los nombres de las columnas?
 # - Seleccione las columnas Especie y Largo.Petalo
-# - Seleccione las mismas columnas usando su posición
 # - Seleccione las columnas que empiezan con "Largo"
-# - Seleccione las columnas que terminen con "Sepalo"
-# - Seleccione las columnas que no contengan "."
+# - Renombre "Especie" como "especie"
 
 
 
@@ -159,45 +160,22 @@ vuelos %>%
 # Otros ejemplos
 vuelos %>% 
   mutate(distancia_promedio = mean(distancia, na.rm = TRUE),
-         distancia_cuadrado = sqrt(distancia),
+         distancia_sqrt = sqrt(distancia),
          origen_destino = paste(origen, destino, sep = "_"),
          atraso_salida_min = min(atraso_salida, na.rm = TRUE),
          atraso_llegada_max = max(atraso_llegada, na.rm = TRUE),
          aerolinea_minuscula = tolower(aerolinea)) %>% 
-  select(distancia_promedio,distancia_cuadrado,origen_destino,atraso_salida_min,atraso_llegada_max,aerolinea_minuscula)
+  select(distancia_promedio,distancia_sqrt,origen_destino,atraso_salida_min,atraso_llegada_max,aerolinea_minuscula)
 
 ## if_else ----
 
-# Generar una columna llamada tramo que sea "largo" si tiempo  del vuelo fue mayor a 150, 
+# Generar una columna llamada tramo que sea "largo" si tiempo de vuelo fue mayor a 150, 
 # en caso contrario sea "corto" y si es NA que sea "valor perdido". 
-# Adicionalmente, podríamos querer modificar la variable tiempo_vuelo. 
+# Adicionalmente, queremos modificar la variable tiempo_vuelo":
 # Si es NA (Valor perdido), reemplazar por un cero; de lo contrario, se mantiene el valor original.
 vuelos %>% 
   mutate(tramo = if_else(condition = tiempo_vuelo > 150, true = "largo", false = "corto", missing = "valor perdido"),
          tiempo_vuelo = if_else(is.na(tiempo_vuelo), 0, tiempo_vuelo))
-
-# Generaremos una variable del tipo fecha que sea del siguiente formato: "2013-02-12"
-vuelos %>% select(dia, mes) %>% head()
-
-# si el largo de la variable mes o día es menor que uno, le pegaremos un cero al comienzo, en caso contrario, 
-# dejaremos el mes o el dia como están orginalmente pero convertiéndolos a formato character
-vuelos2 <- vuelos %>% 
-  mutate(dia2 = if_else(nchar(dia) == 1, paste0("0", dia), as.character(dia)),
-         mes2 = if_else(nchar(mes) == 1, paste0("0", mes), as.character(mes)))
-
-vuelos2 %>% select(dia2, mes2) %>% head()
-
-# Luego pegamos el año, el mes y el día usando como separador "-"
-vuelos2 <- vuelos2 %>% 
-  mutate(fecha = paste(anio, mes2, dia2, sep = "-"))
-
-vuelos2 %>% select(fecha) %>% head()
-
-# Finalmente, convertimos la variable fecha que está en formato "character" a formato fecha usando la función as.Date()
-vuelos2 <- vuelos2 %>% 
-  mutate(fecha = as.Date(fecha))
-
-vuelos2 %>% select(fecha) %>% head()
 
 ## case_when ----
 
@@ -217,9 +195,52 @@ datos
 vuelos <- vuelos %>% 
   mutate(tramo =  case_when(distancia >= 3000 ~ "largo",
                             distancia >= 2000 ~ "mediano",
-                            distancia >= 1000 ~ "corto",
-                            TRUE ~ "muy corto"))
+                            TRUE ~ "corto"))
 # Revisamos
-vuelos %>% select(distancia, tramo) %>% 
-  slice_head(n = 20)
+vuelos %>% 
+  select(distancia, tramo)
+
+## group_by ----
+
+estudiantes <- data.frame(
+  nombre = c("Juan", "María", "Pedro", "Luis", "Ana"),
+  edad = c(20, 22, 19, 21, 20),
+  materia = c("Matemáticas", "Historia", "Matemáticas", "Historia", "Matemáticas")
+)
+
+estudiantes
+
+# Utilizar group_by() para agrupar los datos por materia
+estudiantes_por_materia <- estudiantes %>%
+  group_by(materia)
+
+estudiantes_por_materia
+
+# Calcular el promedio de edad en cada materia
+promedio_edad_por_materia <- estudiantes_por_materia %>%
+  summarise(promedio_edad = mean(edad))
+
+promedio_edad_por_materia
+
+# Ejemplo usando vuelos
+
+# Utilizar group_by() para agrupar los datos por aerolinea
+vuelos_agrupado <- vuelos %>% 
+  group_by(aerolinea) %>% 
+  summarise(dist_promedio = mean(distancia, na.rm = TRUE))
+
+vuelos_agrupado
+
+# Ejercicio 3 -------------------------------------------------------------
+# 1. Cargue el archivo excel “encuesta.xlsx” como “encuesta” contenido en la carpeta data.
+# 2. Utilizando el operador %>% de forma anidada:
+#   - Modifique la columna horas_tv: si horas tv es NA reemplazar por un 0; de lo contrario, 
+#     se mantiene el valor original
+#   - Genere una columna llamada tramo_edad que sea “Adulto mayor” cuando la edad sea mayor o igual que 50, 
+#     “Adulto” cuando la edad esté entre 20 y 49 y “Joven” cuando la edad sea menor que 20.
+#   - Agrupe los datos por “tramo_edad” y usando summarise() calcule las horas tv promedio para cada tramo, 
+#     llamando a esta variable “horas_tv_prom”.
+
+
+
 

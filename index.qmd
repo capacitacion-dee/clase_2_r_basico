@@ -143,7 +143,8 @@ head(vuelos)
 ```{r}
 #| echo: TRUE
 #| eval: TRUE
-vuelos %>% count(aerolinea)
+vuelos %>% 
+  count(aerolinea)
 ```
 
 ::: notes
@@ -191,7 +192,8 @@ en el ejemplo queremos filtrar las filas donde la aerolinea sea igual a "UA"
 ```{r}
 #| echo: TRUE
 #| eval: TRUE
-vuelos %>% filter(aerolinea=="UA")
+vuelos %>% 
+  filter(aerolinea=="UA")
 ```
 
 ::: notes
@@ -206,10 +208,17 @@ aca vemos que usando el operador pipe "vuelos" queda al lado iquierdo de la func
 ```{r}
 #| echo: TRUE
 #| eval: FALSE
-vuelos %>% filter(mes>1)
-vuelos %>% filter(atraso_salida <= 100)
-vuelos %>% filter(aerolinea!="AA" & mes == 12)
-vuelos %>% filter(atraso_llegada %in% 100:200)
+vuelos %>% 
+  filter(mes>1)
+
+vuelos %>% 
+  filter(atraso_salida <= 100)
+
+vuelos %>% 
+  filter(aerolinea!="AA" & mes == 12)
+
+vuelos %>% 
+  filter(atraso_llegada %in% 100:200)
 ```
 
 ::: notes 
@@ -240,56 +249,8 @@ slice_head(vuelos, n = 5)
 ```{r}
 #| echo: TRUE
 #| eval: FALSE
-vuelos %>% slice_head(n = 5)
-```
-
-## Trabajo básico con filas
-::: {.incremental .small-par}
-**Funciones slice** 
-
-- Ejemplo: extraer el 1% de las últimas filas de "vuelos"
-:::
-. . .
-```{r}
-#| echo: TRUE
-#| eval: TRUE
-slice_tail(vuelos, prop = 0.01)
-```
-::: {.incremental .small-par}
-- Usando %>% 
-:::
-. . .
-```{r}
-#| echo: TRUE
-#| eval: FALSE
-vuelos %>% slice_tail(prop = 0.01)
-```
-::: notes
-- Usando la función slice_tail podemos seleccionar las últimas filas de un dataframe.
-- En este ejemplo estamos seleccionando el 10% de las últimas filas de "vuelos", usando el argumento prop que hace referencia a la proporción de filas a seleccionar
-- Este argumento se usa en reemplazo de n que hace referencia al número específico de filas que queremos seleccionar.
-:::
-
-## Trabajo básico con filas
-::: {.incremental .small-par}
-**Funciones slice** 
-
-- Ejemplo: obtener una muestra de filas aleatorias
-:::
-. . .
-```{r}
-#| echo: TRUE
-#| eval: TRUE
-slice_sample(vuelos, n = 5)
-```
-::: {.incremental .small-par}
-- Usando %>% 
-:::
-. . .
-```{r}
-#| echo: TRUE
-#| eval: FALSE
-vuelos %>% slice_sample(n = 5)
+vuelos %>% 
+  slice_head(n = 5)
 ```
 
 ## Trabajo básico con filas
@@ -312,7 +273,8 @@ slice(vuelos, 100:105)
 ```{r}
 #| echo: TRUE
 #| eval: FALSE
-vuelos %>% slice(100:105)
+vuelos %>% 
+  slice(100:105)
 ```
 
 ## Anidación de funciones
@@ -333,7 +295,8 @@ slice_head(filter(vuelos, aerolinea=="UA"), n = 5)
 ```{r}
 #| echo: TRUE
 #| eval: FALSE
-vuelos %>% filter(aerolinea=="UA") %>% 
+vuelos %>% 
+  filter(aerolinea=="UA") %>% 
   slice_head(n = 5)
 ```
 
@@ -357,7 +320,10 @@ slice_head(filter(count(vuelos, origen, destino), origen=="JFK"), n=5)
 ```{r}
 #| echo: TRUE
 #| eval: FALSE
-vuelos %>% count(origen, destino) %>% filter(origen == "JFK") %>% slice_head(n = 5)
+vuelos %>% 
+  count(origen, destino) %>% 
+  filter(origen == "JFK") %>% 
+  slice_head(n = 5)
 ```
 
 ## Ejercicio 1
@@ -377,7 +343,8 @@ vuelos %>% count(origen, destino) %>% filter(origen == "JFK") %>% slice_head(n =
 ```{r}
 #| echo: TRUE
 #| eval: TRUE
-vuelos %>% slice_head(n = 100)
+vuelos %>% 
+  slice_head(n = 100)
 ```
 
 ## Solución ejercicio 1
@@ -388,7 +355,8 @@ vuelos %>% slice_head(n = 100)
 ```{r}
 #| echo: TRUE
 #| eval: TRUE
-vuelos %>% filter(mes %in% 1:3)
+vuelos %>% 
+  filter(mes %in% 1:3)
 ```
 
 ## Solución ejercicio 1
@@ -399,7 +367,8 @@ vuelos %>% filter(mes %in% 1:3)
 ```{r}
 #| echo: TRUE
 #| eval: TRUE
-vuelos %>% filter(aerolinea=="UA" | aerolinea=="DL")
+vuelos %>% 
+  filter(aerolinea=="UA" | aerolinea=="DL")
 ```
 
 ## Solución ejercicio 1
@@ -410,7 +379,8 @@ vuelos %>% filter(aerolinea=="UA" | aerolinea=="DL")
 ```{r}
 #| echo: TRUE
 #| eval: TRUE
-vuelos %>% filter((aerolinea=="UA" | aerolinea=="DL") & dia == 12)
+vuelos %>% 
+  filter((aerolinea=="UA" | aerolinea=="DL") & dia == 12)
 ```
 ## Solución ejercicio 1
 ::: {.incremental .small-par}
@@ -420,7 +390,8 @@ vuelos %>% filter((aerolinea=="UA" | aerolinea=="DL") & dia == 12)
 ```{r}
 #| echo: TRUE
 #| eval: TRUE
-vuelos %>% filter(horario_salida %in% 500:1200) %>% 
+vuelos %>% 
+  filter(horario_salida %in% 500:1200) %>% 
   count(aerolinea)
 ```
 
@@ -448,6 +419,10 @@ vuelos %>%
 vuelos %>% 
   select(1,3,5)
 ```
+
+::: notes
+- Acá es importante mencionar que seleccionar columnas por posición puede ser riesgoso dado que el orden de las columnas podría cambiar al agregar o eliminar columnas a nuestro dataframe.
+:::
 
 ## Trabajo básico con columnas
 ::: {.incremental .small-par}
@@ -527,9 +502,7 @@ vuelos %>%
 - De la carpeta "data" cargue el excel "flores.xlsx" y llámelo "flores"
 - ¿Cuáles son los nombres de las columnas?
 - Seleccione las columnas Especie y Largo.Petalo
-- Seleccione las mismas columnas usando su posición
 - Seleccione las columnas que empiezan con "Largo"
-- Seleccione las columnas que terminen con "Sepalo"
 - Renombre "Especie" como "especie"
 :::
 
@@ -559,17 +532,6 @@ flores %>% select(Especie, Largo.Petalo)
 
 ## Solución ejercicio 2
 ::: {.incremental .small-par}
-- Seleccione las mismas columnas usando su posición
-:::
-. . .
-```{r}
-#| echo: TRUE
-#| eval: TRUE
-flores %>% select(1,5)
-```
-
-## Solución ejercicio 2
-::: {.incremental .small-par}
 - Seleccione las columnas que empiezan con "Largo"
 :::
 . . .
@@ -577,17 +539,6 @@ flores %>% select(1,5)
 #| echo: TRUE
 #| eval: TRUE
 flores %>% select(starts_with("Largo"))
-```
-
-## Solución ejercicio 2
-::: {.incremental .small-par}
-- Seleccione las columnas que terminen con "Sepalo"
-:::
-. . .
-```{r}
-#| echo: TRUE
-#| eval: TRUE
-flores %>% select(ends_with("Sepalo"))
 ```
 
 ## Solución ejercicio 2
@@ -638,12 +589,12 @@ vuelos %>%
 #| eval: TRUE
 vuelos %>% 
   mutate(distancia_promedio = mean(distancia, na.rm = TRUE),
-         distancia_cuadrado = sqrt(distancia),
+         distancia_sqrt = sqrt(distancia),
          origen_destino = paste(origen, destino, sep = "_"),
          atraso_salida_min = min(atraso_salida, na.rm = TRUE),
          atraso_llegada_max = max(atraso_llegada, na.rm = TRUE),
          aerolinea_minuscula = tolower(aerolinea)) %>% 
-  select(distancia_promedio,distancia_cuadrado,origen_destino,atraso_salida_min,atraso_llegada_max,aerolinea_minuscula)
+  select(distancia_promedio,distancia_sqrt,origen_destino,atraso_salida_min,atraso_llegada_max,aerolinea_minuscula)
 ```
 
 ::: notes
@@ -677,61 +628,6 @@ vuelos %>%
 - En el segundo mutate se está modificando la variable tiempo_vuelo. Se está utilizando if_else() para reemplazar los valores perdidos (NA) en tiempo_vuelo con el valor 0. Esto se hace verificando si tiempo_vuelo es un valor perdido usando la función is.na(tiempo_vuelo).
 
 :::
-
-## Herramientas de edición de datos: if_else
-::: {.incremental .small-par}
-- En el siguiente ejemplo generaremos una variable del tipo fecha que sea del siguiente formato: "2013-02-12"
-- Como podemos observar las variables día y mes no tienen el formato "dd" o "mm" porque a los días o meses de un dígito les falta el "0". Por ejemplo, queremos que los día 1 sean "01", esto en formato character para poder generar la fecha.
-:::
-. . .
-```{r}
-#| echo: TRUE
-#| eval: TRUE
-vuelos %>% select(dia, mes) %>% head()
-```
-
-## Herramientas de edición de datos: if_else
-::: {.incremental .small-par}
-- En este sentido, si el largo de la variable mes o día es menor que uno, le pegaremos un cero al comienzo, en caso contrario, dejaremos el mes o el dia como están orginalmente pero convertiéndolos a formato character
-:::
-. . .
-```{r}
-#| echo: TRUE
-#| eval: TRUE
-vuelos2 <- vuelos %>% 
-  mutate(dia2 = if_else(nchar(dia) == 1, paste0("0", dia), as.character(dia)),
-         mes2 = if_else(nchar(mes) == 1, paste0("0", mes), as.character(mes)))
-
-vuelos2 %>% select(dia2, mes2) %>% head()
-```
-
-## Herramientas de edición de datos: if_else
-::: {.incremental .small-par}
-- Luego pegamos el año, el mes y el día usando como separador "-"
-:::
-. . .
-```{r}
-#| echo: TRUE
-#| eval: TRUE
-vuelos2 <- vuelos2 %>% 
-  mutate(fecha = paste(anio, mes2, dia2, sep = "-"))
-
-vuelos2 %>% select(fecha) %>% head()
-```
-
-## Herramientas de edición de datos: if_else
-::: {.incremental .small-par}
-- Finalmente, convertimos la variable fecha que está en formato "character" a formato fecha usando la función as.Date()
-:::
-. . .
-```{r}
-#| echo: TRUE
-#| eval: TRUE
-vuelos2 <- vuelos2 %>% 
-  mutate(fecha = as.Date(fecha))
-
-vuelos2 %>% select(fecha) %>% head()
-```
 
 
 ## Herramientas de edición de datos: case_when
@@ -767,7 +663,7 @@ En este ejemplo, case_when() evalúa cada fila de datos y asigna un valor a la c
 ## Herramientas de edición de datos: case_when
 ::: {.incremental .small-par}
 - Ejemplo usando "vuelos":
-- Queremos crear una variable tramo donde si la distancia fue mayor a 3000 que sea "largo", si fue menor a 3000 pero mayor o igual que 1000 que sea "mediano" y en cualquier otro caso que sea "corto".
+- Queremos crear una variable tramo donde si la distancia fue mayor a 3000 que sea "largo", si fue menor a 3000 pero mayor o igual que 2000 que sea "mediano" y en cualquier otro caso que sea "corto".
 :::
 . . .
 ```{r}
@@ -776,12 +672,14 @@ En este ejemplo, case_when() evalúa cada fila de datos y asigna un valor a la c
 vuelos <- vuelos %>% 
   mutate(tramo =  case_when(distancia >= 3000 ~ "largo",
                            distancia >= 2000 ~ "mediano",
-                           distancia >= 1000 ~ "corto",
-                           TRUE ~ "muy corto"))
+                           TRUE ~ "corto"))
 # Revisamos
-vuelos %>% select(distancia, tramo) %>% 
-  slice_head(n = 5)
+vuelos %>% select(distancia, tramo)
 ```
+::: notes
+- Acá es importante recalcar que si por ejemplo ponemos la condición "corto" antes que "largo" y "mediano", entonces todos los tramos nos van a quedar como "corto" porque el orden importa.
+:::
+
 ## Herramientas de edición de datos: group_by
 ::: {.incremental .small-par}
 - La función group_by() permite agrupar los datos por una o más variables, lo que permite analizar métricas y patrones agregados.
@@ -809,12 +707,20 @@ estudiantes
 estudiantes_por_materia <- estudiantes %>%
   group_by(materia)
 
+estudiantes_por_materia
+
 # Calcular el promedio de edad en cada materia
 promedio_edad_por_materia <- estudiantes_por_materia %>%
   summarise(promedio_edad = mean(edad))
 
 promedio_edad_por_materia
 ```
+
+::: notes
+- Cuando hacemos un group_by la base no tiene cambios, simplemente queda agrupada por las columnas que le decimos
+- Solamente cuando hacemos un mutate o un summarise se muestran los cambios. Por ejemplo, usando summarise se crea un dataframe nuevo que muestra los datos de manera agrupada, como en este caso que genera un dataframe con el promedio de edad
+:::
+
 
 ## Herramientas de edición de datos: group_by
 ::: {.incremental .small-par}
@@ -825,25 +731,20 @@ promedio_edad_por_materia
 #| echo: TRUE
 #| eval: TRUE
 # Utilizar group_by() para agrupar los datos por aerolinea
-vuelos_agrupado <- vuelos %>% group_by(aerolinea)
+vuelos_agrupado <- vuelos %>% 
+  group_by(aerolinea) %>% 
+  summarise(dist_promedio = mean(distancia, na.rm = TRUE))
+
 vuelos_agrupado
-```
-
-## Herramientas de edición de datos: group_by
-
-```{r}
-#| echo: TRUE
-#| eval: TRUE
-# Calcular la distancia promedio de cada aerolínea
-vuelos_agrupado %>% summarise(dist_promedio = mean(distancia, na.rm = TRUE))
 ```
 
 ## Ejercicio 3
 ::: {.incremental .small-par}
 1. Cargue el archivo excel "encuesta.xlsx" como "encuesta" contenido en la carpeta data.
-2. Modifique la columna horas_tv: si horas tv es NA reemplazar por un 0; de lo contrario, se mantiene el valor original
-3. Genere una columna llamada tramo_edad que sea "Adulto mayor" cuando la edad sea mayor o igual que 50, "Adulto" cuando la edad esté entre 20 y 49 y "Joven" cuando la edad sea menor que 20.
-4. Agrupe los datos por "tramo_edad" y usando summarise() calcule las horas tv promedio para cada tramo, llamando a esta variable "horas_tv_prom".
+2. Utilizando el operador %>% de forma anidada:
+  - Modifique la columna horas_tv: si horas tv es NA reemplazar por un 0; de lo contrario, se mantiene el valor original
+  - Genere una columna llamada tramo_edad que sea "Adulto mayor" cuando la edad sea mayor o igual que 50, "Adulto" cuando la edad esté entre 20 y 49 y "Joven" cuando la edad sea menor que 20.
+  - Agrupe los datos por "tramo_edad" y usando summarise() calcule las horas tv promedio para cada tramo, llamando a esta variable "horas_tv_prom".
 :::
 
 ## Solución ejercicio 3
@@ -869,6 +770,21 @@ encuesta %>% mutate(horas_tv = if_else(is.na(horas_tv), 0, horas_tv),
 
 ## Tarea 2
 ::: {.incremental .small-par}
-- PENDIENTE
-  
+1. Cargue la base "superficie.rds" como "superficie" contenida en la carpeta "data", usando la función read_rds() del paquete "readr".
+2. Utilice la función summary() para inspeccionar los datos. ¿Qué períodos abarca la base?
+3. Filtre las diez primeras filas.
+4. Filtre las filas donde la variable "anio" sea igual a 1991.
+5. Filtre las filas donde la variable "anio" sea igual a 1991 y "superficie_total" sea mayor que 700000.
+6. Seleccione las columnas que comiencen con "superficie"
+7. Genere una nueva columna llamada "mes_nombre" usando case_when() para asignar el nombre correspondiente a cada mes usando "mes_num". Por ejemplo, si "mes_num" es igual a 1, entonces "mes_nombre" debe ser "Enero".
+8. Agrupe la base por "anio" y calcule el promedio de "superficie_total".
+:::
+
+## Tarea 2
+::: {.incremental .small-par}
+9. Utilizando funciones anidadas:
+  - Genere una nueva columna llama "tramo_superficie" usando la función case_when(). Si "superficie_total" es mayor o igual a 1500000 que sea "grande", si es mayor o igual a 1200000 que sea "mediana", y en cualquier otro caso "pequeña".
+  - Filtre las filas donde "tramo_superficie" sea igual a "grande" y "anio" igual a 1991.
+  - Usando un if_else(), genere una columna llamada "vivienda_mayor" que sea TRUE si "superficie_vivienda" es mayor a "superficie_no_vivienda" y en caso contrario que sea FALSE.
+  - Finalmente, genere otra columna llamada "superficie_hect" que sea "superficie_total" dividido por 1000.
 :::
