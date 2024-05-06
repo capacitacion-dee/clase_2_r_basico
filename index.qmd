@@ -693,25 +693,15 @@ En este ejemplo, case_when() evalúa cada fila de datos y asigna un valor a la c
 ```{r}
 #| echo: TRUE
 #| eval: TRUE
-
 data <- data.frame(x = c(1, 2, 3, 4, 5))
 
-mutate(data,
-       y = case_when(
-         x < 3 ~ "Bajo",
-         x < 5 ~ "Medio",
-         TRUE  ~ "Alto"
-       )
-)
+data %>% mutate(y = case_when(x < 3 ~ "Bajo",
+                              x < 5 ~ "Medio",
+                              TRUE ~ "Alto"))
 
-mutate(data,
-       y = case_when(
-         x < 5 ~ "Medio",
-         x < 3 ~ "Bajo",
-         TRUE  ~ "Alto"
-       )
-)
-
+data %>% mutate(y = case_when(x < 5 ~ "Medio",
+                              x < 3 ~ "Bajo",
+                              TRUE ~ "Alto"))
 ```
 
 ## Herramientas de edición de datos: case_when
