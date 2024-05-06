@@ -221,12 +221,25 @@ vuelos %>%
   filter(atraso_llegada %in% 100:200)
 ```
 
+::: {.incremental .small-par}
+- Operador %in%
+:::
+. . .
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+vector1 <- c(1, 2, 3, 4, 5)
+vector2 <- c(3, 4, 5, 6, 7)
+vector1 %in% vector2
+```
+
 ::: notes 
 - En el primer ejemplo estamos filtrando por las filas donde el mes sea mayor a 1
 - En el segundo por las filas donde el atraso de salido sea menor o igual que 100
 - En el tercer ejemplo filtramos por las filas donde la aerolinea sea distinta a "AA" y que el mes haya sido igual a 12
-- En el último ejemplo estamos filtrando por las filas el valor de la columna "atraso_llegada" se encuentra en el rango 100 a 200.
-- El operador %in% se usa para verificar si los valores del primer argumento están presentes en el segundo argumento. Esto retorna un vector lógico indicando si hubo un match o no
+- En el último ejemplo se están seleccionando las filas donde el valor de la columna "atraso_llegada" se encuentra contenido dentro del rango 100 a 200 (inclusive).
+- El operador %in% se utiliza para verificar si los elementos de un vector están presentes en otro vector. Esto retorna un vector lógico indicando si hubo un match o no
 :::
 
 ## Trabajo básico con filas
@@ -325,6 +338,12 @@ vuelos %>%
   filter(origen == "JFK") %>% 
   slice_head(n = 5)
 ```
+
+::: notes
+count(vuelos, origen, destino): Esta función cuenta las ocurrencias de combinaciones únicas de valores en las columnas origen y destino del dataframe vuelos, devolviendo un nuevo dataframe con tres columnas: origen, destino y n, que representa la cantidad de ocurrencias de cada combinación.
+filter( ..., origen=="JFK"): Luego, se filtran las filas de este nuevo dataframe donde el valor de la columna origen sea igual a "JFK".
+slice_head( ..., n=5): Finalmente, se seleccionan las primeras 5 filas del dataframe resultante.
+:::
 
 ## Ejercicio 1
 ::: {.incremental .small-par}
@@ -600,7 +619,13 @@ vuelos %>%
 ::: notes
 - Para las funciones mean, min y max hay que especificar que no tome en cuenta los valores NA o también conocidos como valores missing o valores perdidos
 - La función paste concatena o une sus argumentos mediante un separador que puede ser cualquier caracter del tipo texto. En este caso usamos "_". Lo que retorna esta función es un objeto de tipo character o string.
-Por ejemplo acá estamos pegando la variable origen con la variable destino usando
+
+- mutate(distancia_promedio = mean(distancia, na.rm = TRUE): Calcula la media de la columna distancia y crea una nueva columna llamada distancia_promedio que almacena este valor.
+- mutate(distancia_sqrt = sqrt(distancia)): Calcula la raíz cuadrada de cada valor en la columna distancia y crea una nueva columna llamada distancia_sqrt que almacena estos valores.
+- mutate(origen_destino = paste(origen, destino, sep = "_")): Crea una nueva columna llamada origen_destino que concatena los valores de las columnas origen y destino separados por un guion bajo "_".
+- mutate(atraso_salida_min = min(atraso_salida, na.rm = TRUE)): Encuentra el valor mínimo en la columna atraso_salida y crea una nueva columna llamada atraso_salida_min que almacena este valor. La opción na.rm = TRUE se utiliza para ignorar los valores NA (ausentes) al calcular el mínimo.
+- mutate(atraso_llegada_max = max(atraso_llegada, na.rm = TRUE)): Encuentra el valor máximo en la columna atraso_llegada y crea una nueva columna llamada atraso_llegada_max que almacena este valor. Al igual que antes, na.rm = TRUE se utiliza para ignorar los valores NA al calcular el máximo.
+- mutate(aerolinea_minuscula = tolower(aerolinea)): Convierte los valores en la columna aerolinea a minúsculas y crea una nueva columna llamada aerolinea_minuscula con estos valores convertidos.
 :::
 
 ## Herramientas de edición de datos: if_else
@@ -662,6 +687,35 @@ En este ejemplo, case_when() evalúa cada fila de datos y asigna un valor a la c
 
 ## Herramientas de edición de datos: case_when
 ::: {.incremental .small-par}
+- Por qué el orden importa?
+:::
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+
+data <- data.frame(x = c(1, 2, 3, 4, 5))
+
+mutate(data,
+       y = case_when(
+         x < 3 ~ "Bajo",
+         x < 5 ~ "Medio",
+         TRUE  ~ "Alto"
+       )
+)
+
+mutate(data,
+       y = case_when(
+         x < 5 ~ "Medio",
+         x < 3 ~ "Bajo",
+         TRUE  ~ "Alto"
+       )
+)
+
+```
+
+## Herramientas de edición de datos: case_when
+::: {.incremental .small-par}
 - Ejemplo usando "vuelos":
 - Queremos crear una variable tramo donde si la distancia fue mayor a 3000 que sea "largo", si fue menor a 3000 pero mayor o igual que 2000 que sea "mediano" y en cualquier otro caso que sea "corto".
 :::
@@ -676,9 +730,6 @@ vuelos <- vuelos %>%
 # Revisamos
 vuelos %>% select(distancia, tramo)
 ```
-::: notes
-- Acá es importante recalcar que si por ejemplo ponemos la condición "corto" antes que "largo" y "mediano", entonces todos los tramos nos van a quedar como "corto" porque el orden importa.
-:::
 
 ## Herramientas de edición de datos: group_by
 ::: {.incremental .small-par}
