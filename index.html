@@ -813,10 +813,10 @@
 <div class="fragment">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">filter</span>(mes<span class="sc">&gt;</span><span class="dv">1</span>)</span>
+<span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">filter</span>(mes <span class="sc">&gt;</span> <span class="dv">1</span>)</span>
 <span id="cb16-3"><a href="#cb16-3"></a></span>
 <span id="cb16-4"><a href="#cb16-4"></a>vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb16-5"><a href="#cb16-5"></a>  <span class="fu">filter</span>(atraso_salida <span class="sc">&lt;=</span> <span class="dv">100</span>)</span>
+<span id="cb16-5"><a href="#cb16-5"></a>  <span class="fu">filter</span>(tiempo_vuelo <span class="sc">==</span> <span class="fu">max</span>(tiempo_vuelo, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
 <span id="cb16-6"><a href="#cb16-6"></a></span>
 <span id="cb16-7"><a href="#cb16-7"></a>vuelos <span class="sc">%&gt;%</span> </span>
 <span id="cb16-8"><a href="#cb16-8"></a>  <span class="fu">filter</span>(aerolinea<span class="sc">!=</span><span class="st">"AA"</span> <span class="sc">&amp;</span> mes <span class="sc">==</span> <span class="dv">12</span>)</span>
@@ -842,7 +842,7 @@
 <aside class="notes">
 <ul>
 <li>En el primer ejemplo estamos filtrando por las filas donde el mes sea mayor a 1</li>
-<li>En el segundo por las filas donde el atraso de salido sea menor o igual que 100</li>
+<li>En el segundo buscamos la fila donde el tiempo de vuelo fue el máximo. El argumento na.rm = TRUE se usa para decirle a R que no tome en cuenta los valores NA o valores perdidos.</li>
 <li>En el tercer ejemplo filtramos por las filas donde la aerolinea sea distinta a “AA” y que el mes haya sido igual a 12</li>
 <li>En el último ejemplo se están seleccionando las filas donde el valor de la columna “atraso_llegada” se encuentra contenido dentro del rango 100 a 200 (inclusive).</li>
 <li>El operador %in% se utiliza para verificar si los elementos de un vector están presentes en otro vector. Esto retorna un vector lógico indicando si hubo un match o no</li>
@@ -1687,14 +1687,11 @@
 </div>
 <aside class="notes">
 <ul>
-<li><p>Para las funciones mean, min y max hay que especificar que no tome en cuenta los valores NA o también conocidos como valores missing o valores perdidos</p></li>
-<li><p>La función paste concatena o une sus argumentos mediante un separador que puede ser cualquier caracter del tipo texto. En este caso usamos “_“. Lo que retorna esta función es un objeto de tipo character o string.</p></li>
-<li><p>mutate(distancia_promedio = mean(distancia, na.rm = TRUE): Calcula la media de la columna distancia y crea una nueva columna llamada distancia_promedio que almacena este valor.</p></li>
-<li><p>mutate(distancia_sqrt = sqrt(distancia)): Calcula la raíz cuadrada de cada valor en la columna distancia y crea una nueva columna llamada distancia_sqrt que almacena estos valores.</p></li>
-<li><p>mutate(origen_destino = paste(origen, destino, sep = “<em>”)): Crea una nueva columna llamada origen_destino que concatena los valores de las columnas origen y destino separados por un guion bajo ”</em>”.</p></li>
-<li><p>mutate(atraso_salida_min = min(atraso_salida, na.rm = TRUE)): Encuentra el valor mínimo en la columna atraso_salida y crea una nueva columna llamada atraso_salida_min que almacena este valor. La opción na.rm = TRUE se utiliza para ignorar los valores NA (ausentes) al calcular el mínimo.</p></li>
-<li><p>mutate(atraso_llegada_max = max(atraso_llegada, na.rm = TRUE)): Encuentra el valor máximo en la columna atraso_llegada y crea una nueva columna llamada atraso_llegada_max que almacena este valor. Al igual que antes, na.rm = TRUE se utiliza para ignorar los valores NA al calcular el máximo.</p></li>
-<li><p>mutate(aerolinea_minuscula = tolower(aerolinea)): Convierte los valores en la columna aerolinea a minúsculas y crea una nueva columna llamada aerolinea_minuscula con estos valores convertidos.</p></li>
+<li>El primer ejemplo calcula el promedio de la columna distancia y crea una nueva columna llamada distancia_promedio que almacena este valor. Nuevamente, usamos el argumento na.rm=TRUE para decirle a R que no tome en cuenta los valores NA.</li>
+<li>El segundo ejemplo calcula la raíz cuadrada de cada valor en la columna distancia y crea una nueva columna llamada distancia_sqrt que almacena estos valores.</li>
+<li>El tercer ejemplo crea una nueva columna llamada origen_destino que concatena los valores de las columnas origen y destino separados por un guion bajo “_” usando la función paste.</li>
+<li>En el cuarto y quinto ejemplo se encuentra el valor mínimo y máximo de las columnas atraso_salida y atraso_llegada.</li>
+<li>En el sexto ejemplo se convierten los valores en la columna aerolinea a minúsculas y crea una nueva columna llamada aerolinea_minuscula con estos valores convertidos.</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1717,20 +1714,41 @@
 <li class="fragment">En términos simples, se podría pensar en if_else() como una forma de decirle a R: “Si se cumple esta condición, haz esto; de lo contrario, haz aquello”.</li>
 </ul>
 </div>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">nombre =</span> <span class="fu">c</span>(<span class="st">"Juan"</span>, <span class="st">"María"</span>, <span class="st">"Pedro"</span>, <span class="st">"Luis"</span>, <span class="st">"Ana"</span>),</span>
+<span id="cb71-2"><a href="#cb71-2"></a>                    <span class="at">edad =</span> <span class="fu">c</span>(<span class="dv">15</span>, <span class="dv">22</span>, <span class="dv">30</span>, <span class="dv">10</span>, <span class="dv">25</span>))</span>
+<span id="cb71-3"><a href="#cb71-3"></a></span>
+<span id="cb71-4"><a href="#cb71-4"></a><span class="co"># Utilizando if_else para categorizar las edades</span></span>
+<span id="cb71-5"><a href="#cb71-5"></a>datos <span class="ot">&lt;-</span> datos <span class="sc">%&gt;%</span></span>
+<span id="cb71-6"><a href="#cb71-6"></a>  <span class="fu">mutate</span>(<span class="at">categoria =</span> <span class="fu">if_else</span>(edad <span class="sc">&lt;</span> <span class="dv">18</span>, <span class="st">"joven"</span>, <span class="st">"adulto"</span>))</span>
+<span id="cb71-7"><a href="#cb71-7"></a></span>
+<span id="cb71-8"><a href="#cb71-8"></a>datos</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  nombre edad categoria
+1   Juan   15     joven
+2  María   22    adulto
+3  Pedro   30    adulto
+4   Luis   10     joven
+5    Ana   25    adulto</code></pre>
+</div>
+</div>
+</div>
 </section>
 <section id="herramientas-de-edición-de-datos-if_else-1" class="slide level2">
 <h2>Herramientas de edición de datos: if_else</h2>
 <div class="small-par">
 <ul>
-<li class="fragment">Por ejemplo, queremos generar una columna llamada “tramo” que sea “largo” si el tiempo del vuelo fue mayor a 150, en caso contrario sea “corto” y si es NA que sea “valor perdido”.</li>
+<li class="fragment">Otro ejemplo usando “vuelos”:</li>
+<li class="fragment">Queremos generar una columna llamada “tramo” que sea “largo” si el tiempo del vuelo fue mayor a 150, en caso contrario sea “corto” y si es NA que sea “valor perdido”.</li>
 <li class="fragment">Adicionalmente, queremos modificar la variable “tiempo_vuelo”: si es NA, reemplazar por un cero; de lo contrario, se mantiene el valor original.</li>
 </ul>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb71-2"><a href="#cb71-2"></a>  <span class="fu">mutate</span>(<span class="at">tramo =</span> <span class="fu">if_else</span>(<span class="at">condition =</span> tiempo_vuelo <span class="sc">&gt;</span> <span class="dv">150</span>, <span class="at">true =</span> <span class="st">"largo"</span>, <span class="at">false =</span> <span class="st">"corto"</span>, <span class="at">missing =</span> <span class="st">"valor perdido"</span>),</span>
-<span id="cb71-3"><a href="#cb71-3"></a>         <span class="at">tiempo_vuelo =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(tiempo_vuelo), <span class="dv">0</span>, tiempo_vuelo))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
+<span id="cb73-2"><a href="#cb73-2"></a>  <span class="fu">mutate</span>(<span class="at">tramo =</span> <span class="fu">if_else</span>(tiempo_vuelo <span class="sc">&gt;</span> <span class="dv">150</span>, <span class="st">"largo"</span>, <span class="st">"corto"</span>, <span class="at">missing =</span> <span class="st">"valor perdido"</span>),</span>
+<span id="cb73-3"><a href="#cb73-3"></a>         <span class="at">tiempo_vuelo =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(tiempo_vuelo), <span class="dv">0</span>, tiempo_vuelo))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 336,776 × 20
     anio   mes   dia horario_salida salida_programada atraso_salida
@@ -1779,15 +1797,15 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">puntuacion =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">65</span>, <span class="dv">90</span>, <span class="dv">75</span>, <span class="dv">50</span>))</span>
-<span id="cb73-2"><a href="#cb73-2"></a>datos <span class="ot">&lt;-</span> datos <span class="sc">%&gt;%</span></span>
-<span id="cb73-3"><a href="#cb73-3"></a>  <span class="fu">mutate</span>(<span class="at">resultado =</span> <span class="fu">case_when</span>(</span>
-<span id="cb73-4"><a href="#cb73-4"></a>    puntuacion <span class="sc">&gt;=</span> <span class="dv">90</span> <span class="sc">~</span> <span class="st">"A"</span>,</span>
-<span id="cb73-5"><a href="#cb73-5"></a>    puntuacion <span class="sc">&gt;=</span> <span class="dv">80</span> <span class="sc">~</span> <span class="st">"B"</span>,</span>
-<span id="cb73-6"><a href="#cb73-6"></a>    puntuacion <span class="sc">&gt;=</span> <span class="dv">70</span> <span class="sc">~</span> <span class="st">"C"</span>,</span>
-<span id="cb73-7"><a href="#cb73-7"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"F"</span> <span class="co"># En caso de que ninguna de las condiciones anteriores se cumpla</span></span>
-<span id="cb73-8"><a href="#cb73-8"></a>  ))</span>
-<span id="cb73-9"><a href="#cb73-9"></a>datos</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">puntuacion =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">65</span>, <span class="dv">90</span>, <span class="dv">75</span>, <span class="dv">50</span>))</span>
+<span id="cb75-2"><a href="#cb75-2"></a>datos <span class="ot">&lt;-</span> datos <span class="sc">%&gt;%</span></span>
+<span id="cb75-3"><a href="#cb75-3"></a>  <span class="fu">mutate</span>(<span class="at">resultado =</span> <span class="fu">case_when</span>(</span>
+<span id="cb75-4"><a href="#cb75-4"></a>    puntuacion <span class="sc">&gt;=</span> <span class="dv">90</span> <span class="sc">~</span> <span class="st">"A"</span>,</span>
+<span id="cb75-5"><a href="#cb75-5"></a>    puntuacion <span class="sc">&gt;=</span> <span class="dv">80</span> <span class="sc">~</span> <span class="st">"B"</span>,</span>
+<span id="cb75-6"><a href="#cb75-6"></a>    puntuacion <span class="sc">&gt;=</span> <span class="dv">70</span> <span class="sc">~</span> <span class="st">"C"</span>,</span>
+<span id="cb75-7"><a href="#cb75-7"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"F"</span> <span class="co"># En caso de que ninguna de las condiciones anteriores se cumpla</span></span>
+<span id="cb75-8"><a href="#cb75-8"></a>  ))</span>
+<span id="cb75-9"><a href="#cb75-9"></a>datos</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  puntuacion resultado
 1         80         B
@@ -1830,11 +1848,11 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>))</span>
-<span id="cb75-2"><a href="#cb75-2"></a></span>
-<span id="cb75-3"><a href="#cb75-3"></a>data <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">y =</span> <span class="fu">case_when</span>(x <span class="sc">&lt;</span> <span class="dv">3</span> <span class="sc">~</span> <span class="st">"Bajo"</span>,</span>
-<span id="cb75-4"><a href="#cb75-4"></a>                              x <span class="sc">&lt;</span> <span class="dv">5</span> <span class="sc">~</span> <span class="st">"Medio"</span>,</span>
-<span id="cb75-5"><a href="#cb75-5"></a>                              <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Alto"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>))</span>
+<span id="cb77-2"><a href="#cb77-2"></a></span>
+<span id="cb77-3"><a href="#cb77-3"></a>data <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">y =</span> <span class="fu">case_when</span>(x <span class="sc">&lt;</span> <span class="dv">3</span> <span class="sc">~</span> <span class="st">"Bajo"</span>,</span>
+<span id="cb77-4"><a href="#cb77-4"></a>                              x <span class="sc">&lt;</span> <span class="dv">5</span> <span class="sc">~</span> <span class="st">"Medio"</span>,</span>
+<span id="cb77-5"><a href="#cb77-5"></a>                              <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Alto"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  x     y
 1 1  Bajo
@@ -1843,9 +1861,9 @@
 4 4 Medio
 5 5  Alto</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1"></a>data <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">y =</span> <span class="fu">case_when</span>(x <span class="sc">&lt;</span> <span class="dv">5</span> <span class="sc">~</span> <span class="st">"Medio"</span>,</span>
-<span id="cb77-2"><a href="#cb77-2"></a>                              x <span class="sc">&lt;</span> <span class="dv">3</span> <span class="sc">~</span> <span class="st">"Bajo"</span>,</span>
-<span id="cb77-3"><a href="#cb77-3"></a>                              <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Alto"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1"></a>data <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">y =</span> <span class="fu">case_when</span>(x <span class="sc">&lt;</span> <span class="dv">5</span> <span class="sc">~</span> <span class="st">"Medio"</span>,</span>
+<span id="cb79-2"><a href="#cb79-2"></a>                              x <span class="sc">&lt;</span> <span class="dv">3</span> <span class="sc">~</span> <span class="st">"Bajo"</span>,</span>
+<span id="cb79-3"><a href="#cb79-3"></a>                              <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Alto"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  x     y
 1 1 Medio
@@ -1867,12 +1885,12 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1"></a>vuelos <span class="ot">&lt;-</span> vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb79-2"><a href="#cb79-2"></a>  <span class="fu">mutate</span>(<span class="at">tramo =</span>  <span class="fu">case_when</span>(distancia <span class="sc">&gt;=</span> <span class="dv">3000</span> <span class="sc">~</span> <span class="st">"largo"</span>,</span>
-<span id="cb79-3"><a href="#cb79-3"></a>                           distancia <span class="sc">&gt;=</span> <span class="dv">2000</span> <span class="sc">~</span> <span class="st">"mediano"</span>,</span>
-<span id="cb79-4"><a href="#cb79-4"></a>                           <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"corto"</span>))</span>
-<span id="cb79-5"><a href="#cb79-5"></a><span class="co"># Revisamos</span></span>
-<span id="cb79-6"><a href="#cb79-6"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">select</span>(distancia, tramo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1"></a>vuelos <span class="ot">&lt;-</span> vuelos <span class="sc">%&gt;%</span> </span>
+<span id="cb81-2"><a href="#cb81-2"></a>  <span class="fu">mutate</span>(<span class="at">tramo =</span>  <span class="fu">case_when</span>(distancia <span class="sc">&gt;=</span> <span class="dv">3000</span> <span class="sc">~</span> <span class="st">"largo"</span>,</span>
+<span id="cb81-3"><a href="#cb81-3"></a>                           distancia <span class="sc">&gt;=</span> <span class="dv">2000</span> <span class="sc">~</span> <span class="st">"mediano"</span>,</span>
+<span id="cb81-4"><a href="#cb81-4"></a>                           <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"corto"</span>))</span>
+<span id="cb81-5"><a href="#cb81-5"></a><span class="co"># Revisamos</span></span>
+<span id="cb81-6"><a href="#cb81-6"></a>vuelos <span class="sc">%&gt;%</span> <span class="fu">select</span>(distancia, tramo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 336,776 × 2
    distancia tramo
@@ -1897,19 +1915,19 @@
 <div class="small-par">
 <ul>
 <li class="fragment">La función group_by() permite agrupar los datos por una o más variables, lo que permite analizar métricas y patrones agregados.</li>
-<li class="fragment">La función summarise() funciona de forma análoga a la función mutate, excepto que en lugar de añadir nuevas columnas crea un nuevo data frame.</li>
+<li class="fragment">La función summarise() permite crear resúmenes o sumarios de datos en un dataframe y es usualmente utilizada junto a group_by().</li>
 <li class="fragment">Veamos un ejemplo:</li>
 </ul>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1"></a>estudiantes <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb81-2"><a href="#cb81-2"></a>  <span class="at">nombre =</span> <span class="fu">c</span>(<span class="st">"Juan"</span>, <span class="st">"María"</span>, <span class="st">"Pedro"</span>, <span class="st">"Luis"</span>, <span class="st">"Ana"</span>),</span>
-<span id="cb81-3"><a href="#cb81-3"></a>  <span class="at">edad =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">22</span>, <span class="dv">19</span>, <span class="dv">21</span>, <span class="dv">20</span>),</span>
-<span id="cb81-4"><a href="#cb81-4"></a>  <span class="at">materia =</span> <span class="fu">c</span>(<span class="st">"Matemáticas"</span>, <span class="st">"Historia"</span>, <span class="st">"Matemáticas"</span>, <span class="st">"Historia"</span>, <span class="st">"Matemáticas"</span>)</span>
-<span id="cb81-5"><a href="#cb81-5"></a>)</span>
-<span id="cb81-6"><a href="#cb81-6"></a></span>
-<span id="cb81-7"><a href="#cb81-7"></a>estudiantes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1"></a>estudiantes <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb83-2"><a href="#cb83-2"></a>  <span class="at">nombre =</span> <span class="fu">c</span>(<span class="st">"Juan"</span>, <span class="st">"María"</span>, <span class="st">"Pedro"</span>, <span class="st">"Luis"</span>, <span class="st">"Ana"</span>),</span>
+<span id="cb83-3"><a href="#cb83-3"></a>  <span class="at">edad =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">22</span>, <span class="dv">19</span>, <span class="dv">21</span>, <span class="dv">20</span>),</span>
+<span id="cb83-4"><a href="#cb83-4"></a>  <span class="at">materia =</span> <span class="fu">c</span>(<span class="st">"Matemáticas"</span>, <span class="st">"Historia"</span>, <span class="st">"Matemáticas"</span>, <span class="st">"Historia"</span>, <span class="st">"Matemáticas"</span>)</span>
+<span id="cb83-5"><a href="#cb83-5"></a>)</span>
+<span id="cb83-6"><a href="#cb83-6"></a></span>
+<span id="cb83-7"><a href="#cb83-7"></a>estudiantes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  nombre edad     materia
 1   Juan   20 Matemáticas
@@ -1924,11 +1942,11 @@
 <section id="herramientas-de-edición-de-datos-group_by-1" class="slide level2">
 <h2>Herramientas de edición de datos: group_by</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1"></a><span class="co"># Utilizar group_by() para agrupar los datos por materia</span></span>
-<span id="cb83-2"><a href="#cb83-2"></a>estudiantes_por_materia <span class="ot">&lt;-</span> estudiantes <span class="sc">%&gt;%</span></span>
-<span id="cb83-3"><a href="#cb83-3"></a>  <span class="fu">group_by</span>(materia)</span>
-<span id="cb83-4"><a href="#cb83-4"></a></span>
-<span id="cb83-5"><a href="#cb83-5"></a>estudiantes_por_materia</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1"></a><span class="co"># Utilizar group_by() para agrupar los datos por materia</span></span>
+<span id="cb85-2"><a href="#cb85-2"></a>estudiantes_por_materia <span class="ot">&lt;-</span> estudiantes <span class="sc">%&gt;%</span></span>
+<span id="cb85-3"><a href="#cb85-3"></a>  <span class="fu">group_by</span>(materia)</span>
+<span id="cb85-4"><a href="#cb85-4"></a></span>
+<span id="cb85-5"><a href="#cb85-5"></a>estudiantes_por_materia</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 3
 # Groups:   materia [2]
@@ -1940,11 +1958,11 @@
 4 Luis      21 Historia   
 5 Ana       20 Matemáticas</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1"></a><span class="co"># Calcular el promedio de edad en cada materia</span></span>
-<span id="cb85-2"><a href="#cb85-2"></a>promedio_edad_por_materia <span class="ot">&lt;-</span> estudiantes_por_materia <span class="sc">%&gt;%</span></span>
-<span id="cb85-3"><a href="#cb85-3"></a>  <span class="fu">summarise</span>(<span class="at">promedio_edad =</span> <span class="fu">mean</span>(edad))</span>
-<span id="cb85-4"><a href="#cb85-4"></a></span>
-<span id="cb85-5"><a href="#cb85-5"></a>promedio_edad_por_materia</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1"></a><span class="co"># Calcular el promedio de edad en cada materia</span></span>
+<span id="cb87-2"><a href="#cb87-2"></a>promedio_edad_por_materia <span class="ot">&lt;-</span> estudiantes_por_materia <span class="sc">%&gt;%</span></span>
+<span id="cb87-3"><a href="#cb87-3"></a>  <span class="fu">summarise</span>(<span class="at">promedio_edad =</span> <span class="fu">mean</span>(edad))</span>
+<span id="cb87-4"><a href="#cb87-4"></a></span>
+<span id="cb87-5"><a href="#cb87-5"></a>promedio_edad_por_materia</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 2
   materia     promedio_edad
@@ -1955,8 +1973,9 @@
 </div>
 <aside class="notes">
 <ul>
-<li>Cuando hacemos un group_by la base no tiene cambios, simplemente queda agrupada por las columnas que le decimos</li>
-<li>Solamente cuando hacemos un mutate o un summarise se muestran los cambios. Por ejemplo, usando summarise se crea un dataframe nuevo que muestra los datos de manera agrupada, como en este caso que genera un dataframe con el promedio de edad</li>
+<li>En este ejemplo estamos agrupando el dataframe estudiantes por materia.</li>
+<li>Podemos ver que cuando hacemos un group_by la base no tiene cambios, simplemente queda agrupada por las columnas que le decimos. Por ejemplo, ahora dice que nuestro dataframe está agrupado por dos grupos de la columna “materia”</li>
+<li>Solamente cuando hacemos un mutate o un summarise se muestran los cambios. Por ejemplo, usando summarise podemos calcular el promedio de edad por materia utilizando la función mean(), llamando a esta nueva columna promedio_edad. Podemos ver que ahora se generó un dataframe nuevo que incluye un “resumen” con la información.</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1979,12 +1998,12 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1"></a><span class="co"># Utilizar group_by() para agrupar los datos por aerolinea</span></span>
-<span id="cb87-2"><a href="#cb87-2"></a>vuelos_agrupado <span class="ot">&lt;-</span> vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb87-3"><a href="#cb87-3"></a>  <span class="fu">group_by</span>(aerolinea) <span class="sc">%&gt;%</span> </span>
-<span id="cb87-4"><a href="#cb87-4"></a>  <span class="fu">summarise</span>(<span class="at">dist_promedio =</span> <span class="fu">mean</span>(distancia, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb87-5"><a href="#cb87-5"></a></span>
-<span id="cb87-6"><a href="#cb87-6"></a>vuelos_agrupado</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1"></a><span class="co"># Utilizar group_by() para agrupar los datos por aerolinea</span></span>
+<span id="cb89-2"><a href="#cb89-2"></a>vuelos_agrupado <span class="ot">&lt;-</span> vuelos <span class="sc">%&gt;%</span> </span>
+<span id="cb89-3"><a href="#cb89-3"></a>  <span class="fu">group_by</span>(aerolinea) <span class="sc">%&gt;%</span> </span>
+<span id="cb89-4"><a href="#cb89-4"></a>  <span class="fu">summarise</span>(<span class="at">dist_promedio =</span> <span class="fu">mean</span>(distancia, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb89-5"><a href="#cb89-5"></a></span>
+<span id="cb89-6"><a href="#cb89-6"></a>vuelos_agrupado</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 16 × 2
    aerolinea dist_promedio
@@ -2026,14 +2045,14 @@
 <section id="solución-ejercicio-3" class="slide level2">
 <h2>Solución ejercicio 3</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1"></a>encuesta <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/encuesta.xlsx"</span>)</span>
-<span id="cb89-2"><a href="#cb89-2"></a></span>
-<span id="cb89-3"><a href="#cb89-3"></a>encuesta <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">horas_tv =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(horas_tv), <span class="dv">0</span>, horas_tv),</span>
-<span id="cb89-4"><a href="#cb89-4"></a>                    <span class="at">tramo_edad =</span> <span class="fu">case_when</span>(edad <span class="sc">&gt;=</span> <span class="dv">50</span> <span class="sc">~</span> <span class="st">"Adulto mayor"</span>,</span>
-<span id="cb89-5"><a href="#cb89-5"></a>                                           edad <span class="sc">&gt;=</span> <span class="dv">20</span> <span class="sc">~</span> <span class="st">"Adulto"</span>,</span>
-<span id="cb89-6"><a href="#cb89-6"></a>                                           <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Joven"</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb89-7"><a href="#cb89-7"></a>  <span class="fu">group_by</span>(tramo_edad) <span class="sc">%&gt;%</span> </span>
-<span id="cb89-8"><a href="#cb89-8"></a>  <span class="fu">summarise</span>(<span class="at">horas_tv_prom =</span> <span class="fu">mean</span>(horas_tv))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1"></a>encuesta <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/encuesta.xlsx"</span>)</span>
+<span id="cb91-2"><a href="#cb91-2"></a></span>
+<span id="cb91-3"><a href="#cb91-3"></a>encuesta <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">horas_tv =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(horas_tv), <span class="dv">0</span>, horas_tv),</span>
+<span id="cb91-4"><a href="#cb91-4"></a>                    <span class="at">tramo_edad =</span> <span class="fu">case_when</span>(edad <span class="sc">&gt;=</span> <span class="dv">50</span> <span class="sc">~</span> <span class="st">"Adulto mayor"</span>,</span>
+<span id="cb91-5"><a href="#cb91-5"></a>                                           edad <span class="sc">&gt;=</span> <span class="dv">20</span> <span class="sc">~</span> <span class="st">"Adulto"</span>,</span>
+<span id="cb91-6"><a href="#cb91-6"></a>                                           <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Joven"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb91-7"><a href="#cb91-7"></a>  <span class="fu">group_by</span>(tramo_edad) <span class="sc">%&gt;%</span> </span>
+<span id="cb91-8"><a href="#cb91-8"></a>  <span class="fu">summarise</span>(<span class="at">horas_tv_prom =</span> <span class="fu">mean</span>(horas_tv))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 2
   tramo_edad   horas_tv_prom
@@ -2056,14 +2075,14 @@
 <h2>Tarea 2</h2>
 <div class="small-par">
 <ol type="1">
-<li class="fragment">Cargue la base “superficie.rds” como “superficie” contenida en la carpeta “data”, usando la función read_rds() del paquete “readr”.</li>
+<li class="fragment">Cargue la base “superficie.rds” como “superficie” contenida en la carpeta “data”, usando la función read_rds() del paquete “readr”. Recuerde cargar el paquete “dplyr” también.</li>
 <li class="fragment">Utilice la función summary() para inspeccionar los datos. ¿Qué períodos abarca la base?</li>
 <li class="fragment">Filtre las diez primeras filas.</li>
 <li class="fragment">Filtre las filas donde la variable “anio” sea igual a 1991.</li>
 <li class="fragment">Filtre las filas donde la variable “anio” sea igual a 1991 y “superficie_total” sea mayor que 700000.</li>
 <li class="fragment">Seleccione las columnas que comiencen con “superficie”</li>
 <li class="fragment">Genere una nueva columna llamada “mes_nombre” usando case_when() para asignar el nombre correspondiente a cada mes usando “mes_num”. Por ejemplo, si “mes_num” es igual a 1, entonces “mes_nombre” debe ser “Enero”.</li>
-<li class="fragment">Agrupe la base por “anio” y calcule el promedio de “superficie_total”.</li>
+<li class="fragment">Agrupe la base por “anio” y calcule el promedio de “superficie_total”. Utilizando la función filter() y max() responda: ¿En qué año la superficie promedio fue la más alta?</li>
 </ol>
 </div>
 </section>
@@ -2075,9 +2094,10 @@
 </ol>
 <ul>
 <li class="fragment">Genere una nueva columna llama “tramo_superficie” usando la función case_when(). Si “superficie_total” es mayor o igual a 1500000 que sea “grande”, si es mayor o igual a 1200000 que sea “mediana”, y en cualquier otro caso “pequeña”.</li>
-<li class="fragment">Filtre las filas donde “tramo_superficie” sea igual a “grande” y “anio” igual a 2019.</li>
-<li class="fragment">Usando un if_else(), genere una columna llamada “vivienda_mayor” que sea TRUE si “superficie_vivienda” es mayor a “superficie_no_vivienda” y en caso contrario que sea FALSE.</li>
-<li class="fragment">Finalmente, genere otra columna llamada “superficie_hect” que sea “superficie_total” dividido por 1000.</li>
+<li class="fragment">Genere una nueva columna llamada “vivienda_mayor” que sea TRUE si “superficie_vivienda” es mayor a “superficie_no_vivienda” y en caso contrario que sea FALSE.</li>
+<li class="fragment">Genere otra columna llamada “superficie_hect” que sea “superficie_total” dividido por 1000.</li>
+<li class="fragment">Agrupe la base por “tramo_superficie” y “vivienda_mayor”. <strong>Nota</strong>: para agrupar por dos variables se usa la siguiente sintaxis: group_by(variable_1, variable_2)</li>
+<li class="fragment">Utilizando summarise(), calcule la suma de “superficie_hect”, llamando a esta nueva columna “total”.</li>
 </ul>
 </div>
 <p><img src="imagenes/logo_portada2.png" class="slide-logo"></p>

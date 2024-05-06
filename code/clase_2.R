@@ -40,13 +40,19 @@ vuelos %>%
   filter(mes>1)
 
 vuelos %>% 
-  filter(atraso_salida <= 100)
+  filter(tiempo_vuelo == max(tiempo_vuelo, na.rm = TRUE))
 
 vuelos %>% 
   filter(aerolinea!="AA" & mes == 12)
 
 vuelos %>% 
   filter(atraso_llegada %in% 100:200)
+
+# Operador %in%
+
+vector1 <- c(1, 2, 3, 4, 5)
+vector2 <- c(3, 4, 5, 6, 7)
+vector1 %in% vector2
 
 
 # Funciones slice 
@@ -90,10 +96,10 @@ vuelos %>%
 
 # Ejercicio 1 -------------------------------------------------------------
 
-#- Obtenga las 100 primeras filas de vuelos
-#- Del dataframe vuelos, filtre las filas donde los meses estén entre enero y marzo
-#- Del dataframe vuelos filtre las filas donde la aerolinea sea UA o DL
-#- Del dataframe vuelos filtre las filas donde la aerolinea sea UA o DL y agregue la condición de que el día sea igual a 12
+#- Del dataframe vuelos, obtenga las 100 primeras filas de vuelos
+#- Filtre las filas donde los meses estén entre enero y marzo
+#- Filtre las filas donde la aerolinea sea UA o DL
+#- Filtre las filas donde la aerolinea sea UA o DL y agregue la condición de que el día sea igual a 12
 #- Filtre la base donde el horario de salida este entre 500 y 1200, luego cuente el número de veces que aparece cada aerolinea
 
 
@@ -136,11 +142,11 @@ vuelos %>%
 
 
 # Ejercicio 2 -------------------------------------------------------------
-# - Cargue el excel "flores.xlsx" y llámelo flores
-# - ¿Cuáles son los nombres de las columnas?
-# - Seleccione las columnas Especie y Largo.Petalo
-# - Seleccione las columnas que empiezan con "Largo"
-# - Renombre "Especie" como "especie"
+#- De la carpeta "data" cargue el excel "flores.xlsx" y llámelo "flores"
+#- ¿Cuáles son los nombres de las columnas?
+#- Seleccione las columnas Especie y Largo.Petalo
+#- Seleccione las columnas que empiezan con "Largo"
+#- Renombre "Especie" como "especie"
 
 
 
@@ -169,12 +175,21 @@ vuelos %>%
 
 ## if_else ----
 
+datos <- data.frame(nombre = c("Juan", "María", "Pedro", "Luis", "Ana"),
+                    edad = c(15, 22, 30, 10, 25))
+
+# Utilizando if_else para categorizar las edades
+datos <- datos %>%
+  mutate(categoria = if_else(edad < 18, "joven", "adulto"))
+
+datos
+
 # Generar una columna llamada tramo que sea "largo" si tiempo de vuelo fue mayor a 150, 
 # en caso contrario sea "corto" y si es NA que sea "valor perdido". 
 # Adicionalmente, queremos modificar la variable tiempo_vuelo":
 # Si es NA (Valor perdido), reemplazar por un cero; de lo contrario, se mantiene el valor original.
 vuelos %>% 
-  mutate(tramo = if_else(condition = tiempo_vuelo > 150, true = "largo", false = "corto", missing = "valor perdido"),
+  mutate(tramo = if_else(tiempo_vuelo > 150, "largo", "corto", missing = "valor perdido"),
          tiempo_vuelo = if_else(is.na(tiempo_vuelo), 0, tiempo_vuelo))
 
 ## case_when ----
@@ -189,7 +204,18 @@ datos <- datos %>%
   ))
 datos
 
+# El orden importa
+data <- data.frame(x = c(1, 2, 3, 4, 5))
 
+data %>% mutate(y = case_when(x < 3 ~ "Bajo",
+                              x < 5 ~ "Medio",
+                              TRUE ~ "Alto"))
+
+data %>% mutate(y = case_when(x < 5 ~ "Medio",
+                              x < 3 ~ "Bajo",
+                              TRUE ~ "Alto"))
+
+# Otro ejemplo:
 # crear una variable tramo donde si la distancia fue mayor a 3000 que sea "largo", 
 # si fue menor a 3000 pero mayor o igual que 1000 que sea "mediano" y en cualquier otro caso que sea "corto".
 vuelos <- vuelos %>% 

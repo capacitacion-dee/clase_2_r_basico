@@ -209,10 +209,10 @@ aca vemos que usando el operador pipe "vuelos" queda al lado iquierdo de la func
 #| echo: TRUE
 #| eval: FALSE
 vuelos %>% 
-  filter(mes>1)
+  filter(mes > 1)
 
 vuelos %>% 
-  filter(atraso_salida <= 100)
+  filter(tiempo_vuelo == max(tiempo_vuelo, na.rm = TRUE))
 
 vuelos %>% 
   filter(aerolinea!="AA" & mes == 12)
@@ -236,7 +236,7 @@ vector1 %in% vector2
 
 ::: notes 
 - En el primer ejemplo estamos filtrando por las filas donde el mes sea mayor a 1
-- En el segundo por las filas donde el atraso de salido sea menor o igual que 100
+- En el segundo buscamos la fila donde el tiempo de vuelo fue el máximo. El argumento na.rm = TRUE se usa para decirle a R que no tome en cuenta los valores NA o valores perdidos.
 - En el tercer ejemplo filtramos por las filas donde la aerolinea sea distinta a "AA" y que el mes haya sido igual a 12
 - En el último ejemplo se están seleccionando las filas donde el valor de la columna "atraso_llegada" se encuentra contenido dentro del rango 100 a 200 (inclusive).
 - El operador %in% se utiliza para verificar si los elementos de un vector están presentes en otro vector. Esto retorna un vector lógico indicando si hubo un match o no
@@ -617,15 +617,11 @@ vuelos %>%
 ```
 
 ::: notes
-- Para las funciones mean, min y max hay que especificar que no tome en cuenta los valores NA o también conocidos como valores missing o valores perdidos
-- La función paste concatena o une sus argumentos mediante un separador que puede ser cualquier caracter del tipo texto. En este caso usamos "_". Lo que retorna esta función es un objeto de tipo character o string.
-
-- mutate(distancia_promedio = mean(distancia, na.rm = TRUE): Calcula la media de la columna distancia y crea una nueva columna llamada distancia_promedio que almacena este valor.
-- mutate(distancia_sqrt = sqrt(distancia)): Calcula la raíz cuadrada de cada valor en la columna distancia y crea una nueva columna llamada distancia_sqrt que almacena estos valores.
-- mutate(origen_destino = paste(origen, destino, sep = "_")): Crea una nueva columna llamada origen_destino que concatena los valores de las columnas origen y destino separados por un guion bajo "_".
-- mutate(atraso_salida_min = min(atraso_salida, na.rm = TRUE)): Encuentra el valor mínimo en la columna atraso_salida y crea una nueva columna llamada atraso_salida_min que almacena este valor. La opción na.rm = TRUE se utiliza para ignorar los valores NA (ausentes) al calcular el mínimo.
-- mutate(atraso_llegada_max = max(atraso_llegada, na.rm = TRUE)): Encuentra el valor máximo en la columna atraso_llegada y crea una nueva columna llamada atraso_llegada_max que almacena este valor. Al igual que antes, na.rm = TRUE se utiliza para ignorar los valores NA al calcular el máximo.
-- mutate(aerolinea_minuscula = tolower(aerolinea)): Convierte los valores en la columna aerolinea a minúsculas y crea una nueva columna llamada aerolinea_minuscula con estos valores convertidos.
+- El primer ejemplo calcula el promedio de la columna distancia y crea una nueva columna llamada distancia_promedio que almacena este valor. Nuevamente, usamos el argumento na.rm=TRUE para decirle a R que no tome en cuenta los valores NA.
+- El segundo ejemplo calcula la raíz cuadrada de cada valor en la columna distancia y crea una nueva columna llamada distancia_sqrt que almacena estos valores.
+- El tercer ejemplo crea una nueva columna llamada origen_destino que concatena los valores de las columnas origen y destino separados por un guion bajo "_" usando la función paste.
+- En el cuarto y quinto ejemplo se encuentra el valor mínimo y máximo de las columnas atraso_salida y atraso_llegada.
+- En el sexto ejemplo se convierten los valores en la columna aerolinea a minúsculas y crea una nueva columna llamada aerolinea_minuscula con estos valores convertidos.
 :::
 
 ## Herramientas de edición de datos: if_else
@@ -634,9 +630,25 @@ vuelos %>%
 - En términos simples, se podría pensar en if_else() como una forma de decirle a R: "Si se cumple esta condición, haz esto; de lo contrario, haz aquello".
 :::
 
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+datos <- data.frame(nombre = c("Juan", "María", "Pedro", "Luis", "Ana"),
+                    edad = c(15, 22, 30, 10, 25))
+
+# Utilizando if_else para categorizar las edades
+datos <- datos %>%
+  mutate(categoria = if_else(edad < 18, "joven", "adulto"))
+
+datos
+
+```
+
 ## Herramientas de edición de datos: if_else
 ::: {.incremental .small-par}
-- Por ejemplo, queremos generar una columna llamada "tramo" que sea "largo" si el tiempo del vuelo fue mayor a 150, en caso contrario sea "corto" y si es NA que sea "valor perdido".
+- Otro ejemplo usando "vuelos": 
+- Queremos generar una columna llamada "tramo" que sea "largo" si el tiempo del vuelo fue mayor a 150, en caso contrario sea "corto" y si es NA que sea "valor perdido".
 - Adicionalmente, queremos modificar la variable "tiempo_vuelo": si es NA, reemplazar por un cero; de lo contrario, se mantiene el valor original.
 :::
 . . .
@@ -644,7 +656,7 @@ vuelos %>%
 #| echo: TRUE
 #| eval: TRUE
 vuelos %>% 
-  mutate(tramo = if_else(condition = tiempo_vuelo > 150, true = "largo", false = "corto", missing = "valor perdido"),
+  mutate(tramo = if_else(tiempo_vuelo > 150, "largo", "corto", missing = "valor perdido"),
          tiempo_vuelo = if_else(is.na(tiempo_vuelo), 0, tiempo_vuelo))
 ```
 
@@ -724,7 +736,7 @@ vuelos %>% select(distancia, tramo)
 ## Herramientas de edición de datos: group_by
 ::: {.incremental .small-par}
 - La función group_by() permite agrupar los datos por una o más variables, lo que permite analizar métricas y patrones agregados.
-- La función summarise() funciona de forma análoga a la función mutate, excepto que en lugar de añadir nuevas columnas crea un nuevo data frame.
+- La función summarise() permite crear resúmenes o sumarios de datos en un dataframe y es usualmente utilizada junto a group_by().
 - Veamos un ejemplo:
 :::
 . . .
@@ -758,8 +770,9 @@ promedio_edad_por_materia
 ```
 
 ::: notes
-- Cuando hacemos un group_by la base no tiene cambios, simplemente queda agrupada por las columnas que le decimos
-- Solamente cuando hacemos un mutate o un summarise se muestran los cambios. Por ejemplo, usando summarise se crea un dataframe nuevo que muestra los datos de manera agrupada, como en este caso que genera un dataframe con el promedio de edad
+- En este ejemplo estamos agrupando el dataframe estudiantes por materia.
+- Podemos ver que cuando hacemos un group_by la base no tiene cambios, simplemente queda agrupada por las columnas que le decimos. Por ejemplo, ahora dice que nuestro dataframe está agrupado por dos grupos de la columna "materia"
+- Solamente cuando hacemos un mutate o un summarise se muestran los cambios. Por ejemplo, usando summarise podemos calcular el promedio de edad por materia utilizando la función mean(), llamando a esta nueva columna promedio_edad. Podemos ver que ahora se generó un dataframe nuevo que incluye un "resumen" con la información.
 :::
 
 
@@ -811,21 +824,22 @@ encuesta %>% mutate(horas_tv = if_else(is.na(horas_tv), 0, horas_tv),
 
 ## Tarea 2
 ::: {.incremental .small-par}
-1. Cargue la base "superficie.rds" como "superficie" contenida en la carpeta "data", usando la función read_rds() del paquete "readr".
+1. Cargue la base "superficie.rds" como "superficie" contenida en la carpeta "data", usando la función read_rds() del paquete "readr". Recuerde cargar el paquete "dplyr" también.
 2. Utilice la función summary() para inspeccionar los datos. ¿Qué períodos abarca la base?
 3. Filtre las diez primeras filas.
 4. Filtre las filas donde la variable "anio" sea igual a 1991.
 5. Filtre las filas donde la variable "anio" sea igual a 1991 y "superficie_total" sea mayor que 700000.
 6. Seleccione las columnas que comiencen con "superficie"
 7. Genere una nueva columna llamada "mes_nombre" usando case_when() para asignar el nombre correspondiente a cada mes usando "mes_num". Por ejemplo, si "mes_num" es igual a 1, entonces "mes_nombre" debe ser "Enero".
-8. Agrupe la base por "anio" y calcule el promedio de "superficie_total".
+8. Agrupe la base por "anio" y calcule el promedio de "superficie_total". Utilizando la función filter() y max() responda: ¿En qué año la superficie promedio fue la más alta?
 :::
 
 ## Tarea 2
 ::: {.incremental .small-par}
 9. Utilizando funciones anidadas:
   - Genere una nueva columna llama "tramo_superficie" usando la función case_when(). Si "superficie_total" es mayor o igual a 1500000 que sea "grande", si es mayor o igual a 1200000 que sea "mediana", y en cualquier otro caso "pequeña".
-  - Filtre las filas donde "tramo_superficie" sea igual a "grande" y "anio" igual a 2019.
-  - Usando un if_else(), genere una columna llamada "vivienda_mayor" que sea TRUE si "superficie_vivienda" es mayor a "superficie_no_vivienda" y en caso contrario que sea FALSE.
-  - Finalmente, genere otra columna llamada "superficie_hect" que sea "superficie_total" dividido por 1000.
+  - Genere una nueva columna llamada "vivienda_mayor" que sea TRUE si "superficie_vivienda" es mayor a "superficie_no_vivienda" y en caso contrario que sea FALSE.
+  - Genere otra columna llamada "superficie_hect" que sea "superficie_total" dividido por 1000.
+  - Agrupe la base por "tramo_superficie" y "vivienda_mayor". **Nota**: para agrupar por dos variables se usa la siguiente sintaxis: group_by(variable_1, variable_2)
+  - Utilizando summarise(), calcule la suma de "superficie_hect", llamando a esta nueva columna "total".
 :::
