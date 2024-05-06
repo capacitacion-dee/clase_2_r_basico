@@ -835,7 +835,7 @@ encuesta %>% mutate(horas_tv = if_else(is.na(horas_tv), 0, horas_tv),
 ::: {.incremental .small-par}
 9. Utilizando funciones anidadas:
   - Genere una nueva columna llama "tramo_superficie" usando la función case_when(). Si "superficie_total" es mayor o igual a 1500000 que sea "grande", si es mayor o igual a 1200000 que sea "mediana", y en cualquier otro caso "pequeña".
-  - Filtre las filas donde "tramo_superficie" sea igual a "grande" y "anio" igual a 1991.
+  - Filtre las filas donde "tramo_superficie" sea igual a "grande" y "anio" igual a 2019.
   - Usando un if_else(), genere una columna llamada "vivienda_mayor" que sea TRUE si "superficie_vivienda" es mayor a "superficie_no_vivienda" y en caso contrario que sea FALSE.
   - Finalmente, genere otra columna llamada "superficie_hect" que sea "superficie_total" dividido por 1000.
 :::
